@@ -37,16 +37,16 @@ nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:14px 40px;
 .section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,38px);font-weight:400;line-height:1.2;margin-bottom:32px}
 .section-title em{font-style:italic;color:var(--verde-claro)}
-.carousel-outer{position:relative;border-radius:10px;overflow:hidden;background:#000}
+.carousel-outer{position:relative;border-radius:10px;overflow:hidden;background:#111}
 .carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
-.carousel-slide{min-width:100%;position:relative}
-.carousel-slide img{width:100%;height:420px;object-fit:cover;display:block;opacity:.95}
+.carousel-slide{min-width:100%}
+.carousel-slide img{width:100%;height:420px;object-fit:cover;display:block}
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(26,74,46,.85);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;z-index:10;transition:background .2s;display:flex;align-items:center;justify-content:center}
 .carousel-btn:hover{background:var(--verde)}
 .carousel-btn.prev{left:16px}
 .carousel-btn.next{right:16px}
-.carousel-bottom{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px}
-.carousel-dots{display:flex;gap:8px}
+.carousel-bottom{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px}
+.carousel-dots{display:flex;gap:7px}
 .carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--areia-escura);border:none;cursor:pointer;transition:background .2s,transform .2s;padding:0}
 .carousel-dot.active{background:var(--verde);transform:scale(1.3)}
 .carousel-counter{font-size:12px;color:var(--texto-light)}
@@ -132,30 +132,47 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
     <p class="section-eyebrow">O espaço</p>
     <p class="section-title">Um lugar que <em>inspira</em> boas ideias</p>
     <div class="carousel-outer">
-      <div class="carousel-track" id="track">
+      <div class="carousel-track" id="track-espaco">
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (195).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (163).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (252).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (265).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (41).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (132).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (207).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (104).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (52).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (20).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (5).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (79).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (86).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (185).jpg" alt="Terraço Icaraí"></div>
         <div class="carousel-slide"><img src="../img/Terraço Icaraí (198).jpg" alt="Terraço Icaraí"></div>
+        <div class="carousel-slide"><img src="../img/Terraço Icaraí (207).jpg" alt="Terraço Icaraí"></div>
       </div>
-      <button class="carousel-btn prev" onclick="move(-1)">&#8592;</button>
-      <button class="carousel-btn next" onclick="move(1)">&#8594;</button>
+      <button class="carousel-btn prev" onclick="moveC('espaco',-1)">&#8592;</button>
+      <button class="carousel-btn next" onclick="moveC('espaco',1)">&#8594;</button>
     </div>
     <div class="carousel-bottom">
-      <div class="carousel-dots" id="dots"></div>
-      <div class="carousel-counter" id="counter">1 / 15</div>
+      <div class="carousel-dots" id="dots-espaco"></div>
+      <div class="carousel-counter" id="counter-espaco">1 / 8</div>
     </div>
+  </div>
+</div>
+<div class="divider"></div>
+<div class="section">
+  <p class="section-eyebrow">Grazing table</p>
+  <p class="section-title">Uma experiência <em>gastronômica</em> completa</p>
+  <div class="carousel-outer">
+    <div class="carousel-track" id="track-grazing">
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.05.jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.06.jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.20.jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.20 (1).jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21.jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21 (1).jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21 (2).jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.22.jpeg" alt="Grazing table"></div>
+      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.28 (4).jpeg" alt="Grazing table"></div>
+    </div>
+    <button class="carousel-btn prev" onclick="moveC('grazing',-1)">&#8592;</button>
+    <button class="carousel-btn next" onclick="moveC('grazing',1)">&#8594;</button>
+  </div>
+  <div class="carousel-bottom">
+    <div class="carousel-dots" id="dots-grazing"></div>
+    <div class="carousel-counter" id="counter-grazing">1 / 9</div>
   </div>
 </div>
 <div class="divider"></div>
@@ -218,7 +235,7 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
       <label class="checkbox-row"><input type="checkbox" id="beb" onchange="calc()"> Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)</label>
     </div>
     <div class="result-box"><div id="result-content"></div></div>
-    <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados.</p>
+    <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados. Orçamento final sujeito a confirmação.</p>
     <div class="action-btns">
       <button class="abtn abtn-copy" onclick="copiarProposta()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar proposta</button>
       <button class="abtn abtn-wapp" onclick="enviarWhatsapp()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>Enviar pelo WhatsApp</button>
@@ -230,7 +247,7 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
   <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
   <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
   <p style="color:var(--texto-muted);margin-bottom:28px">Respondemos em até 2 horas em dias úteis.</p>
-  <a class="btn-primary" href="https://wa.me/552135873331" target="_blank">Falar pelo WhatsApp</a>
+  <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre o Terraço Icaraí para eventos corporativos." target="_blank">Falar pelo WhatsApp</a>
   <div class="contact-grid">
     <div class="contact-item">(21) 3587-3331</div>
     <div class="contact-item">contato@icaraisuites.com.br</div>
@@ -239,23 +256,83 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
 </div></div>
 <footer>© Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ</footer>
 <script>
-var cur=0,total=15;
-var track=document.getElementById('track');
-var dotsEl=document.getElementById('dots');
-var counterEl=document.getElementById('counter');
-for(var i=0;i<total;i++){var d=document.createElement('button');d.className='carousel-dot'+(i===0?' active':'');d.setAttribute('data-i',i);d.onclick=function(){goTo(parseInt(this.getAttribute('data-i')));};dotsEl.appendChild(d);}
-function goTo(n){cur=(n+total)%total;track.style.transform='translateX(-'+cur*100+'%)';document.querySelectorAll('.carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});counterEl.textContent=(cur+1)+' / '+total;}
-function move(d){goTo(cur+d);}
-setInterval(function(){move(1);},5000);
+var carousels={};
+function initCarousel(id,total){
+  carousels[id]={cur:0,total:total};
+  var dotsEl=document.getElementById('dots-'+id);
+  for(var i=0;i<total;i++){
+    var d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.setAttribute('data-i',i);
+    (function(ii){d.onclick=function(){goToC(id,ii);};})(i);
+    dotsEl.appendChild(d);
+  }
+  setInterval((function(cid){return function(){moveC(cid,1);};})(id),5000);
+}
+function goToC(id,n){
+  var c=carousels[id];
+  c.cur=(n+c.total)%c.total;
+  document.getElementById('track-'+id).style.transform='translateX(-'+c.cur*100+'%)';
+  document.querySelectorAll('#dots-'+id+' .carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===c.cur);});
+  document.getElementById('counter-'+id).textContent=(c.cur+1)+' / '+c.total;
+}
+function moveC(id,d){goToC(id,carousels[id].cur+d);}
+initCarousel('espaco',8);
+initCarousel('grazing',9);
 function fmt(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function locacao(n,dia){return Math.max(dia==='semana'?750:900,n*25);}
 var S={};
-function calc(){var n=Math.max(1,parseInt(document.getElementById('np').value)||1);var dia=document.getElementById('dia').value;var food=document.getElementById('food').value;var beb=document.getElementById('beb').checked;var foodVal=0,bebVal=0,loc=0,caucao=0,rows=[],ok=true,foodLabel='';if(food==='cafe_manha'){var pp=dia==='semana'?54.9:74.9;foodLabel='Café da manhã';foodVal=n*pp;rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa)',v:fmt(foodVal)});document.getElementById('calc-note').textContent='* Valores estimados.';}else if(food==='coffee'){foodLabel='Coffee break';if(n<15||n>50){ok=false;}else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Mínimo 15, máximo 50 pessoas.';}else if(food==='grazing'){foodLabel='Grazing table';if(n<15||n>50){ok=false;}else{loc=locacao(n,dia);foodVal=n*107+loc;rows.push({l:'Grazing table (R$ 107/pessoa + espaço)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Inclui uso do espaço. Mín 15, máx 50.';}else{foodLabel='Sem alimentação';loc=locacao(n,dia);caucao=500;rows.push({l:'Locação do espaço',v:fmt(loc)});rows.push({l:'Alimentação',v:'Não inclusa'});rows.push({l:'Caução (devolvida em 7 dias)',v:'R$ 500,00'});document.getElementById('calc-note').textContent='* Caução devolvida em 7 dias.';}if(beb&&ok){bebVal=n*30;rows.push({l:'Bebidas não alcoólicas (R$ 30/pessoa)',v:fmt(bebVal)});}var box=document.getElementById('result-content');if(!ok){box.innerHTML='<div class="result-error">Fora do limite (15–50 pessoas).</div>';S={ok:false};return;}var total2=loc+foodVal+bebVal+caucao;var sinal=(loc+foodVal+bebVal)*0.5;var h=rows.map(function(r){return'<div class="rrow"><span class="rlabel">'+r.l+'</span><span class="rval">'+r.v+'</span></div>';}).join('');h+='<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">'+fmt(total2)+'</span></div>';h+='<div class="result-sinal"><span>Sinal (50%)</span><span>'+fmt(sinal)+'</span></div>';box.innerHTML=h;S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana/feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,caucao:caucao,total:total2,sinal:sinal,rows:rows};}
-function propostaTexto(){if(!S.ok)return null;var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL: '+fmt(S.total)+'*\nSinal (50%): '+fmt(S.sinal)+'\n\n(21) 3587-3331 | contato@icaraisuites.com.br';}
+function calc(){
+  var n=Math.max(1,parseInt(document.getElementById('np').value)||1);
+  var dia=document.getElementById('dia').value;
+  var food=document.getElementById('food').value;
+  var beb=document.getElementById('beb').checked;
+  var foodVal=0,bebVal=0,loc=0,caucao=0,rows=[],ok=true,foodLabel='';
+  if(food==='cafe_manha'){var pp=dia==='semana'?54.9:74.9;foodLabel='Café da manhã';foodVal=n*pp;rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa)',v:fmt(foodVal)});document.getElementById('calc-note').textContent='* Valores estimados. Orçamento final sujeito a confirmação.';}
+  else if(food==='coffee'){foodLabel='Coffee break';if(n<15||n>50){ok=false;}else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Coffee break: mínimo 15, máximo 50 pessoas.';}
+  else if(food==='grazing'){foodLabel='Grazing table';if(n<15||n>50){ok=false;}else{loc=locacao(n,dia);foodVal=n*107+loc;rows.push({l:'Grazing table (R$ 107,00/pessoa + espaço)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Grazing table inclui uso do espaço. Mínimo 15, máximo 50 pessoas.';}
+  else{foodLabel='Sem alimentação';loc=locacao(n,dia);caucao=500;rows.push({l:'Locação do espaço',v:fmt(loc)});rows.push({l:'Alimentação',v:'Não inclusa'});rows.push({l:'Caução (devolvida em 7 dias)',v:'R$ 500,00'});document.getElementById('calc-note').textContent='* Caução de R$ 500 devolvida em até 7 dias após o evento.';}
+  if(beb&&ok){bebVal=n*30;rows.push({l:'Bebidas não alcoólicas (R$ 30,00/pessoa)',v:fmt(bebVal)});}
+  var box=document.getElementById('result-content');
+  if(!ok){box.innerHTML='<div class="result-error">Fora do limite permitido (15–50 pessoas) para esta modalidade.</div>';S={ok:false};return;}
+  var total2=loc+foodVal+bebVal+caucao;
+  var sinal=(loc+foodVal+bebVal)*0.5;
+  var h=rows.map(function(r){return'<div class="rrow"><span class="rlabel">'+r.l+'</span><span class="rval">'+r.v+'</span></div>';}).join('');
+  h+='<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">'+fmt(total2)+'</span></div>';
+  h+='<div class="result-sinal"><span>Sinal para reserva (50%)</span><span>'+fmt(sinal)+'</span></div>';
+  box.innerHTML=h;
+  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,caucao:caucao,total:total2,sinal:sinal,rows:rows};
+}
+function propostaTexto(){
+  if(!S.ok)return null;
+  var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
+  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\n\nValores estimados sujeitos a confirmação.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+}
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
-function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Copiado!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Copiado!');});}
-function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
-function gerarPDF(){if(!S.ok){showToast('Preencha os campos');return;}var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,mg=18,cw=W-mg*2;doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');doc.setFillColor(26,74,46);doc.rect(0,0,W,42,'F');doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO',mg,16);doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');doc.text('Pré-orçamento',mg,30);doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}),mg,38);var y=56;doc.setFillColor(255,255,255);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'F');doc.setDrawColor(220,218,210);doc.setLineWidth(0.3);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'S');doc.setTextColor(100,98,90);doc.setFontSize(8);doc.text('DETALHES',mg+10,y);y+=8;doc.setDrawColor(230,228,220);doc.line(mg+10,y,W-mg-10,y);y+=8;S.rows.forEach(function(r){doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);});y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Sinal (50%): '+fmt(S.sinal),mg+10,y);y+=20;doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=10;doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');}
+function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
+function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
+function gerarPDF(){
+  if(!S.ok){showToast('Preencha os campos primeiro');return;}
+  var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,mg=18,cw=W-mg*2;
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,42,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO',mg,16);
+  doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');doc.text('Pré-orçamento',mg,30);
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}),mg,38);
+  var y=56;
+  doc.setFillColor(255,255,255);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'F');
+  doc.setDrawColor(220,218,210);doc.setLineWidth(0.3);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'S');
+  doc.setTextColor(100,98,90);doc.setFontSize(8);doc.text('DETALHES DO EVENTO',mg+10,y);y+=8;
+  doc.setDrawColor(230,228,220);doc.line(mg+10,y,W-mg-10,y);y+=8;
+  S.rows.forEach(function(r){doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);});
+  y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);
+  doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
+  y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Sinal para reserva (50%): '+fmt(S.sinal),mg+10,y);
+  y+=20;doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=10;
+  doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
+  doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
+}
 calc();
 </script>
 </body>
