@@ -12,9 +12,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--areia);color:var(--texto);line-height:1.6}
-nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:14px 40px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#fff;letter-spacing:1px}
-.nav-logo span{font-style:italic;color:#a8cbb5}
+nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:12px 40px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:40px;display:block}
 .nav-cta{background:#fff;color:var(--verde);border:none;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;transition:background .2s}
 .nav-cta:hover{background:var(--verde-palido)}
 .hero{background:var(--verde);padding:80px 40px 70px;text-align:center;position:relative;overflow:hidden}
@@ -22,21 +21,24 @@ nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:14px 40px;
 .hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#a8cbb5;margin-bottom:20px;position:relative}
 .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,56px);font-weight:300;color:#fff;line-height:1.15;margin-bottom:20px;position:relative}
 .hero h1 em{font-style:italic;color:#a8cbb5}
-.hero p{font-size:16px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 36px;position:relative}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.75);max-width:580px;margin:0 auto 36px;position:relative;line-height:1.7}
 .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
 .btn-primary{background:#fff;color:var(--verde);border:none;padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:transform .15s,background .2s;text-decoration:none;display:inline-block}
 .btn-primary:hover{background:var(--verde-palido);transform:translateY(-1px)}
 .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:border-color .2s,transform .15s}
 .btn-ghost:hover{border-color:#fff;transform:translateY(-1px)}
+.btn-sec{background:var(--verde-palido);color:var(--verde);border:none;padding:12px 24px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;margin-top:20px;transition:background .2s,transform .15s}
+.btn-sec:hover{background:#d0e4d4;transform:translateY(-1px)}
 .stats{background:var(--verde-claro);padding:24px 40px;display:flex;justify-content:center;flex-wrap:wrap}
-.stat{text-align:center;padding:0 40px;border-right:1px solid rgba(255,255,255,.15)}
+.stat{text-align:center;padding:0 36px;border-right:1px solid rgba(255,255,255,.15)}
 .stat:last-child{border-right:none}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff}
 .stat-label{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
 .section{padding:64px 40px;max-width:900px;margin:0 auto}
 .section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:10px}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,38px);font-weight:400;line-height:1.2;margin-bottom:32px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,36px);font-weight:400;line-height:1.2;margin-bottom:24px}
 .section-title em{font-style:italic;color:var(--verde-claro)}
+/* CARROSSEL */
 .carousel-outer{position:relative;border-radius:10px;overflow:hidden;background:#111}
 .carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
 .carousel-slide{min-width:100%}
@@ -50,22 +52,26 @@ nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:14px 40px;
 .carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--areia-escura);border:none;cursor:pointer;transition:background .2s,transform .2s;padding:0}
 .carousel-dot.active{background:var(--verde);transform:scale(1.3)}
 .carousel-counter{font-size:12px;color:var(--texto-light)}
+.section-cta{text-align:center;margin-top:24px}
+/* CAFÉ FOTOS HORIZONTAL */
+.cafe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:0}
+.cafe-grid img{width:100%;height:220px;object-fit:cover;border-radius:8px;display:block}
+/* USE CARDS */
 .use-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
 .use-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;transition:transform .2s,box-shadow .2s}
 .use-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
 .use-icon{font-size:28px;margin-bottom:12px}
 .use-name{font-size:14px;font-weight:500;margin-bottom:4px}
 .use-desc{font-size:13px;color:var(--texto-muted)}
-.diff-list{display:grid;gap:12px}
-.diff-item{background:var(--branco);border:1px solid var(--borda);border-left:3px solid var(--verde);border-radius:0 8px 8px 0;padding:16px 20px;display:flex;gap:16px;align-items:flex-start}
-.diff-num{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--verde-claro);min-width:28px;line-height:1}
-.diff-t{font-size:14px;font-weight:500;margin-bottom:3px}
-.diff-s{font-size:13px;color:var(--texto-muted)}
-.incl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.incl-item{display:flex;align-items:center;gap:10px;background:var(--branco);border:1px solid var(--borda);border-radius:6px;padding:10px 14px;font-size:13px}
-.incl-dot{width:8px;height:8px;border-radius:50%;background:var(--verde);flex-shrink:0}
+/* DIFERENCIAIS */
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.diff-card{background:var(--branco);border:1px solid var(--borda);border-left:3px solid var(--verde);border-radius:0 8px 8px 0;padding:16px 18px}
+.diff-icon{font-size:20px;margin-bottom:8px}
+.diff-t{font-size:13px;font-weight:500;color:var(--texto)}
+/* CLIENTES */
 .clients-row{display:flex;gap:12px;flex-wrap:wrap}
 .client-badge{background:var(--branco);border:1px solid var(--borda);border-radius:4px;padding:8px 20px;font-size:14px;font-weight:500}
+/* SIMULADOR */
 .calc-section{background:var(--verde);padding:64px 40px}
 .calc-inner{max-width:700px;margin:0 auto}
 .calc-section .section-eyebrow{color:#a8cbb5}
@@ -102,56 +108,72 @@ input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#a8cbb5}
 .cta-inner{max-width:600px;margin:0 auto}
 .contact-grid{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 .contact-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--texto-muted)}
-footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(255,255,255,.5);font-size:12px}
+footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-logo img{height:28px}
+.footer-text{color:rgba(255,255,255,.45);font-size:12px}
 .divider{height:1px;background:var(--borda);margin:0 40px}
-@media(max-width:600px){nav{padding:14px 20px}.hero{padding:60px 20px 50px}.stats{padding:20px}.stat{padding:12px 20px;border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}.section{padding:48px 20px}.form-grid{grid-template-columns:1fr}.carousel-slide img{height:260px}.calc-section,.cta-section{padding:48px 20px}}
+@media(max-width:600px){nav{padding:12px 20px}.hero{padding:60px 20px 50px}.stats{padding:20px}.stat{padding:10px 20px;border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}.section{padding:48px 20px}.form-grid{grid-template-columns:1fr}.carousel-slide img{height:260px}.cafe-grid img{height:180px}.calc-section,.cta-section{padding:48px 20px}footer{padding:20px}}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
+
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Terraço <span>Icaraí</span></div>
+  <a href="#" class="nav-logo">
+    <img src="logo/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('afterbegin','<span style=\'font-family:Cormorant Garamond,serif;font-size:18px;color:#fff;font-weight:400;letter-spacing:1px\'>Terraço <em style=\'font-style:italic;color:#a8cbb5\'>Icaraí</em></span>')">
+  </a>
   <a class="nav-cta" href="#simulador">Simular orçamento</a>
 </nav>
+
+<!-- HERO -->
 <div class="hero">
   <p class="hero-eyebrow">Espaço corporativo · Icaraí, Niterói/RJ</p>
-  <h1>Reuniões que rendem mais<br><em>quando saem do escritório</em></h1>
-  <p>Ambiente aberto, cercado de verde, no centro de Icaraí. Ideal para workshops, treinamentos e reuniões que precisam de foco.</p>
+  <h1>Leve sua empresa<br><em>para o próximo nível</em></h1>
+  <p class="hero-sub">Seguindo a tendência mundial de trabalho fora do escritório, o Terraço Icaraí surge como o diferencial para você, sua empresa, colaboradores e clientes se relacionarem em um ambiente externo e arborizado.</p>
   <div class="hero-btns">
     <a class="btn-primary" href="#simulador">Simular orçamento</a>
     <button class="btn-ghost" onclick="document.getElementById('espaco').scrollIntoView({behavior:'smooth'})">Ver o espaço</button>
   </div>
 </div>
+
+<!-- STATS -->
 <div class="stats">
-  <div class="stat"><div class="stat-num">70</div><div class="stat-label">pessoas (cap. máxima)</div></div>
+  <div class="stat"><div class="stat-num">70</div><div class="stat-label">pessoas (capacidade total)</div></div>
+  <div class="stat"><div class="stat-num">50</div><div class="stat-label">pessoas sentadas</div></div>
   <div class="stat"><div class="stat-num">12h–21h</div><div class="stat-label">horário de eventos</div></div>
-  <div class="stat"><div class="stat-num">Itaú · Santander</div><div class="stat-label">já realizaram eventos aqui</div></div>
+  <div class="stat"><div class="stat-num">Icaraí</div><div class="stat-label">coração de Niterói</div></div>
 </div>
+
+<!-- ESPAÇO -->
 <div id="espaco">
   <div class="section">
     <p class="section-eyebrow">O espaço</p>
-    <p class="section-title">Um lugar que <em>inspira</em> boas ideias</p>
+    <p class="section-title">Um lugar que <em>inspira boas ideias</em></p>
     <div class="carousel-outer">
       <div class="carousel-track" id="track-espaco">
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (195).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (163).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (252).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (265).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (41).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (185).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (198).jpg" alt="Terraço Icaraí"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (207).jpg" alt="Terraço Icaraí"></div>
+        <div class="carousel-slide"><img src="../img/Terraço Icaraí (195).jpg" alt="Terraço Icaraí - espaço externo"></div>
+        <div class="carousel-slide"><img src="../img/Terraço Icaraí (252).jpg" alt="Terraço Icaraí - ambiente verde"></div>
+        <div class="carousel-slide"><img src="../img/Terraço Icaraí (265).jpg" alt="Terraço Icaraí - área aberta"></div>
+        <div class="carousel-slide"><img src="../img/Terraço Icaraí (41).jpg" alt="Terraço Icaraí - mesas"></div>
+        <div class="carousel-slide"><img src="../img/banheiro.jpg" alt="Terraço Icaraí - banheiro"></div>
       </div>
       <button class="carousel-btn prev" onclick="moveC('espaco',-1)">&#8592;</button>
       <button class="carousel-btn next" onclick="moveC('espaco',1)">&#8594;</button>
     </div>
     <div class="carousel-bottom">
       <div class="carousel-dots" id="dots-espaco"></div>
-      <div class="carousel-counter" id="counter-espaco">1 / 8</div>
+      <div class="carousel-counter" id="counter-espaco">1 / 5</div>
+    </div>
+    <div class="section-cta">
+      <a class="btn-sec" href="#simulador">Simular orçamento ↓</a>
     </div>
   </div>
 </div>
+
 <div class="divider"></div>
+
+<!-- GRAZING TABLE -->
 <div class="section">
   <p class="section-eyebrow">Grazing table</p>
   <p class="section-title">Uma experiência <em>gastronômica</em> completa</p>
@@ -163,19 +185,43 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
       <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.20 (1).jpeg" alt="Grazing table"></div>
       <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21.jpeg" alt="Grazing table"></div>
       <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21 (1).jpeg" alt="Grazing table"></div>
-      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.21 (2).jpeg" alt="Grazing table"></div>
-      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.22.jpeg" alt="Grazing table"></div>
-      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.28 (4).jpeg" alt="Grazing table"></div>
     </div>
     <button class="carousel-btn prev" onclick="moveC('grazing',-1)">&#8592;</button>
     <button class="carousel-btn next" onclick="moveC('grazing',1)">&#8594;</button>
   </div>
   <div class="carousel-bottom">
     <div class="carousel-dots" id="dots-grazing"></div>
-    <div class="carousel-counter" id="counter-grazing">1 / 9</div>
+    <div class="carousel-counter" id="counter-grazing">1 / 6</div>
+  </div>
+  <div class="section-cta">
+    <a class="btn-sec" href="#simulador">Simular Orçamento Grazing Table ↓</a>
   </div>
 </div>
+
 <div class="divider"></div>
+
+<!-- CAFÉ DA MANHÃ / COFFEE BREAK -->
+<div class="section">
+  <p class="section-eyebrow">Café da manhã · Café da tarde · Coffee break</p>
+  <p class="section-title">Comece o dia com <em>o pé direito</em></p>
+  <p style="font-size:14px;color:var(--texto-muted);margin-bottom:24px;max-width:600px">Buffet servido diariamente com qualidade e carinho. De segunda a sexta com foco e praticidade. Nos fins de semana, a mesa capricha — mais variedade, mais apresentação.</p>
+  <div class="cafe-grid">
+    <img src="../img/Terraço Icaraí (132).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (104).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (52).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (20).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (5).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (79).jpg" alt="Buffet café da manhã">
+    <img src="../img/Terraço Icaraí (86).jpg" alt="Buffet café da manhã">
+  </div>
+  <div class="section-cta">
+    <a class="btn-sec" href="#simulador">Simular Orçamento Coffee Break ↓</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- USOS -->
 <div class="section">
   <p class="section-eyebrow">Para o que serve</p>
   <p class="section-title">Cada tipo de <em>encontro corporativo</em></p>
@@ -184,77 +230,118 @@ footer{background:var(--verde);padding:24px 40px;text-align:center;color:rgba(25
     <div class="use-card"><div class="use-icon">🤝</div><div class="use-name">Reuniões estratégicas</div><div class="use-desc">Planejamento, tomada de decisão, alinhamento</div></div>
     <div class="use-card"><div class="use-icon">🍻</div><div class="use-name">Happy hours</div><div class="use-desc">Comemorações e confraternizações de time</div></div>
     <div class="use-card"><div class="use-icon">💡</div><div class="use-name">Brainstormings</div><div class="use-desc">O verde do espaço ajuda a pensar diferente</div></div>
+    <div class="use-card"><div class="use-icon">🍽️</div><div class="use-name">Almoço de negócios</div><div class="use-desc">Ambiente ideal para reuniões informais com clientes</div></div>
+    <div class="use-card"><div class="use-icon">🚀</div><div class="use-name">Lançamentos</div><div class="use-desc">Produtos, campanhas e eventos de marca</div></div>
   </div>
 </div>
+
 <div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
 <div class="section">
-  <p class="section-eyebrow">Por que o Terraço Icaraí?</p>
-  <p class="section-title">Diferenciais que <em>fazem diferença</em></p>
-  <div class="diff-list">
-    <div class="diff-item"><div class="diff-num">01</div><div><div class="diff-t">Localização central em Icaraí</div><div class="diff-s">A poucos minutos das principais empresas da região</div></div></div>
-    <div class="diff-item"><div class="diff-num">02</div><div><div class="diff-t">Ambiente aberto e cercado de verde</div><div class="diff-s">Sensação de estar fora da cidade sem sair de Niterói</div></div></div>
-    <div class="diff-item"><div class="diff-num">03</div><div><div class="diff-t">Infraestrutura completa</div><div class="diff-s">Wi-Fi, SmartTV 55", 3 caixas JBL, fogão industrial, máquina de gelo 50kg</div></div></div>
-    <div class="diff-item"><div class="diff-num">04</div><div><div class="diff-t">Flexibilidade total</div><div class="diff-s">Leve seu próprio buffet e decoração, ou use nossos fornecedores</div></div></div>
-  </div>
-</div>
-<div class="divider"></div>
-<div class="section">
-  <p class="section-eyebrow">Estrutura inclusa</p>
-  <p class="section-title">Tudo o que você precisa, <em>já incluso</em></p>
-  <div class="incl-grid">
-    <div class="incl-item"><span class="incl-dot"></span>SmartTV 55"</div>
-    <div class="incl-item"><span class="incl-dot"></span>Fogão industrial</div>
-    <div class="incl-item"><span class="incl-dot"></span>Churrasqueira</div>
-    <div class="incl-item"><span class="incl-dot"></span>Máquina de gelo 50kg</div>
-    <div class="incl-item"><span class="incl-dot"></span>3 caixas de som JBL</div>
-    <div class="incl-item"><span class="incl-dot"></span>Rechaud elétrico</div>
-    <div class="incl-item"><span class="incl-dot"></span>Mesas e cadeiras</div>
-    <div class="incl-item"><span class="incl-dot"></span>Buffet próprio liberado</div>
+  <p class="section-eyebrow">Nossos diferenciais</p>
+  <p class="section-title">O que faz o Terraço <em>único</em></p>
+  <div class="diff-grid">
+    <div class="diff-card"><div class="diff-icon">🌿</div><div class="diff-t">Espaço exclusivo para seu time</div></div>
+    <div class="diff-card"><div class="diff-icon">📶</div><div class="diff-t">Wi-Fi de alta velocidade</div></div>
+    <div class="diff-card"><div class="diff-icon">🔌</div><div class="diff-t">Tomadas em todo o espaço</div></div>
+    <div class="diff-card"><div class="diff-icon">🏗️</div><div class="diff-t">Infraestrutura completa</div></div>
+    <div class="diff-card"><div class="diff-icon">🪑</div><div class="diff-t">Mesas e cadeiras para 50 pessoas sentadas</div></div>
+    <div class="diff-card"><div class="diff-icon">👥</div><div class="diff-t">Capacidade total para 70 pessoas</div></div>
+    <div class="diff-card"><div class="diff-icon">📺</div><div class="diff-t">Smart TV 55"</div></div>
+    <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet próprio liberado</div></div>
   </div>
   <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
 </div>
+
 <div class="divider"></div>
+
+<!-- CLIENTES -->
 <div class="section" style="padding-bottom:32px">
-  <p class="section-eyebrow">Já confiam no Terraço</p>
+  <p class="section-eyebrow">Quem já esteve aqui</p>
+  <p class="section-title" style="margin-bottom:16px">Empresas que <em>já confiam</em> no Terraço</p>
   <div class="clients-row">
     <div class="client-badge">Itaú</div>
-    <div class="client-badge">Santander</div>
+    <div class="client-badge">Reserva</div>
+    <div class="client-badge">Mormaii</div>
     <div class="client-badge">+ empresas da região</div>
   </div>
 </div>
+
+<!-- SIMULADOR -->
 <div class="calc-section" id="simulador">
   <div class="calc-inner">
     <p class="section-eyebrow">Simulador de orçamento</p>
     <p class="section-title">Calcule o valor <em>do seu evento</em></p>
     <div class="calc-form">
       <div class="form-grid">
-        <div><label class="field-label" for="np">Número de pessoas</label><input type="number" id="np" min="1" max="70" value="20" oninput="calc()"></div>
-        <div><label class="field-label" for="dia">Dia do evento</label><select id="dia" onchange="calc()"><option value="semana">Dia de semana</option><option value="fds">Fim de semana / feriado</option></select></div>
+        <div>
+          <label class="field-label" for="np">Número de pessoas</label>
+          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()">
+        </div>
+        <div>
+          <label class="field-label" for="dia">Dia do evento</label>
+          <select id="dia" onchange="calc()">
+            <option value="semana">Dia de semana</option>
+            <option value="fds">Fim de semana / feriado</option>
+          </select>
+        </div>
       </div>
-      <div style="margin-bottom:16px"><label class="field-label" for="food">Modalidade de alimentação</label><select id="food" onchange="calc()"><option value="cafe_manha">Café da manhã</option><option value="coffee">Café da tarde / coffee break</option><option value="grazing">Grazing table</option><option value="nenhum">Sem alimentação inclusa</option></select></div>
-      <label class="checkbox-row"><input type="checkbox" id="beb" onchange="calc()"> Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)</label>
+      <div style="margin-bottom:16px">
+        <label class="field-label" for="food">Modalidade de alimentação</label>
+        <select id="food" onchange="calc()">
+          <option value="cafe_manha">Café da manhã</option>
+          <option value="coffee">Café da tarde / coffee break</option>
+          <option value="grazing">Grazing table</option>
+          <option value="nenhum">Sem alimentação inclusa</option>
+        </select>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="beb" onchange="calc()">
+        Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)
+      </label>
     </div>
     <div class="result-box"><div id="result-content"></div></div>
     <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados. Orçamento final sujeito a confirmação.</p>
     <div class="action-btns">
-      <button class="abtn abtn-copy" onclick="copiarProposta()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiar proposta</button>
-      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>Enviar pelo WhatsApp</button>
-      <button class="abtn abtn-pdf" onclick="gerarPDF()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>Baixar PDF</button>
+      <button class="abtn abtn-copy" onclick="copiarProposta()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar proposta
+      </button>
+      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+      <button class="abtn abtn-pdf" onclick="gerarPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Baixar PDF
+      </button>
     </div>
   </div>
 </div>
-<div class="cta-section"><div class="cta-inner">
-  <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
-  <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
-  <p style="color:var(--texto-muted);margin-bottom:28px">Respondemos em até 2 horas em dias úteis.</p>
-  <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre o Terraço Icaraí para eventos corporativos." target="_blank">Falar pelo WhatsApp</a>
-  <div class="contact-grid">
-    <div class="contact-item">(21) 3587-3331</div>
-    <div class="contact-item">contato@icaraisuites.com.br</div>
-    <div class="contact-item">@terracoicarai</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
+    <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
+    <p style="color:var(--texto-muted);margin-bottom:28px">Respondemos em até 2 horas em dias úteis.</p>
+    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre o Terraço Icaraí para eventos corporativos." target="_blank">Falar pelo WhatsApp</a>
+    <div class="contact-grid">
+      <div class="contact-item">(21) 3587-3331</div>
+      <div class="contact-item">contato@icaraisuites.com.br</div>
+      <div class="contact-item">@terracoicarai</div>
+    </div>
   </div>
-</div></div>
-<footer>© Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ</footer>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <img src="logo/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="filter:brightness(0) invert(1)" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('afterbegin','<span style=\'font-family:Cormorant Garamond,serif;font-size:16px;color:#fff;font-weight:400\'>Terraço Icaraí</span>')">
+  </div>
+  <div class="footer-text">© Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ</div>
+</footer>
+
 <script>
 var carousels={};
 function initCarousel(id,total){
@@ -277,8 +364,9 @@ function goToC(id,n){
   document.getElementById('counter-'+id).textContent=(c.cur+1)+' / '+c.total;
 }
 function moveC(id,d){goToC(id,carousels[id].cur+d);}
-initCarousel('espaco',8);
-initCarousel('grazing',9);
+initCarousel('espaco',5);
+initCarousel('grazing',6);
+
 function fmt(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function locacao(n,dia){return Math.max(dia==='semana'?750:900,n*25);}
 var S={};
@@ -288,10 +376,30 @@ function calc(){
   var food=document.getElementById('food').value;
   var beb=document.getElementById('beb').checked;
   var foodVal=0,bebVal=0,loc=0,caucao=0,rows=[],ok=true,foodLabel='';
-  if(food==='cafe_manha'){var pp=dia==='semana'?54.9:74.9;foodLabel='Café da manhã';foodVal=n*pp;rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa)',v:fmt(foodVal)});document.getElementById('calc-note').textContent='* Valores estimados. Orçamento final sujeito a confirmação.';}
-  else if(food==='coffee'){foodLabel='Coffee break';if(n<15||n>50){ok=false;}else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Coffee break: mínimo 15, máximo 50 pessoas.';}
-  else if(food==='grazing'){foodLabel='Grazing table';if(n<15||n>50){ok=false;}else{loc=locacao(n,dia);foodVal=n*107+loc;rows.push({l:'Grazing table (R$ 107,00/pessoa + espaço)',v:fmt(foodVal)});}document.getElementById('calc-note').textContent='* Grazing table inclui uso do espaço. Mínimo 15, máximo 50 pessoas.';}
-  else{foodLabel='Sem alimentação';loc=locacao(n,dia);caucao=500;rows.push({l:'Locação do espaço',v:fmt(loc)});rows.push({l:'Alimentação',v:'Não inclusa'});rows.push({l:'Caução (devolvida em 7 dias)',v:'R$ 500,00'});document.getElementById('calc-note').textContent='* Caução de R$ 500 devolvida em até 7 dias após o evento.';}
+  if(food==='cafe_manha'){
+    var pp=dia==='semana'?54.9:74.9;
+    foodLabel='Café da manhã';
+    foodVal=n*pp;
+    rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa)',v:fmt(foodVal)});
+    document.getElementById('calc-note').textContent='* Valores estimados. Orçamento final sujeito a confirmação.';
+  } else if(food==='coffee'){
+    foodLabel='Coffee break';
+    if(n<15||n>50){ok=false;}
+    else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Coffee break: mínimo 15, máximo 50 pessoas.';
+  } else if(food==='grazing'){
+    foodLabel='Grazing table';
+    if(n<15||n>50){ok=false;}
+    else{loc=locacao(n,dia);foodVal=n*107+loc;rows.push({l:'Grazing table (R$ 107,00/pessoa + espaço)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Grazing table inclui uso do espaço. Mínimo 15, máximo 50 pessoas.';
+  } else {
+    foodLabel='Sem alimentação';
+    loc=locacao(n,dia);caucao=500;
+    rows.push({l:'Locação do espaço',v:fmt(loc)});
+    rows.push({l:'Alimentação',v:'Não inclusa'});
+    rows.push({l:'Caução (devolvida em 7 dias)',v:'R$ 500,00'});
+    document.getElementById('calc-note').textContent='* Caução de R$ 500 devolvida em até 7 dias após o evento.';
+  }
   if(beb&&ok){bebVal=n*30;rows.push({l:'Bebidas não alcoólicas (R$ 30,00/pessoa)',v:fmt(bebVal)});}
   var box=document.getElementById('result-content');
   if(!ok){box.innerHTML='<div class="result-error">Fora do limite permitido (15–50 pessoas) para esta modalidade.</div>';S={ok:false};return;}
@@ -324,7 +432,11 @@ function gerarPDF(){
   doc.setDrawColor(220,218,210);doc.setLineWidth(0.3);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'S');
   doc.setTextColor(100,98,90);doc.setFontSize(8);doc.text('DETALHES DO EVENTO',mg+10,y);y+=8;
   doc.setDrawColor(230,228,220);doc.line(mg+10,y,W-mg-10,y);y+=8;
-  S.rows.forEach(function(r){doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);});
+  S.rows.forEach(function(r){
+    doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);
+    doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});
+    y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);
+  });
   y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');
   doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);
   doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
