@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraço Icaraí · Espaço Corporativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --verde: #1a4a2e;
+    --verde-claro: #2d6b42;
+    --verde-palido: #e8f0ea;
+    --areia: #f5f2ec;
+    --areia-escura: #e8e3d8;
+    --texto: #1c1c1a;
+    --texto-muted: #6b6860;
+    --texto-light: #9a9890;
+    --branco: #ffffff;
+    --borda: rgba(0,0,0,0.1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--areia);
+    color: var(--texto);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--verde);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    color: #fff; letter-spacing: 1px;
+  }
+  .nav-logo span { font-style: italic; color: #a8cbb5; }
+  .nav-cta {
+    background: #fff; color: var(--verde);
+    border: none; padding: 8px 20px;
+    border-radius: 4px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    text-decoration: none; transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--verde-palido); }
+
+  /* HERO */
+  .hero {
+    background: var(--verde);
+    padding: 80px 40px 70px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(45,107,66,0.6) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: #a8cbb5; margin-bottom: 20px; position: relative;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300; color: #fff;
+    line-height: 1.15; margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 em { font-style: italic; color: #a8cbb5; }
+  .hero p {
+    font-size: 16px; color: rgba(255,255,255,0.7);
+    max-width: 520px; margin: 0 auto 36px;
+    position: relative;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-primary {
+    background: #fff; color: var(--verde);
+    border: none; padding: 14px 28px;
+    border-radius: 4px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer;
+    transition: transform .15s, background .2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--verde-palido); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 14px 28px; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; cursor: pointer;
+    transition: border-color .2s, transform .15s;
+  }
+  .btn-ghost:hover { border-color: #fff; transform: translateY(-1px); }
+
+  /* STATS */
+  .stats {
+    background: var(--verde-claro);
+    padding: 24px 40px;
+    display: flex; gap: 0; justify-content: center;
+  }
+  .stat {
+    text-align: center; padding: 0 40px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 400; color: #fff;
+  }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  /* SECTIONS */
+  .section { padding: 64px 40px; max-width: 900px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--verde); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 400; line-height: 1.2; margin-bottom: 32px;
+  }
+  .section-title em { font-style: italic; color: var(--verde-claro); }
+
+  /* FOTOS */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 220px 180px;
+    gap: 8px; margin-bottom: 0;
+  }
+  .photo-grid img, .photo-placeholder {
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 6px;
+    display: block;
+  }
+  .photo-placeholder {
+    background: var(--verde-palido);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+    color: var(--verde); font-size: 12px;
+    border: 1px dashed rgba(26,74,46,0.3);
+    border-radius: 6px;
+  }
+  .photo-placeholder svg { opacity: 0.4; }
+  .photo-main { grid-row: span 2; }
+  .photo-sub-grid {
+    display: grid; grid-template-rows: 220px 180px; gap: 8px;
+  }
+
+  /* USOS */
+  .use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px; margin-bottom: 0;
+  }
+  .use-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: 8px; padding: 24px 20px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .use-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .use-icon { font-size: 28px; margin-bottom: 12px; }
+  .use-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .use-desc { font-size: 13px; color: var(--texto-muted); }
+
+  /* DIFERENCIAIS */
+  .diff-list { display: grid; gap: 12px; }
+  .diff-item {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-left: 3px solid var(--verde);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .diff-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--verde-claro); min-width: 28px; line-height: 1;
+  }
+  .diff-t { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .diff-s { font-size: 13px; color: var(--texto-muted); }
+
+  /* INCLUSO */
+  .incl-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .incl-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--branco); border: 1px solid var(--borda);
+    border-radius: 6px; padding: 10px 14px; font-size: 13px;
+  }
+  .incl-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--verde); flex-shrink: 0;
+  }
+
+  /* CLIENTES */
+  .clients-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .client-badge {
+    background: var(--branco); border: 1px solid var(--borda);
+    border-radius: 4px; padding: 8px 20px;
+    font-size: 14px; font-weight: 500;
+  }
+
+  /* SIMULADOR */
+  .calc-section {
+    background: var(--verde);
+    padding: 64px 40px;
+  }
+  .calc-inner { max-width: 700px; margin: 0 auto; }
+  .calc-section .section-eyebrow { color: #a8cbb5; }
+  .calc-section .section-title { color: #fff; }
+  .calc-section .section-title em { color: #a8cbb5; }
+
+  .calc-form {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 28px;
+    margin-bottom: 20px;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .field-label {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+    color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block;
+  }
+  .field-label.dark { color: var(--texto-muted); }
+  select, input[type=number] {
+    width: 100%; padding: 10px 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px; color: #fff;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    appearance: none; -webkit-appearance: none;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  select:focus, input[type=number]:focus {
+    outline: none;
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.15);
+  }
+  select option { background: var(--verde); color: #fff; }
+  .checkbox-row {
+    display: flex; align-items: center; gap: 10px;
+    color: rgba(255,255,255,0.8); font-size: 13px;
+    cursor: pointer; margin-top: 4px;
+  }
+  input[type=checkbox] {
+    width: 16px; height: 16px; cursor: pointer;
+    accent-color: #a8cbb5;
+  }
+
+  /* RESULT */
+  .result-box {
+    background: var(--branco);
+    border-radius: 10px; padding: 24px;
+    margin-bottom: 20px;
+  }
+  .result-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: 9px 0;
+    border-bottom: 1px solid var(--areia-escura);
+    font-size: 14px;
+  }
+  .result-row:last-of-type { border-bottom: none; }
+  .result-label { color: var(--texto-muted); }
+  .result-val { font-weight: 500; }
+  .result-total {
+    margin-top: 12px; padding-top: 16px;
+    border-top: 2px solid var(--verde);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .result-total-label { font-size: 13px; color: var(--texto-muted); }
+  .result-total-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 400; color: var(--verde);
+  }
+  .result-sinal {
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: var(--texto-muted); margin-top: 8px;
+  }
+  .result-error {
+    text-align: center; padding: 20px;
+    color: #c0392b; font-size: 14px;
+  }
+
+  /* BOTÕES DE AÇÃO */
+  .action-btns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .abtn {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 13px 16px;
+    border-radius: 6px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    border: none; transition: transform .15s, opacity .2s;
+  }
+  .abtn:hover { transform: translateY(-2px); }
+  .abtn:active { transform: translateY(0); opacity: .85; }
+  .abtn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .abtn-copy { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+  .abtn-wapp { background: #25D366; color: #fff; }
+  .abtn-pdf  { background: #fff; color: var(--verde); }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+    background: var(--texto); color: #fff;
+    padding: 10px 24px; border-radius: 6px;
+    font-size: 13px; font-weight: 500;
+    opacity: 0; transition: opacity .3s;
+    pointer-events: none; z-index: 9999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  /* CTA FINAL */
+  .cta-section {
+    background: var(--areia-escura);
+    padding: 64px 40px; text-align: center;
+  }
+  .cta-inner { max-width: 600px; margin: 0 auto; }
+  .cta-section .section-title { margin-bottom: 12px; }
+  .cta-section p { color: var(--texto-muted); margin-bottom: 32px; font-size: 15px; }
+  .contact-grid {
+    display: flex; gap: 24px; justify-content: center;
+    flex-wrap: wrap; margin-top: 24px;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; color: var(--texto-muted);
+  }
+  .contact-item svg { color: var(--verde); }
+
+  /* FOOTER */
+  footer {
+    background: var(--verde);
+    padding: 24px 40px; text-align: center;
+    color: rgba(255,255,255,0.5); font-size: 12px;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--borda); margin: 0 40px; }
+
+  @media (max-width: 600px) {
+    nav { padding: 14px 20px; }
+    .hero { padding: 60px 20px 50px; }
+    .stats { padding: 20px; flex-wrap: wrap; }
+    .stat { padding: 12px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .section { padding: 48px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .photo-main { grid-row: span 1; height: 220px; }
+    .photo-sub-grid { grid-template-rows: 160px 160px; }
+    .calc-section { padding: 48px 20px; }
+    .cta-section { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">Copiado!</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Terraço <span>Icaraí</span></div>
+  <a class="nav-cta" href="#simulador">Simular orçamento</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Espaço corporativo · Icaraí, Niterói/RJ</p>
+  <h1>Reuniões que rendem mais<br><em>quando saem do escritório</em></h1>
+  <p>Ambiente aberto, cercado de verde, no centro de Icaraí. Ideal para workshops, treinamentos e reuniões que precisam de foco.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#simulador">Simular orçamento</a>
+    <button class="btn-ghost" onclick="document.getElementById('espaco').scrollIntoView({behavior:'smooth'})">Ver o espaço</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">70</div>
+    <div class="stat-label">pessoas (cap. máxima)</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">12h–21h</div>
+    <div class="stat-label">horário de eventos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">10+</div>
+    <div class="stat-label">anos de operação</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">Itaú · Santander</div>
+    <div class="stat-label">já realizaram eventos aqui</div>
+  </div>
+</div>
+
+<!-- ESPAÇO -->
+<div id="espaco">
+  <div class="section">
+    <p class="section-eyebrow">O espaço</p>
+    <p class="section-title">Um lugar que <em>inspira</em> boas ideias</p>
+    <div class="photo-grid">
+      <div class="photo-main photo-placeholder">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        Foto principal do espaço
+      </div>
+      <div class="photo-sub-grid">
+        <div class="photo-placeholder">Foto 2</div>
+        <div class="photo-placeholder">Foto 3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- USOS -->
+<div class="section">
+  <p class="section-eyebrow">Para o que serve</p>
+  <p class="section-title">Cada tipo de <em>encontro corporativo</em></p>
+  <div class="use-grid">
+    <div class="use-card">
+      <div class="use-icon">📋</div>
+      <div class="use-name">Workshops & treinamentos</div>
+      <div class="use-desc">Dinâmicas, capacitações e formações de equipe</div>
+    </div>
+    <div class="use-card">
+      <div class="use-icon">🤝</div>
+      <div class="use-name">Reuniões estratégicas</div>
+      <div class="use-desc">Planejamento, tomada de decisão, alinhamento</div>
+    </div>
+    <div class="use-card">
+      <div class="use-icon">🍻</div>
+      <div class="use-name">Happy hours</div>
+      <div class="use-desc">Comemorações e confraternizações de time</div>
+    </div>
+    <div class="use-card">
+      <div class="use-icon">💡</div>
+      <div class="use-name">Brainstormings</div>
+      <div class="use-desc">O verde do espaço ajuda a pensar diferente</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
+<div class="section">
+  <p class="section-eyebrow">Por que o Terraço Icaraí?</p>
+  <p class="section-title">Diferenciais que <em>fazem diferença</em></p>
+  <div class="diff-list">
+    <div class="diff-item">
+      <div class="diff-num">01</div>
+      <div>
+        <div class="diff-t">Localização central em Icaraí</div>
+        <div class="diff-s">A poucos minutos das principais empresas da região — sem trânsito, sem estresse</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-num">02</div>
+      <div>
+        <div class="diff-t">Ambiente aberto e cercado de verde</div>
+        <div class="diff-s">Sensação de estar fora da cidade sem sair de Niterói — ideal para quebrar a rotina</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-num">03</div>
+      <div>
+        <div class="diff-t">Infraestrutura completa</div>
+        <div class="diff-s">Wi-Fi, SmartTV 55", 3 caixas JBL, fogão industrial, máquina de gelo 50kg, rechaud elétrico</div>
+      </div>
+    </div>
+    <div class="diff-item">
+      <div class="diff-num">04</div>
+      <div>
+        <div class="diff-t">Flexibilidade total</div>
+        <div class="diff-s">Leve seu próprio buffet e decoração, ou use nossos fornecedores parceiros</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- INCLUSO -->
+<div class="section">
+  <p class="section-eyebrow">Estrutura inclusa</p>
+  <p class="section-title">Tudo o que você precisa, <em>já incluso</em></p>
+  <div class="incl-grid">
+    <div class="incl-item"><span class="incl-dot"></span>SmartTV 55"</div>
+    <div class="incl-item"><span class="incl-dot"></span>Fogão industrial</div>
+    <div class="incl-item"><span class="incl-dot"></span>Churrasqueira</div>
+    <div class="incl-item"><span class="incl-dot"></span>Máquina de gelo 50kg</div>
+    <div class="incl-item"><span class="incl-dot"></span>3 caixas de som JBL</div>
+    <div class="incl-item"><span class="incl-dot"></span>Rechaud elétrico</div>
+    <div class="incl-item"><span class="incl-dot"></span>Mesas e cadeiras</div>
+    <div class="incl-item"><span class="incl-dot"></span>Buffet próprio liberado</div>
+    <div class="incl-item"><span class="incl-dot"></span>Decoração própria liberada</div>
+    <div class="incl-item"><span class="incl-dot"></span>Até 70 pessoas</div>
+  </div>
+  <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- CLIENTES -->
+<div class="section" style="padding-bottom:32px">
+  <p class="section-eyebrow">Já confiam no Terraço</p>
+  <div class="clients-row">
+    <div class="client-badge">Itaú</div>
+    <div class="client-badge">Santander</div>
+    <div class="client-badge">+ empresas da região</div>
+  </div>
+</div>
+
+<!-- SIMULADOR -->
+<div class="calc-section" id="simulador">
+  <div class="calc-inner">
+    <p class="section-eyebrow">Simulador de orçamento</p>
+    <p class="section-title">Calcule o valor <em>do seu evento</em></p>
+
+    <div class="calc-form">
+      <div class="form-grid">
+        <div>
+          <label class="field-label" for="np">Número de pessoas</label>
+          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()">
+        </div>
+        <div>
+          <label class="field-label" for="dia">Dia do evento</label>
+          <select id="dia" onchange="calc()">
+            <option value="semana">Dia de semana</option>
+            <option value="fds">Fim de semana / feriado</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <label class="field-label" for="food">Modalidade de alimentação</label>
+        <select id="food" onchange="calc()">
+          <option value="cafe_manha">Café da manhã</option>
+          <option value="coffee">Café da tarde / coffee break</option>
+          <option value="grazing">Grazing table</option>
+          <option value="nenhum">Sem alimentação inclusa</option>
+        </select>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="beb" onchange="calc()">
+        Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)
+      </label>
+    </div>
+
+    <div class="result-box" id="result-box">
+      <div id="result-content"></div>
+    </div>
+
+    <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:16px" id="calc-note">
+      * Valores estimados. Orçamento final sujeito a confirmação.
+    </p>
+
+    <div class="action-btns">
+      <button class="abtn abtn-copy" onclick="copiarProposta()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar proposta
+      </button>
+      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+      <button class="abtn abtn-pdf" onclick="gerarPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Baixar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
+    <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
+    <p>Entre em contato e verifique disponibilidade.<br>Respondemos em até 2 horas em dias úteis.</p>
+    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre o Terraço Icaraí para eventos corporativos." target="_blank" style="display:inline-block;margin-top:8px">Falar pelo WhatsApp</a>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (21) 3587-3331
+      </div>
+      <div class="contact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        contato@icaraisuites.com.br
+      </div>
+      <div class="contact-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        @terracoicarai
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ
+</footer>
+
+<script>
+function fmt(v){
+  return 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function locacao(n, dia){
+  return Math.max(dia==='semana' ? 750 : 900, n*25);
+}
+
+var S = {};
+
+function calc(){
+  const n   = Math.max(1, parseInt(document.getElementById('np').value)||1);
+  const dia = document.getElementById('dia').value;
+  const food= document.getElementById('food').value;
+  const beb = document.getElementById('beb').checked;
+
+  let foodVal=0, bebVal=0, loc=0, caucao=0;
+  let foodLabel='', foodText='', ok=true, rows=[];
+
+  if(food==='cafe_manha'){
+    const pp = dia==='semana' ? 54.9 : 74.9;
+    foodLabel = 'Café da manhã';
+    foodVal = n*pp; foodText = fmt(foodVal);
+    rows.push({l: 'Café da manhã ('+fmt(pp)+'/pessoa)', v: foodText});
+    document.getElementById('calc-note').textContent = '* Valores estimados. Orçamento final sujeito a confirmação.';
+
+  } else if(food==='coffee'){
+    foodLabel = 'Coffee break';
+    if(n<15||n>50){ ok=false; }
+    else { foodVal=n*99.9; foodText=fmt(foodVal); rows.push({l:'Coffee break (R$ 99,90/pessoa)', v:foodText}); }
+    document.getElementById('calc-note').textContent = '* Coffee break: mínimo 15, máximo 50 pessoas.';
+
+  } else if(food==='grazing'){
+    foodLabel = 'Grazing table';
+    if(n<15||n>50){ ok=false; }
+    else {
+      loc = locacao(n, dia);
+      foodVal = n*107 + loc;
+      foodText = fmt(foodVal);
+      rows.push({l:'Grazing table (R$ 107,00/pessoa + espaço)', v:foodText});
+    }
+    document.getElementById('calc-note').textContent = '* Grazing table inclui uso do espaço. Mínimo 15, máximo 50 pessoas.';
+
+  } else {
+    foodLabel = 'Sem alimentação';
+    loc = locacao(n, dia);
+    caucao = 500;
+    rows.push({l:'Locação do espaço', v:fmt(loc)});
+    rows.push({l:'Alimentação', v:'Não inclusa'});
+    rows.push({l:'Caução (devolvida em 7 dias)', v:'R$ 500,00'});
+    document.getElementById('calc-note').textContent = '* Caução de R$ 500 devolvida em até 7 dias após o evento.';
+  }
+
+  if(beb && ok){
+    bebVal = n*30;
+    rows.push({l:'Bebidas não alcoólicas (R$ 30,00/pessoa)', v:fmt(bebVal)});
+  }
+
+  const box = document.getElementById('result-content');
+  if(!ok){
+    box.innerHTML = '<div class="result-error">Fora do limite permitido (15 a 50 pessoas) para esta modalidade.</div>';
+    S = {ok:false};
+    return;
+  }
+
+  const total = loc + foodVal + bebVal + caucao;
+  const sinal = (loc + foodVal + bebVal) * 0.5;
+
+  let html = rows.map(r=>`<div class="result-row"><span class="result-label">${r.l}</span><span class="result-val">${r.v}</span></div>`).join('');
+  html += `<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">${fmt(total)}</span></div>`;
+  html += `<div class="result-sinal"><span>Sinal para reserva (50%)</span><span>${fmt(sinal)}</span></div>`;
+  box.innerHTML = html;
+
+  const diaLabel = dia==='semana'?'Dia de semana':'Fim de semana / feriado';
+  S = {ok:true, n, dia, diaLabel, food, foodLabel, beb, bebVal, loc, caucao, total, sinal, rows};
+}
+
+function propostaTexto(){
+  if(!S.ok) return null;
+  const linhas = S.rows.map(r => r.l+': '+r.v).join('\n');
+  return `*Pré-orçamento — Terraço Icaraí*
+Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ
+
+Pessoas: ${S.n}
+Dia: ${S.diaLabel}
+Modalidade: ${S.foodLabel}
+
+${linhas}
+
+*TOTAL ESTIMADO: ${fmt(S.total)}*
+Sinal para reserva (50%): ${fmt(S.sinal)}
+
+Valores estimados sujeitos a confirmação.
+(21) 3587-3331 | contato@icaraisuites.com.br`;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+function copiarProposta(){
+  const txt = propostaTexto();
+  if(!txt){ showToast('Preencha os campos primeiro'); return; }
+  navigator.clipboard.writeText(txt)
+    .then(()=>showToast('Proposta copiada!'))
+    .catch(()=>{ /* fallback */ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Proposta copiada!'); });
+}
+
+function enviarWhatsapp(){
+  const txt = propostaTexto();
+  if(!txt){ showToast('Preencha os campos primeiro'); return; }
+  window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt), '_blank');
+}
+
+function gerarPDF(){
+  if(!S.ok){ showToast('Preencha os campos primeiro'); return; }
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  const W=210, mg=18, cw=W-mg*2;
+
+  doc.setFillColor(248,246,241);
+  doc.rect(0,0,W,297,'F');
+
+  doc.setFillColor(26,74,46);
+  doc.rect(0,0,W,42,'F');
+
+  doc.setTextColor(168,203,181);
+  doc.setFontSize(9);
+  doc.setFont('helvetica','normal');
+  doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO', mg, 16);
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(22);
+  doc.setFont('helvetica','bold');
+  doc.text('Pré-orçamento', mg, 30);
+  doc.setTextColor(168,203,181);
+  doc.setFontSize(9);
+  doc.setFont('helvetica','normal');
+  doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}), mg, 38);
+
+  let y = 56;
+
+  doc.setFillColor(255,255,255);
+  doc.roundedRect(mg, y-8, cw, 8+S.rows.length*12+32, 4,4,'F');
+  doc.setDrawColor(220,218,210);
+  doc.setLineWidth(0.3);
+  doc.roundedRect(mg, y-8, cw, 8+S.rows.length*12+32, 4,4,'S');
+
+  doc.setTextColor(100,98,90);
+  doc.setFontSize(8);
+  doc.text('DETALHES DO EVENTO', mg+10, y);
+  y += 8;
+
+  doc.setDrawColor(230,228,220);
+  doc.line(mg+10, y, W-mg-10, y);
+  y += 8;
+
+  S.rows.forEach(r=>{
+    doc.setTextColor(110,108,100);
+    doc.setFontSize(10);
+    doc.setFont('helvetica','normal');
+    doc.text(r.l, mg+10, y);
+    doc.setTextColor(26,74,46);
+    doc.setFont('helvetica','bold');
+    doc.text(r.v, W-mg-10, y, {align:'right'});
+    y+=10;
+    doc.setDrawColor(240,238,232);
+    doc.line(mg+10, y-2, W-mg-10, y-2);
+  });
+
+  y += 8;
+  doc.setFillColor(26,74,46);
+  doc.roundedRect(mg, y, cw, 26, 4,4,'F');
+  doc.setTextColor(168,203,181);
+  doc.setFontSize(8);
+  doc.setFont('helvetica','normal');
+  doc.text('TOTAL ESTIMADO', mg+10, y+9);
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.setFont('helvetica','bold');
+  doc.text(fmt(S.total), W-mg-10, y+19, {align:'right'});
+
+  y += 34;
+  doc.setTextColor(130,128,120);
+  doc.setFontSize(10);
+  doc.setFont('helvetica','normal');
+  doc.text('Sinal para reserva (50%): ' + fmt(S.sinal), mg+10, y);
+
+  y += 20;
+  doc.setDrawColor(200,198,190);
+  doc.line(mg, y, W-mg, y);
+  y += 10;
+
+  doc.setTextColor(100,98,90);
+  doc.setFontSize(8);
+  doc.setFont('helvetica','bold');
+  doc.text('CONTATO', mg, y);
+  y += 6;
+  doc.setFont('helvetica','normal');
+  doc.setTextColor(40,40,38);
+  doc.text('(21) 3587-3331  ·  contato@icaraisuites.com.br  ·  @terracoicarai', mg, y);
+  y += 6;
+  doc.text('Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ', mg, y);
+
+  y += 14;
+  doc.setTextColor(160,158,150);
+  doc.setFontSize(7.5);
+  doc.text('Valores estimados e sujeitos a confirmação. Documento gerado automaticamente via terracoicarai.com.br', mg, y);
+
+  doc.save('proposta-terraco-icarai.pdf');
+  showToast('PDF gerado!');
+}
+
+calc();
+</script>
+</body>
+</html>
