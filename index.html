@@ -1273,7 +1273,7 @@ async function loadCarousel() {
       slide.className = 'carousel-slide';
       slide.innerHTML = `
         <a href="suites/index.html">
-          <img src="${BASE}${FOLDER}/${img.name}" alt="Suíte ${i+1}" loading="lazy">
+          <img src="${BASE}${FOLDER}/${encodeURIComponent(img.name)}" alt="Suíte ${i+1}" loading="lazy">
         </a>
         <div class="carousel-slide-label">Suíte ${i+1}</div>
       `;
