@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loft — Icaraí Suítes | Em breve, Niterói</title>
+<meta name="description" content="O Icaraí Suítes está expandindo. Em breve: loft com piscina, sauna, academia, sala de massagem no rooftop, coworking e lavanderia. A 3 minutos a pé.">
+<link rel="icon" href="../img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: #fff; color: #1c1c1a; line-height: 1.6; font-size: 16px; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+:root {
+  --cinza-nav: #efefed;
+  --cinza-borda: #e0e0dc;
+  --cinza-fundo: #f7f7f5;
+  --azul-escuro: #1a2535;
+  --verde: #2d5a3d;
+  --texto: #1c1c1a;
+  --texto-muted: #6b6860;
+  --branco: #ffffff;
+}
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--cinza-nav); border-bottom: 1px solid var(--cinza-borda);
+  height: 104px; display: flex; align-items: center; padding: 0 40px; gap: 32px;
+}
+.nav-logo { flex-shrink: 0; margin-right: auto; }
+.nav-logo img { height: 88px; width: auto; }
+.nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+.nav-links > li { position: relative; }
+.nav-links > li > a,
+.nav-links > li > span {
+  display: flex; align-items: center; gap: 4px; padding: 8px 12px;
+  font-size: 13.5px; font-weight: 400; color: var(--azul-escuro);
+  border-radius: 4px; cursor: pointer; white-space: nowrap;
+  transition: background 0.15s; letter-spacing: 0.01em;
+}
+.nav-links > li > a:hover,
+.nav-links > li > span:hover { background: rgba(0,0,0,0.06); }
+.nav-links > li > span::after {
+  content: ''; width: 0; height: 0;
+  border-left: 4px solid transparent; border-right: 4px solid transparent;
+  border-top: 4px solid var(--azul-escuro); margin-top: 1px; flex-shrink: 0;
+}
+.dropdown {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0;
+  background: var(--branco); border: 1px solid var(--cinza-borda);
+  border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 200px; overflow: hidden; z-index: 100;
+}
+.nav-links > li:hover .dropdown { display: block; }
+.dropdown a {
+  display: block; padding: 11px 18px; font-size: 13.5px;
+  color: var(--texto); border-bottom: 1px solid var(--cinza-borda); transition: background 0.12s;
+}
+.dropdown a:last-child { border-bottom: none; }
+.dropdown a:hover { background: var(--cinza-fundo); }
+.btn-reservar {
+  background: var(--azul-escuro) !important; color: #fff !important;
+  padding: 9px 20px !important; border-radius: 4px !important;
+  font-weight: 500 !important; letter-spacing: 0.02em !important;
+  transition: background 0.2s !important; flex-shrink: 0;
+}
+.btn-reservar:hover { background: #2a3a50 !important; }
+
+/* HERO */
+.hero {
+  position: relative; height: 88vh; min-height: 560px;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+  background: var(--azul-escuro);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #0f1620 0%, #1a2535 50%, #1e3a2a 100%);
+}
+
+/* Partículas decorativas */
+.hero-particles {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.hero-particles::before,
+.hero-particles::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+}
+.hero-particles::before {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #fff 0%, transparent 70%);
+  top: -200px; right: -100px;
+}
+.hero-particles::after {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, #2d5a3d 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; color: #fff; padding: 0 24px;
+  max-width: 800px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 8px 20px; margin-bottom: 32px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+}
+.hero-badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero-eyebrow {
+  font-size: 12px; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 20px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 300; line-height: 1.0; margin-bottom: 12px;
+}
+.hero-title em { font-style: italic; }
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 26px); font-weight: 300;
+  letter-spacing: 0.1em; color: rgba(255,255,255,0.6);
+  margin-bottom: 40px;
+}
+.hero-desc {
+  font-size: 16px; line-height: 1.7;
+  color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto 40px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; padding: 14px 32px;
+  font-size: 13px; font-weight: 400; letter-spacing: 0.1em;
+  text-transform: uppercase; border-radius: 2px;
+  backdrop-filter: blur(4px); transition: background 0.2s;
+  cursor: pointer;
+}
+.hero-cta:hover { background: rgba(255,255,255,0.18); }
+
+/* SEÇÃO EM BREVE */
+.em-breve-section {
+  background: var(--cinza-fundo);
+  padding: 80px 40px;
+}
+.em-breve-inner {
+  max-width: 1140px; margin: 0 auto;
+}
+.section-eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--verde); margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 48px); font-weight: 400;
+  line-height: 1.15; color: var(--azul-escuro); margin-bottom: 16px;
+}
+.section-title em { font-style: italic; }
+.section-text {
+  font-size: 16px; line-height: 1.75;
+  color: var(--texto-muted); max-width: 640px; margin-bottom: 56px;
+}
+
+/* GRID DE FEATURES */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.feature-card {
+  background: var(--branco);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 6px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--verde);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.feature-card:hover { border-color: var(--verde); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.feature-card:hover::before { opacity: 1; }
+.feature-icon { font-size: 32px; margin-bottom: 14px; line-height: 1; }
+.feature-name {
+  font-size: 15px; font-weight: 500;
+  color: var(--azul-escuro); margin-bottom: 6px;
+}
+.feature-desc { font-size: 13px; color: var(--texto-muted); line-height: 1.6; }
+.feature-tag {
+  display: inline-block; margin-top: 14px;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--verde);
+  background: rgba(45,90,61,0.08);
+  padding: 4px 10px; border-radius: 100px;
+}
+
+/* DISTÂNCIA */
+.distancia-strip {
+  background: var(--azul-escuro);
+  padding: 48px 40px;
+  text-align: center;
+}
+.distancia-strip .inner {
+  max-width: 600px; margin: 0 auto;
+}
+.distancia-strip .numero {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 80px; font-weight: 300;
+  color: #fff; line-height: 1;
+  margin-bottom: 4px;
+}
+.distancia-strip .numero em { font-style: italic; }
+.distancia-strip .label {
+  font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 20px;
+}
+.distancia-strip .desc {
+  font-size: 15px; line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+}
+
+/* NOTIFICAÇÃO */
+.notif-section {
+  padding: 80px 40px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+.notif-section .section-title { margin-bottom: 12px; }
+.notif-section .section-text { margin: 0 auto 32px; text-align: center; }
+.notif-form {
+  display: flex; gap: 12px; max-width: 480px; margin: 0 auto;
+}
+.notif-input {
+  flex: 1;
+  padding: 13px 18px;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--texto);
+  background: var(--cinza-fundo);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.notif-input:focus { border-color: var(--azul-escuro); background: #fff; }
+.notif-input::placeholder { color: var(--texto-muted); }
+.notif-btn {
+  background: var(--azul-escuro); color: #fff;
+  padding: 13px 24px; border: none; border-radius: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px; font-weight: 500;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s;
+}
+.notif-btn:hover { background: #2a3a50; }
+.notif-confirm {
+  display: none;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--verde);
+  font-weight: 500;
+}
+.notif-whatsapp {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 20px;
+  font-size: 13.5px;
+  color: var(--texto-muted);
+}
+.notif-whatsapp a {
+  color: #25D366; font-weight: 500;
+  border-bottom: 1px solid currentColor;
+}
+
+/* FOOTER */
+footer { background: var(--azul-escuro); color: rgba(255,255,255,0.7); padding: 56px 40px 32px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; max-width: 1140px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.footer-logo img { height: 56px; margin-bottom: 16px; filter: brightness(0) invert(1); opacity: 0.85; }
+.footer-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.5); }
+.footer-col h4 { font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a { font-size: 13.5px; color: rgba(255,255,255,0.65); transition: color 0.15s; }
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom { max-width: 1140px; margin: 24px auto 0; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,0.35); flex-wrap: wrap; gap: 8px; }
+
+/* WHATSAPP */
+.whatsapp-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 56px; height: 56px; background: #25D366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4); transition: transform 0.2s;
+}
+.whatsapp-float:hover { transform: scale(1.08); }
+.whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+/* HAMBURGUER */
+.hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; }
+.hamburger span { display: block; height: 2px; background: var(--azul-escuro); border-radius: 2px; transition: all 0.25s; transform-origin: center; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--branco); z-index: 999; flex-direction: column; padding: 20px; overflow-y: auto; }
+.mobile-menu.open { display: flex; }
+.mobile-menu-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 24px; border-bottom: 1px solid var(--cinza-borda); margin-bottom: 16px; }
+.mobile-menu-header img { height: 48px; }
+.mobile-menu-close { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--azul-escuro); line-height: 1; padding: 4px 8px; }
+.mobile-nav-item { border-bottom: 1px solid var(--cinza-borda); }
+.mobile-nav-item > a, .mobile-nav-item > button { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 16px 4px; font-size: 16px; color: var(--azul-escuro); background: none; border: none; cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif; }
+.mobile-nav-item > button::after { content: '+'; font-size: 20px; font-weight: 300; color: var(--verde); transition: transform 0.2s; }
+.mobile-nav-item > button.open::after { transform: rotate(45deg); }
+.mobile-submenu { display: none; padding: 0 0 12px 16px; }
+.mobile-submenu.open { display: block; }
+.mobile-submenu a { display: block; padding: 10px 4px; font-size: 14.5px; color: var(--texto-muted); border-bottom: 1px solid var(--cinza-fundo); }
+.mobile-reservar { margin-top: 24px; display: block; background: var(--azul-escuro); color: #fff !important; text-align: center; padding: 14px; border-radius: 4px; font-size: 15px; font-weight: 500; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; height: 72px; }
+  .nav-logo img { height: 56px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { height: 80vh; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .em-breve-section { padding: 56px 20px; }
+  .distancia-strip { padding: 48px 20px; }
+  .notif-section { padding: 56px 20px; }
+  .notif-form { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../img/marca_sem_fundo.png" alt="Icaraí Suítes">
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Início</a></li>
+    <li>
+      <span>Acomodações</span>
+      <div class="dropdown">
+        <a href="../suites/index.html">Suítes</a>
+        <a href="../loft/index.html">Loft</a>
+      </div>
+    </li>
+    <li>
+      <span>Terraço Icaraí</span>
+      <div class="dropdown">
+        <a href="../terraco/index.html">Eventos Corporativos</a>
+        <a href="../terraco/social.html">Eventos Sociais</a>
+        <a href="../cafe/index.html">Café da Manhã</a>
+      </div>
+    </li>
+    <li><a href="../cafe/index.html">Café da Manhã</a></li>
+    <li><a href="../contato/index.html">Localização e Contato</a></li>
+    <li><a href="https://hotels.cloudbeds.com/reservas/hFmlkc" target="_blank" class="btn-reservar">Reservar</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <img src="../img/marca_sem_fundo.png" alt="Icaraí Suítes">
+    <button class="mobile-menu-close" id="mobileClose">×</button>
+  </div>
+  <div class="mobile-nav-item"><a href="../index.html">Início</a></div>
+  <div class="mobile-nav-item">
+    <button onclick="toggleSubmenu('sub-acom', this)">Acomodações</button>
+    <div class="mobile-submenu" id="sub-acom">
+      <a href="../suites/index.html">Suítes</a>
+      <a href="../loft/index.html">Loft</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item">
+    <button onclick="toggleSubmenu('sub-terraco', this)">Terraço Icaraí</button>
+    <div class="mobile-submenu" id="sub-terraco">
+      <a href="../terraco/index.html">Eventos Corporativos</a>
+      <a href="../terraco/social.html">Eventos Sociais</a>
+      <a href="../cafe/index.html">Café da Manhã</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item"><a href="../cafe/index.html">Café da Manhã</a></div>
+  <div class="mobile-nav-item"><a href="../contato/index.html">Localização e Contato</a></div>
+  <a href="https://hotels.cloudbeds.com/reservas/hFmlkc" target="_blank" class="mobile-reservar">Reservar</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Em breve
+    </div>
+    <p class="hero-eyebrow">Icaraí Suítes · Expansão</p>
+    <h1 class="hero-title"><em>Loft</em> Icaraí</h1>
+    <p class="hero-subtitle">Uma nova experiência de hospedagem</p>
+    <p class="hero-desc">O Icaraí Suítes está crescendo. Estamos preparando um loft completo com infraestrutura de alto padrão — a apenas 3 minutos a pé das nossas suítes.</p>
+    <a href="#novidades" class="hero-cta">
+      Quero saber das novidades
+    </a>
+  </div>
+</section>
+
+<!-- EM BREVE -->
+<section class="em-breve-section">
+  <div class="em-breve-inner">
+    <p class="section-eyebrow">O que vem por aí</p>
+    <h2 class="section-title">Infraestrutura completa <em>no rooftop</em></h2>
+    <p class="section-text">Um prédio inteiro pensado para oferecer o que vai além do quarto — lazer, bem-estar e praticidade, tudo no mesmo lugar.</p>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🏊</div>
+        <div class="feature-name">Piscina</div>
+        <div class="feature-desc">Piscina no rooftop com vista para Icaraí — o lugar perfeito para relaxar depois de um dia longo.</div>
+        <span class="feature-tag">Rooftop</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧖</div>
+        <div class="feature-name">Sauna</div>
+        <div class="feature-desc">Sauna privativa para descompressão total — disponível para hóspedes do loft.</div>
+        <span class="feature-tag">Rooftop</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏋️</div>
+        <div class="feature-name">Academia</div>
+        <div class="feature-desc">Espaço fitness equipado para manter a rotina de treinos sem sair do prédio.</div>
+        <span class="feature-tag">Rooftop</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💆</div>
+        <div class="feature-name">Sala de Massagem</div>
+        <div class="feature-desc">Ambiente dedicado ao descanso e recuperação, com agendamento para hóspedes.</div>
+        <span class="feature-tag">Rooftop</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💻</div>
+        <div class="feature-name">Salas de Coworking</div>
+        <div class="feature-desc">Espaços de trabalho compartilhado — ideais para quem está em Niterói a negócios.</div>
+        <span class="feature-tag">Disponível</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">👕</div>
+        <div class="feature-name">Lavanderia</div>
+        <div class="feature-desc">Serviço de lavanderia disponível para estadias mais longas, com comodidade total.</div>
+        <span class="feature-tag">Disponível</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DISTÂNCIA -->
+<div class="distancia-strip">
+  <div class="inner">
+    <div class="numero"><em>3</em> min</div>
+    <div class="label">a pé das suítes do Icaraí Suítes</div>
+    <p class="desc">O Loft Icaraí fica em um prédio anexo, a poucos passos das nossas suítes na Rua Mariz e Barros. Hóspedes de ambas as unidades terão acesso ao café da manhã no Terraço Icaraí.</p>
+  </div>
+</div>
+
+<!-- NOTIFICAÇÃO -->
+<section class="notif-section" id="novidades">
+  <p class="section-eyebrow">Fique por dentro</p>
+  <h2 class="section-title">Em breve — <em>fotos e novidades!</em></h2>
+  <p class="section-text">Estamos finalizando os últimos detalhes. Deixe seu WhatsApp e avise quando o Loft Icaraí estiver pronto para receber os primeiros hóspedes.</p>
+
+  <div class="notif-form">
+    <input class="notif-input" type="tel" id="notifInput" placeholder="Seu WhatsApp (ex: 21 99999-9999)">
+    <button class="notif-btn" onclick="enviarNotif()">Avisar-me</button>
+  </div>
+  <div class="notif-confirm" id="notifConfirm">✓ Recebemos! Você será o primeiro a saber.</div>
+
+  <div class="notif-whatsapp">
+    Ou fale direto com a gente:
+    <a href="https://wa.me/552135873331" target="_blank">(21) 3587-3331</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="../img/marca_sem_fundo.png" alt="Icaraí Suítes">
+      <p class="footer-desc">Hotel boutique em Icaraí, Niterói. Suítes confortáveis, Terraço para eventos e café da manhã artesanal desde 2015.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="../suites/index.html">Suítes</a></li>
+        <li><a href="../loft/index.html">Loft — Em breve</a></li>
+        <li><a href="../terraco/index.html">Eventos Corporativos</a></li>
+        <li><a href="../terraco/social.html">Eventos Sociais</a></li>
+        <li><a href="../cafe/index.html">Café da Manhã</a></li>
+        <li><a href="../contato/index.html">Localização e Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/552135873331" target="_blank">WhatsApp: (21) 3587-3331</a></li>
+        <li><a href="mailto:contato@icaraisuites.com.br">contato@icaraisuites.com.br</a></li>
+        <li><a href="../contato/index.html">Rua Mariz e Barros, 147<br>Icaraí · Niterói/RJ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Icaraí Suítes. Todos os direitos reservados.</span>
+    <span>Icaraí · Niterói · Rio de Janeiro</span>
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/552135873331" target="_blank" aria-label="Fale pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<script>
+/* MENU MOBILE */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+mobileClose.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+});
+function toggleSubmenu(id, btn) {
+  const sub = document.getElementById(id);
+  const isOpen = sub.classList.contains('open');
+  document.querySelectorAll('.mobile-submenu.open').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.mobile-nav-item > button.open').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { sub.classList.add('open'); btn.classList.add('open'); }
+}
+
+/* NOTIFICAÇÃO — abre WhatsApp com número preenchido */
+function enviarNotif() {
+  const input = document.getElementById('notifInput').value.trim();
+  if (!input) return;
+  const confirm = document.getElementById('notifConfirm');
+  confirm.style.display = 'block';
+  // Envia pro WhatsApp do hotel como lead
+  const msg = encodeURIComponent(`Olá! Quero receber novidades sobre o Loft Icaraí. Meu WhatsApp: ${input}`);
+  setTimeout(() => {
+    window.open(`https://wa.me/552135873331?text=${msg}`, '_blank');
+  }, 800);
+}
+document.getElementById('notifInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') enviarNotif();
+});
+</script>
+</body>
+</html>
