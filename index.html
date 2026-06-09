@@ -3,837 +3,1194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terraço Icaraí · Espaço Corporativo</title>
+<title>Icaraí Suítes — Hotel em Niterói | Suítes, Terraço e Eventos</title>
+<meta name="description" content="Hotel boutique em Icaraí, Niterói. 8 suítes confortáveis, Terraço para eventos corporativos e sociais, café da manhã artesanal. A poucos passos da praia.">
+<link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --verde: #1a4a2e;
-    --verde-claro: #2d6b42;
-    --verde-palido: #e8f0ea;
-    --areia: #f5f2ec;
-    --areia-escura: #e8e3d8;
-    --texto: #1c1c1a;
-    --texto-muted: #6b6860;
-    --texto-light: #9a9890;
-    --branco: #ffffff;
-    --borda: rgba(0,0,0,0.1);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--areia);
-    color: var(--texto);
-    line-height: 1.6;
-  }
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #fff;
+  color: #1c1c1a;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
 
-  /* NAV */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--verde);
-    padding: 14px 40px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px; font-weight: 400;
-    color: #fff; letter-spacing: 1px;
-  }
-  .nav-logo span { font-style: italic; color: #a8cbb5; }
-  .nav-cta {
-    background: #fff; color: var(--verde);
-    border: none; padding: 8px 20px;
-    border-radius: 4px; font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    text-decoration: none; transition: background .2s;
-  }
-  .nav-cta:hover { background: var(--verde-palido); }
+/* ===== VARIÁVEIS ===== */
+:root {
+  --cinza-nav: #efefed;
+  --cinza-borda: #e0e0dc;
+  --cinza-fundo: #f7f7f5;
+  --azul-escuro: #1a2535;
+  --verde: #2d5a3d;
+  --verde-suave: #e8f0ea;
+  --texto: #1c1c1a;
+  --texto-muted: #6b6860;
+  --branco: #ffffff;
+  --dourado: #b8922a;
+}
 
-  /* HERO */
-  .hero {
-    background: var(--verde);
-    padding: 80px 40px 70px;
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(45,107,66,0.6) 0%, transparent 70%);
-  }
-  .hero-eyebrow {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: #a8cbb5; margin-bottom: 20px; position: relative;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 300; color: #fff;
-    line-height: 1.15; margin-bottom: 20px;
-    position: relative;
-  }
-  .hero h1 em { font-style: italic; color: #a8cbb5; }
-  .hero p {
-    font-size: 16px; color: rgba(255,255,255,0.7);
-    max-width: 520px; margin: 0 auto 36px;
-    position: relative;
-  }
-  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
-  .btn-primary {
-    background: #fff; color: var(--verde);
-    border: none; padding: 14px 28px;
-    border-radius: 4px; font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 500; cursor: pointer;
-    transition: transform .15s, background .2s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-primary:hover { background: var(--verde-palido); transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: #fff;
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 14px 28px; border-radius: 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px; cursor: pointer;
-    transition: border-color .2s, transform .15s;
-  }
-  .btn-ghost:hover { border-color: #fff; transform: translateY(-1px); }
+/* ===== NAV ===== */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--cinza-nav);
+  border-bottom: 1px solid var(--cinza-borda);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  gap: 32px;
+}
 
-  /* STATS */
-  .stats {
-    background: var(--verde-claro);
-    padding: 24px 40px;
-    display: flex; gap: 0; justify-content: center;
-  }
-  .stat {
-    text-align: center; padding: 0 40px;
-    border-right: 1px solid rgba(255,255,255,0.15);
-  }
-  .stat:last-child { border-right: none; }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px; font-weight: 400; color: #fff;
-  }
-  .stat-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.nav-logo {
+  flex-shrink: 0;
+  margin-right: auto;
+}
+.nav-logo img {
+  height: 36px;
+  width: auto;
+}
 
-  /* SECTIONS */
-  .section { padding: 64px 40px; max-width: 900px; margin: 0 auto; }
-  .section-eyebrow {
-    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--verde); margin-bottom: 10px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 4vw, 38px);
-    font-weight: 400; line-height: 1.2; margin-bottom: 32px;
-  }
-  .section-title em { font-style: italic; color: var(--verde-claro); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
 
-  /* FOTOS */
-  .photo-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 220px 180px;
-    gap: 8px; margin-bottom: 0;
-  }
-  .photo-grid img, .photo-placeholder {
-    width: 100%; height: 100%;
-    object-fit: cover; border-radius: 6px;
-    display: block;
-  }
-  .photo-placeholder {
-    background: var(--verde-palido);
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 8px;
-    color: var(--verde); font-size: 12px;
-    border: 1px dashed rgba(26,74,46,0.3);
-    border-radius: 6px;
-  }
-  .photo-placeholder svg { opacity: 0.4; }
-  .photo-main { grid-row: span 2; }
-  .photo-sub-grid {
-    display: grid; grid-template-rows: 220px 180px; gap: 8px;
-  }
+.nav-links > li {
+  position: relative;
+}
 
-  /* USOS */
-  .use-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px; margin-bottom: 0;
-  }
-  .use-card {
-    background: var(--branco);
-    border: 1px solid var(--borda);
-    border-radius: 8px; padding: 24px 20px;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .use-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  .use-icon { font-size: 28px; margin-bottom: 12px; }
-  .use-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
-  .use-desc { font-size: 13px; color: var(--texto-muted); }
+.nav-links > li > a,
+.nav-links > li > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--azul-escuro);
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+  letter-spacing: 0.01em;
+}
+.nav-links > li > a:hover,
+.nav-links > li > span:hover {
+  background: rgba(0,0,0,0.06);
+}
 
-  /* DIFERENCIAIS */
-  .diff-list { display: grid; gap: 12px; }
-  .diff-item {
-    background: var(--branco);
-    border: 1px solid var(--borda);
-    border-left: 3px solid var(--verde);
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-    display: flex; gap: 16px; align-items: flex-start;
-  }
-  .diff-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; color: var(--verde-claro); min-width: 28px; line-height: 1;
-  }
-  .diff-t { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-  .diff-s { font-size: 13px; color: var(--texto-muted); }
+/* Seta dropdown */
+.nav-links > li > span::after {
+  content: '';
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid var(--azul-escuro);
+  margin-top: 1px;
+  flex-shrink: 0;
+}
 
-  /* INCLUSO */
-  .incl-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-  }
-  .incl-item {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--branco); border: 1px solid var(--borda);
-    border-radius: 6px; padding: 10px 14px; font-size: 13px;
-  }
-  .incl-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--verde); flex-shrink: 0;
-  }
+/* Dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--branco);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 200px;
+  overflow: hidden;
+  z-index: 100;
+}
+.nav-links > li:hover .dropdown { display: block; }
 
-  /* CLIENTES */
-  .clients-row { display: flex; gap: 12px; flex-wrap: wrap; }
-  .client-badge {
-    background: var(--branco); border: 1px solid var(--borda);
-    border-radius: 4px; padding: 8px 20px;
-    font-size: 14px; font-weight: 500;
-  }
+.dropdown a {
+  display: block;
+  padding: 11px 18px;
+  font-size: 13.5px;
+  color: var(--texto);
+  border-bottom: 1px solid var(--cinza-borda);
+  transition: background 0.12s;
+}
+.dropdown a:last-child { border-bottom: none; }
+.dropdown a:hover { background: var(--cinza-fundo); }
+.dropdown .dropdown-label {
+  display: block;
+  padding: 8px 18px 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--texto-muted);
+  border-bottom: 1px solid var(--cinza-borda);
+}
 
-  /* SIMULADOR */
-  .calc-section {
-    background: var(--verde);
-    padding: 64px 40px;
-  }
-  .calc-inner { max-width: 700px; margin: 0 auto; }
-  .calc-section .section-eyebrow { color: #a8cbb5; }
-  .calc-section .section-title { color: #fff; }
-  .calc-section .section-title em { color: #a8cbb5; }
+/* Botão Reservar */
+.btn-reservar {
+  background: var(--azul-escuro) !important;
+  color: #fff !important;
+  padding: 9px 20px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  transition: background 0.2s !important;
+  flex-shrink: 0;
+}
+.btn-reservar:hover { background: #2a3a50 !important; }
 
-  .calc-form {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 10px; padding: 28px;
-    margin-bottom: 20px;
-  }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .field-label {
-    font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-    color: rgba(255,255,255,0.6); margin-bottom: 6px; display: block;
-  }
-  .field-label.dark { color: var(--texto-muted); }
-  select, input[type=number] {
-    width: 100%; padding: 10px 14px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 6px; color: #fff;
-    font-family: 'DM Sans', sans-serif; font-size: 14px;
-    appearance: none; -webkit-appearance: none;
-    cursor: pointer;
-    transition: border-color .2s, background .2s;
-  }
-  select:focus, input[type=number]:focus {
-    outline: none;
-    border-color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.15);
-  }
-  select option { background: var(--verde); color: #fff; }
-  .checkbox-row {
-    display: flex; align-items: center; gap: 10px;
-    color: rgba(255,255,255,0.8); font-size: 13px;
-    cursor: pointer; margin-top: 4px;
-  }
-  input[type=checkbox] {
-    width: 16px; height: 16px; cursor: pointer;
-    accent-color: #a8cbb5;
-  }
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 88vh;
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15,20,30,0.35) 0%,
+    rgba(15,20,30,0.55) 60%,
+    rgba(15,20,30,0.72) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 0 24px;
+}
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 300;
+}
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 36px;
+}
+.hero-cta {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+  padding: 12px 32px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+.hero-cta:hover { background: rgba(255,255,255,0.25); }
 
-  /* RESULT */
-  .result-box {
-    background: var(--branco);
-    border-radius: 10px; padding: 24px;
-    margin-bottom: 20px;
-  }
-  .result-row {
-    display: flex; justify-content: space-between;
-    align-items: baseline; padding: 9px 0;
-    border-bottom: 1px solid var(--areia-escura);
-    font-size: 14px;
-  }
-  .result-row:last-of-type { border-bottom: none; }
-  .result-label { color: var(--texto-muted); }
-  .result-val { font-weight: 500; }
-  .result-total {
-    margin-top: 12px; padding-top: 16px;
-    border-top: 2px solid var(--verde);
-    display: flex; justify-content: space-between; align-items: baseline;
-  }
-  .result-total-label { font-size: 13px; color: var(--texto-muted); }
-  .result-total-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px; font-weight: 400; color: var(--verde);
-  }
-  .result-sinal {
-    display: flex; justify-content: space-between;
-    font-size: 13px; color: var(--texto-muted); margin-top: 8px;
-  }
-  .result-error {
-    text-align: center; padding: 20px;
-    color: #c0392b; font-size: 14px;
-  }
+/* ===== FAIXA DE CONTATO ===== */
+.contact-strip {
+  background: var(--azul-escuro);
+  color: rgba(255,255,255,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  padding: 16px 40px;
+  flex-wrap: wrap;
+}
+.contact-strip-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+}
+.contact-strip-item svg {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.contact-strip-item a { color: inherit; }
+.contact-strip-item a:hover { opacity: 0.8; }
 
-  /* BOTÕES DE AÇÃO */
-  .action-btns {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-  }
-  .abtn {
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px; padding: 13px 16px;
-    border-radius: 6px; font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    border: none; transition: transform .15s, opacity .2s;
-  }
-  .abtn:hover { transform: translateY(-2px); }
-  .abtn:active { transform: translateY(0); opacity: .85; }
-  .abtn svg { width: 18px; height: 18px; flex-shrink: 0; }
-  .abtn-copy { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-  .abtn-wapp { background: #25D366; color: #fff; }
-  .abtn-pdf  { background: #fff; color: var(--verde); }
+/* ===== SECTIONS ===== */
+.section {
+  padding: 80px 40px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.section-sm { padding: 56px 40px; }
 
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-    background: var(--texto); color: #fff;
-    padding: 10px 24px; border-radius: 6px;
-    font-size: 13px; font-weight: 500;
-    opacity: 0; transition: opacity .3s;
-    pointer-events: none; z-index: 9999;
-    white-space: nowrap;
-  }
-  .toast.show { opacity: 1; }
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--azul-escuro);
+  margin-bottom: 24px;
+}
+.section-title em { font-style: italic; }
+.section-text {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--texto-muted);
+  max-width: 680px;
+}
+.section-text p + p { margin-top: 16px; }
 
-  /* CTA FINAL */
-  .cta-section {
-    background: var(--areia-escura);
-    padding: 64px 40px; text-align: center;
-  }
-  .cta-inner { max-width: 600px; margin: 0 auto; }
-  .cta-section .section-title { margin-bottom: 12px; }
-  .cta-section p { color: var(--texto-muted); margin-bottom: 32px; font-size: 15px; }
-  .contact-grid {
-    display: flex; gap: 24px; justify-content: center;
-    flex-wrap: wrap; margin-top: 24px;
-  }
-  .contact-item {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 14px; color: var(--texto-muted);
-  }
-  .contact-item svg { color: var(--verde); }
+/* ===== SOBRE NÓS ===== */
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.sobre-img-wrap {
+  position: relative;
+}
+.sobre-img-wrap img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.sobre-img-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--azul-escuro);
+  color: #fff;
+  padding: 20px 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.sobre-img-badge strong {
+  display: block;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 4px;
+}
 
-  /* FOOTER */
-  footer {
-    background: var(--verde);
-    padding: 24px 40px; text-align: center;
-    color: rgba(255,255,255,0.5); font-size: 12px;
-  }
+/* ===== CARROSSEL DE SUÍTES ===== */
+.suites-section {
+  background: var(--cinza-fundo);
+  padding: 80px 0;
+}
+.suites-section .section-header {
+  max-width: 1140px;
+  margin: 0 auto 40px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.suites-section .ver-mais {
+  font-size: 13px;
+  color: var(--verde);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  white-space: nowrap;
+}
 
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--borda); margin: 0 40px; }
+.carousel-wrap {
+  overflow: hidden;
+  position: relative;
+  padding: 0 40px;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.carousel-slide {
+  flex-shrink: 0;
+  width: calc(33.333% - 14px);
+  cursor: pointer;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+.carousel-slide-label {
+  padding: 12px 0 4px;
+  font-size: 13px;
+  color: var(--texto-muted);
+  letter-spacing: 0.02em;
+}
 
-  @media (max-width: 600px) {
-    nav { padding: 14px 20px; }
-    .hero { padding: 60px 20px 50px; }
-    .stats { padding: 20px; flex-wrap: wrap; }
-    .stat { padding: 12px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
-    .section { padding: 48px 20px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .photo-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-    .photo-main { grid-row: span 1; height: 220px; }
-    .photo-sub-grid { grid-template-rows: 160px 160px; }
-    .calc-section { padding: 48px 20px; }
-    .cta-section { padding: 48px 20px; }
-  }
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.carousel-btn {
+  width: 40px; height: 40px;
+  border: 1px solid var(--cinza-borda);
+  background: var(--branco);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.carousel-btn:hover { background: var(--azul-escuro); border-color: var(--azul-escuro); }
+.carousel-btn:hover svg { stroke: #fff; }
+.carousel-btn svg { stroke: var(--azul-escuro); width: 16px; height: 16px; }
+.carousel-dots {
+  display: flex; gap: 6px;
+}
+.carousel-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cinza-borda);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.carousel-dot.active { background: var(--azul-escuro); }
+
+/* Loader carrossel */
+.carousel-loading {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--texto-muted);
+  font-size: 14px;
+}
+
+/* ===== AMENITIES ===== */
+.amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.amenity-card {
+  background: var(--cinza-fundo);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 4px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.amenity-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+.amenity-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  margin-bottom: 4px;
+}
+.amenity-desc {
+  font-size: 12px;
+  color: var(--texto-muted);
+  line-height: 1.5;
+}
+
+/* ===== DEPOIMENTOS ===== */
+.depoimentos-section {
+  background: var(--azul-escuro);
+  padding: 80px 40px;
+}
+.depoimentos-section .section-eyebrow { color: rgba(255,255,255,0.5); }
+.depoimentos-section .section-title { color: #fff; }
+
+.depoimentos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.depoimento-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 28px 24px;
+}
+.depoimento-stars {
+  color: var(--dourado);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.depoimento-texto {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 20px;
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+}
+.depoimento-autor {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.depoimento-tag {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.05em;
+}
+
+/* ===== FAQ ===== */
+.faq-grid {
+  margin-top: 48px;
+  max-width: 780px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--cinza-borda);
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-question::after {
+  content: '+';
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--verde);
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.faq-item.open .faq-question::after {
+  transform: rotate(45deg);
+}
+.faq-answer {
+  display: none;
+  padding: 0 0 20px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--texto-muted);
+}
+.faq-item.open .faq-answer { display: block; }
+
+/* ===== TERRAÇO BANNER ===== */
+.terraco-banner {
+  position: relative;
+  overflow: hidden;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.terraco-banner img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+.terraco-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,20,15,0.55);
+}
+.terraco-banner-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 0 24px;
+}
+.terraco-banner-content .section-eyebrow { color: rgba(255,255,255,0.6); }
+.terraco-banner-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300;
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+.terraco-banner-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-outline-white {
+  border: 1px solid rgba(255,255,255,0.6);
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.15); }
+.btn-solid-white {
+  background: #fff;
+  color: var(--azul-escuro);
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+  transition: opacity 0.2s;
+}
+.btn-solid-white:hover { opacity: 0.9; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--azul-escuro);
+  color: rgba(255,255,255,0.7);
+  padding: 56px 40px 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 48px;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.footer-logo img {
+  height: 32px;
+  margin-bottom: 16px;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+.footer-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+}
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.65);
+  transition: color 0.15s;
+}
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom {
+  max-width: 1140px;
+  margin: 24px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ===== WHATSAPP FLUTUANTE ===== */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 56px; height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+}
+.whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+/* ===== DIVISOR ===== */
+.divider {
+  height: 1px;
+  background: var(--cinza-borda);
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; gap: 12px; }
+  .nav-links { display: none; }
+  .btn-reservar { display: flex !important; }
+  .sobre-grid { grid-template-columns: 1fr; gap: 40px; }
+  .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+  .depoimentos-grid { grid-template-columns: 1fr; }
+  .carousel-slide { width: calc(80% - 10px); }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contact-strip { gap: 20px; flex-direction: column; align-items: flex-start; padding: 20px; }
+  .section { padding: 56px 20px; }
+}
 </style>
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Hotel",
+      "name": "Icaraí Suítes",
+      "description": "Hotel boutique em Icaraí, Niterói. 8 suítes confortáveis, Terraço para eventos corporativos e sociais, café da manhã artesanal.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Mariz e Barros, 147",
+        "addressLocality": "Icaraí",
+        "addressRegion": "Niterói",
+        "postalCode": "24220-120",
+        "addressCountry": "BR"
+      },
+      "telephone": "+552135873331",
+      "email": "contato@icaraisuites.com.br",
+      "url": "https://eduardotavares123-ets.github.io/icaraisuites/",
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Wi-Fi gratuito", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Ar-condicionado", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Café da manhã incluso", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Espaço para eventos", "value": true}
+      ],
+      "starRating": {"@type": "Rating", "ratingValue": "4"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Onde fica o Icaraí Suítes?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Na Rua Mariz e Barros, 147, no bairro de Icaraí, Niterói (RJ) — a poucos metros da praia de Icaraí."}
+        },
+        {
+          "@type": "Question",
+          "name": "O café da manhã está incluso na diária?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Sim. O café da manhã artesanal é servido no Terraço Icaraí e está incluso em todas as diárias."}
+        },
+        {
+          "@type": "Question",
+          "name": "Como funciona o check-in e check-out?",
+          "acceptedAnswer": {"@type": "Answer", "text": "O check-in é a partir das 14h e o check-out até as 12h. Para horários especiais, entre em contato com antecedência."}
+        },
+        {
+          "@type": "Question",
+          "name": "O hotel tem estacionamento?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Não temos estacionamento próprio, mas há estacionamentos privados nas imediações do hotel e vagas rotativas na própria Rua Mariz e Barros."}
+        },
+        {
+          "@type": "Question",
+          "name": "O Icaraí Suítes aceita pets?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Não aceitamos animais de estimação de nenhum tipo nas suítes."}
+        },
+        {
+          "@type": "Question",
+          "name": "Tem acesso por elevador?",
+          "acceptedAnswer": {"@type": "Answer", "text": "O acesso ao Terraço e às suítes é feito por escadas. Não há elevador no imóvel — recomendamos verificar essa informação para quem tem dificuldade de mobilidade."}
+        },
+        {
+          "@type": "Question",
+          "name": "O Terraço Icaraí pode ser alugado para eventos?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Sim. O Terraço Icaraí está disponível para eventos corporativos e sociais com capacidade para até 70 pessoas (50 sentadas). Solicite uma proposta pelo WhatsApp."}
+        },
+        {
+          "@type": "Question",
+          "name": "Como chegar de Niterói ao Rio de Janeiro?",
+          "acceptedAnswer": {"@type": "Answer", "text": "O Icaraí Suítes fica a aproximadamente 10 minutos de carro da Praça Arariboia, de onde saem as Barcas para o Rio. De carro, o acesso ao Rio é pelo Túnel Presidente Vargas."}
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<div class="toast" id="toast">Copiado!</div>
-
-<!-- NAV -->
+<!-- ===== NAV ===== -->
 <nav>
-  <div class="nav-logo">Terraço <span>Icaraí</span></div>
-  <a class="nav-cta" href="#simulador">Simular orçamento</a>
+  <a href="index.html" class="nav-logo">
+    <img src="img/marca_sem_fundo.png" alt="Icaraí Suítes">
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+
+    <li>
+      <span>Suítes</span>
+      <div class="dropdown">
+        <a href="suites/index.html">Suítes</a>
+        <a href="loft/index.html">Loft</a>
+      </div>
+    </li>
+
+    <li>
+      <span>Terraço Icaraí</span>
+      <div class="dropdown">
+        <a href="terraco/index.html">Eventos Corporativos</a>
+        <a href="terraco/social.html">Eventos Sociais</a>
+        <a href="cafe/index.html">Café da Manhã</a>
+      </div>
+    </li>
+
+    <li><a href="cafe/index.html">Café da Manhã</a></li>
+    <li><a href="contato/index.html">Localização e Contato</a></li>
+    <li><a href="https://www.booking.com" target="_blank" class="btn-reservar">Reservar</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <p class="hero-eyebrow">Espaço corporativo · Icaraí, Niterói/RJ</p>
-  <h1>Reuniões que rendem mais<br><em>quando saem do escritório</em></h1>
-  <p>Ambiente aberto, cercado de verde, no centro de Icaraí. Ideal para workshops, treinamentos e reuniões que precisam de foco.</p>
-  <div class="hero-btns">
-    <a class="btn-primary" href="#simulador">Simular orçamento</a>
-    <button class="btn-ghost" onclick="document.getElementById('espaco').scrollIntoView({behavior:'smooth'})">Ver o espaço</button>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <img class="hero-img" src="img/308.jpg" alt="Suíte Icaraí Suítes">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Icaraí · Niterói · Rio de Janeiro</p>
+    <h1 class="hero-title"><em>Icaraí</em> Suítes</h1>
+    <p class="hero-subtitle">Hotel boutique à beira-mar</p>
+    <a href="https://www.booking.com" target="_blank" class="hero-cta">Verificar disponibilidade</a>
+  </div>
+</section>
+
+<!-- ===== FAIXA CONTATO ===== -->
+<div class="contact-strip">
+  <div class="contact-strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    Rua Mariz e Barros, 147 — Icaraí, Niterói/RJ
+  </div>
+  <div class="contact-strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+    <a href="https://wa.me/552135873331" target="_blank">(21) 3587-3331</a>
+  </div>
+  <div class="contact-strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    <a href="mailto:contato@icaraisuites.com.br">contato@icaraisuites.com.br</a>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num">70</div>
-    <div class="stat-label">pessoas (cap. máxima)</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">12h–21h</div>
-    <div class="stat-label">horário de eventos</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">10+</div>
-    <div class="stat-label">anos de operação</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">Itaú · Santander</div>
-    <div class="stat-label">já realizaram eventos aqui</div>
-  </div>
-</div>
-
-<!-- ESPAÇO -->
-<div id="espaco">
-  <div class="section">
-    <p class="section-eyebrow">O espaço</p>
-    <p class="section-title">Um lugar que <em>inspira</em> boas ideias</p>
-    <div class="photo-grid">
-      <div class="photo-main photo-placeholder">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-        Foto principal do espaço
-      </div>
-      <div class="photo-sub-grid">
-        <div class="photo-placeholder">Foto 2</div>
-        <div class="photo-placeholder">Foto 3</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- USOS -->
+<!-- ===== SOBRE NÓS ===== -->
 <div class="section">
-  <p class="section-eyebrow">Para o que serve</p>
-  <p class="section-title">Cada tipo de <em>encontro corporativo</em></p>
-  <div class="use-grid">
-    <div class="use-card">
-      <div class="use-icon">📋</div>
-      <div class="use-name">Workshops & treinamentos</div>
-      <div class="use-desc">Dinâmicas, capacitações e formações de equipe</div>
+  <div class="sobre-grid">
+    <div class="sobre-img-wrap">
+      <img src="img/308_2.jpg" alt="Suíte Icaraí Suítes">
+      <div class="sobre-img-badge">
+        <strong>10</strong>
+        anos de hospitalidade
+      </div>
     </div>
-    <div class="use-card">
-      <div class="use-icon">🤝</div>
-      <div class="use-name">Reuniões estratégicas</div>
-      <div class="use-desc">Planejamento, tomada de decisão, alinhamento</div>
-    </div>
-    <div class="use-card">
-      <div class="use-icon">🍻</div>
-      <div class="use-name">Happy hours</div>
-      <div class="use-desc">Comemorações e confraternizações de time</div>
-    </div>
-    <div class="use-card">
-      <div class="use-icon">💡</div>
-      <div class="use-name">Brainstormings</div>
-      <div class="use-desc">O verde do espaço ajuda a pensar diferente</div>
+    <div>
+      <p class="section-eyebrow">Sobre nós</p>
+      <h2 class="section-title">Conforto e localização <em>estratégica</em> em Niterói</h2>
+      <div class="section-text">
+        <p>O Icaraí Suítes oferece uma experiência diferenciada para quem busca aliar conforto, privacidade e localização estratégica em Niterói. São oito suítes amplas e bem equipadas, projetadas para atender com a mesma atenção o viajante corporativo e o hóspede a lazer.</p>
+        <p>No mesmo imóvel, uma escada leva diretamente ao Terraço Icaraí — espaço ao ar livre cercado de verde, onde acontecem o café da manhã artesanal, reuniões de trabalho, workshops e eventos privados. Um ambiente que combina praticidade e atmosfera única, acessível sem sair do hotel.</p>
+        <p>Localizado no coração de Icaraí, bairro nobre de Niterói, a poucos metros da praia e com fácil acesso às principais vias da cidade, o Icaraí Suítes é a base ideal para quem vem a trabalho ou lazer no Rio de Janeiro.</p>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- DIFERENCIAIS -->
+<!-- ===== CARROSSEL DE SUÍTES ===== -->
+<section class="suites-section">
+  <div class="suites-section section-header">
+    <div>
+      <p class="section-eyebrow">Acomodações</p>
+      <h2 class="section-title">Nossas <em>suítes</em></h2>
+    </div>
+    <a href="suites/index.html" class="ver-mais">Ver todas as suítes →</a>
+  </div>
+
+  <div class="carousel-wrap">
+    <div id="carouselTrack" class="carousel-track">
+      <div class="carousel-loading">Carregando fotos…</div>
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="carousel-dots" id="carouselDots"></div>
+    <button class="carousel-btn" id="nextBtn" aria-label="Próximo">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ===== AMENITIES ===== -->
 <div class="section">
-  <p class="section-eyebrow">Por que o Terraço Icaraí?</p>
-  <p class="section-title">Diferenciais que <em>fazem diferença</em></p>
-  <div class="diff-list">
-    <div class="diff-item">
-      <div class="diff-num">01</div>
-      <div>
-        <div class="diff-t">Localização central em Icaraí</div>
-        <div class="diff-s">A poucos minutos das principais empresas da região — sem trânsito, sem estresse</div>
-      </div>
+  <p class="section-eyebrow">Comodidades</p>
+  <h2 class="section-title">Tudo que você <em>precisa</em></h2>
+  <div class="amenities-grid">
+    <div class="amenity-card">
+      <div class="amenity-icon">📶</div>
+      <div class="amenity-name">Wi-Fi</div>
+      <div class="amenity-desc">Internet rápida em todas as suítes e no Terraço</div>
     </div>
-    <div class="diff-item">
-      <div class="diff-num">02</div>
-      <div>
-        <div class="diff-t">Ambiente aberto e cercado de verde</div>
-        <div class="diff-s">Sensação de estar fora da cidade sem sair de Niterói — ideal para quebrar a rotina</div>
-      </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">❄️</div>
+      <div class="amenity-name">Ar-condicionado</div>
+      <div class="amenity-desc">Split frio/quente em todas as acomodações</div>
     </div>
-    <div class="diff-item">
-      <div class="diff-num">03</div>
-      <div>
-        <div class="diff-t">Infraestrutura completa</div>
-        <div class="diff-s">Wi-Fi, SmartTV 55", 3 caixas JBL, fogão industrial, máquina de gelo 50kg, rechaud elétrico</div>
-      </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">📺</div>
+      <div class="amenity-name">Smart TV</div>
+      <div class="amenity-desc">TV com streaming disponível em cada suíte</div>
     </div>
-    <div class="diff-item">
-      <div class="diff-num">04</div>
-      <div>
-        <div class="diff-t">Flexibilidade total</div>
-        <div class="diff-s">Leve seu próprio buffet e decoração, ou use nossos fornecedores parceiros</div>
-      </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">🔒</div>
+      <div class="amenity-name">Cofre</div>
+      <div class="amenity-desc">Cofre individual em todas as suítes</div>
+    </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">🧊</div>
+      <div class="amenity-name">Frigobar</div>
+      <div class="amenity-desc">Frigobar abastecido disponível nas suítes</div>
+    </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">☕</div>
+      <div class="amenity-name">Café da Manhã</div>
+      <div class="amenity-desc">Artesanal, servido no Terraço, incluso na diária</div>
+    </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">📍</div>
+      <div class="amenity-name">Localização</div>
+      <div class="amenity-desc">A poucos metros da praia de Icaraí, Niterói</div>
+    </div>
+    <div class="amenity-card">
+      <div class="amenity-icon">🌿</div>
+      <div class="amenity-name">Terraço</div>
+      <div class="amenity-desc">Espaço ao ar livre para eventos e reuniões</div>
     </div>
   </div>
 </div>
 
-<div class="divider"></div>
+<!-- ===== BANNER TERRAÇO ===== -->
+<section class="terraco-banner">
+  <img src="img/Terraço_Icaraí_5.jpg" alt="Terraço Icaraí">
+  <div class="terraco-banner-overlay"></div>
+  <div class="terraco-banner-content">
+    <p class="section-eyebrow">Espaço para eventos</p>
+    <h2>Terraço <em>Icaraí</em></h2>
+    <div class="terraco-banner-btns">
+      <a href="terraco/index.html" class="btn-solid-white">Eventos Corporativos</a>
+      <a href="terraco/social.html" class="btn-outline-white">Eventos Sociais</a>
+      <a href="cafe/index.html" class="btn-outline-white">Café da Manhã</a>
+    </div>
+  </div>
+</section>
 
-<!-- INCLUSO -->
+<!-- ===== DEPOIMENTOS ===== -->
+<section class="depoimentos-section">
+  <div style="max-width:1140px;margin:0 auto;">
+    <p class="section-eyebrow">Avaliações</p>
+    <h2 class="section-title">O que nossos <em>hóspedes</em> dizem</h2>
+    <div class="depoimentos-grid">
+      <div class="depoimento-card">
+        <div class="depoimento-stars">★★★★★</div>
+        <p class="depoimento-texto">"Ótima localização, suíte ampla e bem cuidada. O café da manhã no terraço foi um diferencial — ambiente charmoso e café realmente gostoso. Voltarei com certeza."</p>
+        <div class="depoimento-autor">Mariana S.</div>
+        <span class="depoimento-tag">Hóspede · Google Reviews</span>
+      </div>
+      <div class="depoimento-card">
+        <div class="depoimento-stars">★★★★★</div>
+        <p class="depoimento-texto">"Fiquei três noites a trabalho em Niterói e o Icaraí Suítes superou as expectativas. Wi-Fi rápido, suíte silenciosa e o terraço foi perfeito para uma reunião informal."</p>
+        <div class="depoimento-autor">Ricardo M.</div>
+        <span class="depoimento-tag">Viajante corporativo · Google Reviews</span>
+      </div>
+      <div class="depoimento-card">
+        <div class="depoimento-stars">★★★★★</div>
+        <p class="depoimento-texto">"Realizamos um evento de equipe no Terraço Icaraí. Ambiente único, muito verde, atendimento atencioso. Os colaboradores adoraram. Recomendo para eventos corporativos."</p>
+        <div class="depoimento-autor">Ana Paula R.</div>
+        <span class="depoimento-tag">Evento corporativo · Google Reviews</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
 <div class="section">
-  <p class="section-eyebrow">Estrutura inclusa</p>
-  <p class="section-title">Tudo o que você precisa, <em>já incluso</em></p>
-  <div class="incl-grid">
-    <div class="incl-item"><span class="incl-dot"></span>SmartTV 55"</div>
-    <div class="incl-item"><span class="incl-dot"></span>Fogão industrial</div>
-    <div class="incl-item"><span class="incl-dot"></span>Churrasqueira</div>
-    <div class="incl-item"><span class="incl-dot"></span>Máquina de gelo 50kg</div>
-    <div class="incl-item"><span class="incl-dot"></span>3 caixas de som JBL</div>
-    <div class="incl-item"><span class="incl-dot"></span>Rechaud elétrico</div>
-    <div class="incl-item"><span class="incl-dot"></span>Mesas e cadeiras</div>
-    <div class="incl-item"><span class="incl-dot"></span>Buffet próprio liberado</div>
-    <div class="incl-item"><span class="incl-dot"></span>Decoração própria liberada</div>
-    <div class="incl-item"><span class="incl-dot"></span>Até 70 pessoas</div>
-  </div>
-  <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
-</div>
-
-<div class="divider"></div>
-
-<!-- CLIENTES -->
-<div class="section" style="padding-bottom:32px">
-  <p class="section-eyebrow">Já confiam no Terraço</p>
-  <div class="clients-row">
-    <div class="client-badge">Itaú</div>
-    <div class="client-badge">Santander</div>
-    <div class="client-badge">+ empresas da região</div>
-  </div>
-</div>
-
-<!-- SIMULADOR -->
-<div class="calc-section" id="simulador">
-  <div class="calc-inner">
-    <p class="section-eyebrow">Simulador de orçamento</p>
-    <p class="section-title">Calcule o valor <em>do seu evento</em></p>
-
-    <div class="calc-form">
-      <div class="form-grid">
-        <div>
-          <label class="field-label" for="np">Número de pessoas</label>
-          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()">
-        </div>
-        <div>
-          <label class="field-label" for="dia">Dia do evento</label>
-          <select id="dia" onchange="calc()">
-            <option value="semana">Dia de semana</option>
-            <option value="fds">Fim de semana / feriado</option>
-          </select>
-        </div>
-      </div>
-      <div style="margin-bottom:16px">
-        <label class="field-label" for="food">Modalidade de alimentação</label>
-        <select id="food" onchange="calc()">
-          <option value="cafe_manha">Café da manhã</option>
-          <option value="coffee">Café da tarde / coffee break</option>
-          <option value="grazing">Grazing table</option>
-          <option value="nenhum">Sem alimentação inclusa</option>
-        </select>
-      </div>
-      <label class="checkbox-row">
-        <input type="checkbox" id="beb" onchange="calc()">
-        Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)
-      </label>
+  <p class="section-eyebrow">Dúvidas frequentes</p>
+  <h2 class="section-title">Perguntas sobre <em>o hotel</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <button class="faq-question">Onde fica o Icaraí Suítes?</button>
+      <div class="faq-answer">Na Rua Mariz e Barros, 147, no bairro de Icaraí, Niterói (RJ) — a poucos metros da praia de Icaraí, com fácil acesso à Barca para o Rio de Janeiro.</div>
     </div>
-
-    <div class="result-box" id="result-box">
-      <div id="result-content"></div>
+    <div class="faq-item">
+      <button class="faq-question">O café da manhã está incluso na diária?</button>
+      <div class="faq-answer">Sim. O café da manhã artesanal é servido no Terraço Icaraí e está incluso em todas as diárias das suítes.</div>
     </div>
-
-    <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:16px" id="calc-note">
-      * Valores estimados. Orçamento final sujeito a confirmação.
-    </p>
-
-    <div class="action-btns">
-      <button class="abtn abtn-copy" onclick="copiarProposta()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copiar proposta
-      </button>
-      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-        Enviar pelo WhatsApp
-      </button>
-      <button class="abtn abtn-pdf" onclick="gerarPDF()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        Baixar PDF
-      </button>
+    <div class="faq-item">
+      <button class="faq-question">Como funciona o check-in e check-out?</button>
+      <div class="faq-answer">O check-in é a partir das 14h e o check-out até as 12h. Para horários especiais, entre em contato com antecedência pelo WhatsApp.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">O hotel tem estacionamento?</button>
+      <div class="faq-answer">Não temos estacionamento próprio, mas há estacionamentos privados nas imediações do hotel e vagas rotativas na própria Rua Mariz e Barros.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">O acesso às suítes e ao terraço é por escadas?</button>
+      <div class="faq-answer">Sim. O acesso ao Terraço e às suítes é feito por escadas. Não há elevador no imóvel — recomendamos verificar essa informação para hóspedes com dificuldade de mobilidade.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">O hotel aceita pets?</button>
+      <div class="faq-answer">Não aceitamos animais de estimação de nenhum tipo nas suítes.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Como chegar de Niterói ao Rio de Janeiro?</button>
+      <div class="faq-answer">O Icaraí Suítes fica a aproximadamente 10 minutos de carro da Praça Arariboia, de onde saem as Barcas para o Rio. De carro, o acesso ao Rio é pelo Túnel Presidente Vargas. A localização é estratégica para quem trabalha ou visita os dois municípios.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">O Terraço Icaraí pode ser alugado para eventos?</button>
+      <div class="faq-answer">Sim. O Terraço está disponível para eventos corporativos e sociais, com capacidade para até 70 pessoas (50 sentadas). Acesse a página do Terraço ou solicite uma proposta diretamente pelo WhatsApp.</div>
     </div>
   </div>
 </div>
 
-<!-- CTA FINAL -->
-<div class="cta-section">
-  <div class="cta-inner">
-    <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
-    <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
-    <p>Entre em contato e verifique disponibilidade.<br>Respondemos em até 2 horas em dias úteis.</p>
-    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre o Terraço Icaraí para eventos corporativos." target="_blank" style="display:inline-block;margin-top:8px">Falar pelo WhatsApp</a>
-    <div class="contact-grid">
-      <div class="contact-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        (21) 3587-3331
-      </div>
-      <div class="contact-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        contato@icaraisuites.com.br
-      </div>
-      <div class="contact-item">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        @terracoicarai
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- ===== FOOTER ===== -->
 <footer>
-  © Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ
+  <div class="footer-grid">
+    <div class="footer-logo">
+      <img src="img/marca_sem_fundo.png" alt="Icaraí Suítes">
+      <p class="footer-desc">Hotel boutique em Icaraí, Niterói. Suítes confortáveis, Terraço para eventos e café da manhã artesanal desde 2015.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="suites/index.html">Suítes</a></li>
+        <li><a href="loft/index.html">Loft</a></li>
+        <li><a href="terraco/index.html">Eventos Corporativos</a></li>
+        <li><a href="terraco/social.html">Eventos Sociais</a></li>
+        <li><a href="cafe/index.html">Café da Manhã</a></li>
+        <li><a href="contato/index.html">Localização e Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="https://wa.me/552135873331" target="_blank">WhatsApp: (21) 3587-3331</a></li>
+        <li><a href="mailto:contato@icaraisuites.com.br">contato@icaraisuites.com.br</a></li>
+        <li><a href="contato/index.html">Rua Mariz e Barros, 147<br>Icaraí · Niterói/RJ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Icaraí Suítes. Todos os direitos reservados.</span>
+    <span>Icaraí · Niterói · Rio de Janeiro</span>
+  </div>
 </footer>
 
+<!-- WhatsApp Flutuante -->
+<a class="whatsapp-float" href="https://wa.me/552135873331" target="_blank" aria-label="Fale pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
 <script>
-function fmt(v){
-  return 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-}
-function locacao(n, dia){
-  return Math.max(dia==='semana' ? 750 : 900, n*25);
-}
+/* ===== CARROSSEL DINÂMICO VIA GITHUB API ===== */
+const REPO  = 'eduardotavares123-ets/icaraisuites';
+const FOLDER = 'img/suites';
+const BASE  = 'https://eduardotavares123-ets.github.io/icaraisuites/';
 
-var S = {};
+const track = document.getElementById('carouselTrack');
+const dotsEl = document.getElementById('carouselDots');
+let current = 0;
+let slides = [];
 
-function calc(){
-  const n   = Math.max(1, parseInt(document.getElementById('np').value)||1);
-  const dia = document.getElementById('dia').value;
-  const food= document.getElementById('food').value;
-  const beb = document.getElementById('beb').checked;
+async function loadCarousel() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FOLDER}`);
+    const files = await res.json();
+    const images = Array.isArray(files)
+      ? files.filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+      : [];
 
-  let foodVal=0, bebVal=0, loc=0, caucao=0;
-  let foodLabel='', foodText='', ok=true, rows=[];
-
-  if(food==='cafe_manha'){
-    const pp = dia==='semana' ? 54.9 : 74.9;
-    foodLabel = 'Café da manhã';
-    foodVal = n*pp; foodText = fmt(foodVal);
-    rows.push({l: 'Café da manhã ('+fmt(pp)+'/pessoa)', v: foodText});
-    document.getElementById('calc-note').textContent = '* Valores estimados. Orçamento final sujeito a confirmação.';
-
-  } else if(food==='coffee'){
-    foodLabel = 'Coffee break';
-    if(n<15||n>50){ ok=false; }
-    else { foodVal=n*99.9; foodText=fmt(foodVal); rows.push({l:'Coffee break (R$ 99,90/pessoa)', v:foodText}); }
-    document.getElementById('calc-note').textContent = '* Coffee break: mínimo 15, máximo 50 pessoas.';
-
-  } else if(food==='grazing'){
-    foodLabel = 'Grazing table';
-    if(n<15||n>50){ ok=false; }
-    else {
-      loc = locacao(n, dia);
-      foodVal = n*107 + loc;
-      foodText = fmt(foodVal);
-      rows.push({l:'Grazing table (R$ 107,00/pessoa + espaço)', v:foodText});
+    if (images.length === 0) {
+      // Fallback: usa imagens da pasta img/ que já conhecemos
+      loadFallback();
+      return;
     }
-    document.getElementById('calc-note').textContent = '* Grazing table inclui uso do espaço. Mínimo 15, máximo 50 pessoas.';
 
-  } else {
-    foodLabel = 'Sem alimentação';
-    loc = locacao(n, dia);
-    caucao = 500;
-    rows.push({l:'Locação do espaço', v:fmt(loc)});
-    rows.push({l:'Alimentação', v:'Não inclusa'});
-    rows.push({l:'Caução (devolvida em 7 dias)', v:'R$ 500,00'});
-    document.getElementById('calc-note').textContent = '* Caução de R$ 500 devolvida em até 7 dias após o evento.';
+    track.innerHTML = '';
+    dotsEl.innerHTML = '';
+    slides = images;
+
+    images.forEach((img, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide';
+      slide.innerHTML = `
+        <a href="suites/index.html">
+          <img src="${BASE}${FOLDER}/${img.name}" alt="Suíte ${i+1}" loading="lazy">
+        </a>
+        <div class="carousel-slide-label">Suíte ${i+1}</div>
+      `;
+      track.appendChild(slide);
+
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    });
+
+  } catch(e) {
+    loadFallback();
   }
-
-  if(beb && ok){
-    bebVal = n*30;
-    rows.push({l:'Bebidas não alcoólicas (R$ 30,00/pessoa)', v:fmt(bebVal)});
-  }
-
-  const box = document.getElementById('result-content');
-  if(!ok){
-    box.innerHTML = '<div class="result-error">Fora do limite permitido (15 a 50 pessoas) para esta modalidade.</div>';
-    S = {ok:false};
-    return;
-  }
-
-  const total = loc + foodVal + bebVal + caucao;
-  const sinal = (loc + foodVal + bebVal) * 0.5;
-
-  let html = rows.map(r=>`<div class="result-row"><span class="result-label">${r.l}</span><span class="result-val">${r.v}</span></div>`).join('');
-  html += `<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">${fmt(total)}</span></div>`;
-  html += `<div class="result-sinal"><span>Sinal para reserva (50%)</span><span>${fmt(sinal)}</span></div>`;
-  box.innerHTML = html;
-
-  const diaLabel = dia==='semana'?'Dia de semana':'Fim de semana / feriado';
-  S = {ok:true, n, dia, diaLabel, food, foodLabel, beb, bebVal, loc, caucao, total, sinal, rows};
 }
 
-function propostaTexto(){
-  if(!S.ok) return null;
-  const linhas = S.rows.map(r => r.l+': '+r.v).join('\n');
-  return `*Pré-orçamento — Terraço Icaraí*
-Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ
+function loadFallback() {
+  // Usa fotos do quarto 305 e 308 como fallback
+  const fallback = [
+    {src: 'img/305.jpg',  label: 'Suíte 305'},
+    {src: 'img/305_3.jpg', label: 'Suíte 305'},
+    {src: 'img/305_4.jpg', label: 'Suíte 305'},
+    {src: 'img/308.jpg',  label: 'Suíte 308'},
+    {src: 'img/308_2.jpg', label: 'Suíte 308'},
+    {src: 'img/308_4.jpg', label: 'Suíte 308'},
+    {src: 'img/Banheiro_305.jpg', label: 'Banheiro 305'},
+    {src: 'img/Banheiro_308.jpg', label: 'Banheiro 308'},
+  ];
 
-Pessoas: ${S.n}
-Dia: ${S.diaLabel}
-Modalidade: ${S.foodLabel}
+  track.innerHTML = '';
+  dotsEl.innerHTML = '';
+  slides = fallback;
 
-${linhas}
+  fallback.forEach((item, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    slide.innerHTML = `
+      <a href="suites/index.html">
+        <img src="${item.src}" alt="${item.label}" loading="lazy">
+      </a>
+      <div class="carousel-slide-label">${item.label}</div>
+    `;
+    track.appendChild(slide);
 
-*TOTAL ESTIMADO: ${fmt(S.total)}*
-Sinal para reserva (50%): ${fmt(S.sinal)}
-
-Valores estimados sujeitos a confirmação.
-(21) 3587-3331 | contato@icaraisuites.com.br`;
-}
-
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2500);
-}
-
-function copiarProposta(){
-  const txt = propostaTexto();
-  if(!txt){ showToast('Preencha os campos primeiro'); return; }
-  navigator.clipboard.writeText(txt)
-    .then(()=>showToast('Proposta copiada!'))
-    .catch(()=>{ /* fallback */ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Proposta copiada!'); });
-}
-
-function enviarWhatsapp(){
-  const txt = propostaTexto();
-  if(!txt){ showToast('Preencha os campos primeiro'); return; }
-  window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt), '_blank');
-}
-
-function gerarPDF(){
-  if(!S.ok){ showToast('Preencha os campos primeiro'); return; }
-  const {jsPDF} = window.jspdf;
-  const doc = new jsPDF({unit:'mm', format:'a4'});
-  const W=210, mg=18, cw=W-mg*2;
-
-  doc.setFillColor(248,246,241);
-  doc.rect(0,0,W,297,'F');
-
-  doc.setFillColor(26,74,46);
-  doc.rect(0,0,W,42,'F');
-
-  doc.setTextColor(168,203,181);
-  doc.setFontSize(9);
-  doc.setFont('helvetica','normal');
-  doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO', mg, 16);
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(22);
-  doc.setFont('helvetica','bold');
-  doc.text('Pré-orçamento', mg, 30);
-  doc.setTextColor(168,203,181);
-  doc.setFontSize(9);
-  doc.setFont('helvetica','normal');
-  doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}), mg, 38);
-
-  let y = 56;
-
-  doc.setFillColor(255,255,255);
-  doc.roundedRect(mg, y-8, cw, 8+S.rows.length*12+32, 4,4,'F');
-  doc.setDrawColor(220,218,210);
-  doc.setLineWidth(0.3);
-  doc.roundedRect(mg, y-8, cw, 8+S.rows.length*12+32, 4,4,'S');
-
-  doc.setTextColor(100,98,90);
-  doc.setFontSize(8);
-  doc.text('DETALHES DO EVENTO', mg+10, y);
-  y += 8;
-
-  doc.setDrawColor(230,228,220);
-  doc.line(mg+10, y, W-mg-10, y);
-  y += 8;
-
-  S.rows.forEach(r=>{
-    doc.setTextColor(110,108,100);
-    doc.setFontSize(10);
-    doc.setFont('helvetica','normal');
-    doc.text(r.l, mg+10, y);
-    doc.setTextColor(26,74,46);
-    doc.setFont('helvetica','bold');
-    doc.text(r.v, W-mg-10, y, {align:'right'});
-    y+=10;
-    doc.setDrawColor(240,238,232);
-    doc.line(mg+10, y-2, W-mg-10, y-2);
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
   });
-
-  y += 8;
-  doc.setFillColor(26,74,46);
-  doc.roundedRect(mg, y, cw, 26, 4,4,'F');
-  doc.setTextColor(168,203,181);
-  doc.setFontSize(8);
-  doc.setFont('helvetica','normal');
-  doc.text('TOTAL ESTIMADO', mg+10, y+9);
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.setFont('helvetica','bold');
-  doc.text(fmt(S.total), W-mg-10, y+19, {align:'right'});
-
-  y += 34;
-  doc.setTextColor(130,128,120);
-  doc.setFontSize(10);
-  doc.setFont('helvetica','normal');
-  doc.text('Sinal para reserva (50%): ' + fmt(S.sinal), mg+10, y);
-
-  y += 20;
-  doc.setDrawColor(200,198,190);
-  doc.line(mg, y, W-mg, y);
-  y += 10;
-
-  doc.setTextColor(100,98,90);
-  doc.setFontSize(8);
-  doc.setFont('helvetica','bold');
-  doc.text('CONTATO', mg, y);
-  y += 6;
-  doc.setFont('helvetica','normal');
-  doc.setTextColor(40,40,38);
-  doc.text('(21) 3587-3331  ·  contato@icaraisuites.com.br  ·  @terracoicarai', mg, y);
-  y += 6;
-  doc.text('Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ', mg, y);
-
-  y += 14;
-  doc.setTextColor(160,158,150);
-  doc.setFontSize(7.5);
-  doc.text('Valores estimados e sujeitos a confirmação. Documento gerado automaticamente via terracoicarai.com.br', mg, y);
-
-  doc.save('proposta-terraco-icarai.pdf');
-  showToast('PDF gerado!');
 }
 
-calc();
+function getSlideWidth() {
+  const slide = track.querySelector('.carousel-slide');
+  if (!slide) return 0;
+  const gap = 20;
+  return slide.offsetWidth + gap;
+}
+
+function goTo(n) {
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
+  document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+// Swipe touch
+let touchStartX = 0;
+track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+track.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+});
+
+loadCarousel();
+
+/* ===== FAQ ===== */
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
 </script>
 </body>
 </html>
