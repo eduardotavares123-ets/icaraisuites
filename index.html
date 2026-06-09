@@ -1240,101 +1240,54 @@ footer {
 </a>
 
 <script>
-/* ===== CARROSSEL DINÂMICO VIA GITHUB API ===== */
-const REPO  = 'eduardotavares123-ets/icaraisuites';
-const FOLDER = 'img/suites';
-const BASE  = 'https://eduardotavares123-ets.github.io/icaraisuites/';
+/* ===== CARROSSEL DE SUÍTES ===== */
+const SUITES_IMGS = [
+  { src: 'img/suites/305.jpg',        label: 'Suíte 305' },
+  { src: 'img/suites/305_3.jpg',      label: 'Suíte 305' },
+  { src: 'img/suites/305_6.jpg',      label: 'Suíte 305' },
+  { src: 'img/suites/305_8.jpg',      label: 'Suíte 305' },
+  { src: 'img/suites/305_9.jpg',      label: 'Suíte 305' },
+  { src: 'img/suites/308_2.jpg',      label: 'Suíte 308' },
+  { src: 'img/suites/308_4.jpg',      label: 'Suíte 308' },
+  { src: 'img/suites/308_8.jpg',      label: 'Suíte 308' },
+  { src: 'img/suites/banheiro_305.jpg', label: 'Banheiro' },
+  { src: 'img/suites/IMG_5361.jpg',   label: 'Suíte'     },
+  { src: 'img/suites/IMG_5503.jpg',   label: 'Suíte'     },
+  { src: 'img/suites/IMG_5507.jpg',   label: 'Suíte'     },
+];
 
 const track = document.getElementById('carouselTrack');
 const dotsEl = document.getElementById('carouselDots');
 let current = 0;
-let slides = [];
 
-async function loadCarousel() {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${FOLDER}`);
-    const files = await res.json();
-    const images = Array.isArray(files)
-      ? files.filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name))
-      : [];
+track.innerHTML = '';
+dotsEl.innerHTML = '';
 
-    if (images.length === 0) {
-      // Fallback: usa imagens da pasta img/ que já conhecemos
-      loadFallback();
-      return;
-    }
+SUITES_IMGS.forEach((item, i) => {
+  const slide = document.createElement('div');
+  slide.className = 'carousel-slide';
+  slide.innerHTML = `
+    <a href="suites/index.html">
+      <img src="${item.src}" alt="${item.label}" loading="lazy">
+    </a>
+    <div class="carousel-slide-label">${item.label}</div>
+  `;
+  track.appendChild(slide);
 
-    track.innerHTML = '';
-    dotsEl.innerHTML = '';
-    slides = images;
-
-    images.forEach((img, i) => {
-      const slide = document.createElement('div');
-      slide.className = 'carousel-slide';
-      const imgUrl = `https://eduardotavares123-ets.github.io/icaraisuites/${FOLDER}/${img.name}`;
-      slide.innerHTML = `
-        <a href="suites/index.html">
-          <img src="${imgUrl}" alt="Suíte ${i+1}" loading="lazy">
-        </a>
-        <div class="carousel-slide-label">Suíte ${i+1}</div>
-      `;
-      track.appendChild(slide);
-
-      const dot = document.createElement('button');
-      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      dot.addEventListener('click', () => goTo(i));
-      dotsEl.appendChild(dot);
-    });
-
-  } catch(e) {
-    loadFallback();
-  }
-}
-
-function loadFallback() {
-  // Usa fotos do quarto 305 e 308 como fallback
-  const fallback = [
-    {src: 'img/305.jpg',  label: 'Suíte 305'},
-    {src: 'img/305_3.jpg', label: 'Suíte 305'},
-    {src: 'img/305_4.jpg', label: 'Suíte 305'},
-    {src: 'img/308.jpg',  label: 'Suíte 308'},
-    {src: 'img/308_2.jpg', label: 'Suíte 308'},
-    {src: 'img/308_4.jpg', label: 'Suíte 308'},
-    {src: 'img/Banheiro_305.jpg', label: 'Banheiro 305'},
-    {src: 'img/Banheiro_308.jpg', label: 'Banheiro 308'},
-  ];
-
-  track.innerHTML = '';
-  dotsEl.innerHTML = '';
-  slides = fallback;
-
-  fallback.forEach((item, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'carousel-slide';
-    slide.innerHTML = `
-      <a href="suites/index.html">
-        <img src="${item.src}" alt="${item.label}" loading="lazy">
-      </a>
-      <div class="carousel-slide-label">${item.label}</div>
-    `;
-    track.appendChild(slide);
-
-    const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(dot);
-  });
-}
+  const dot = document.createElement('button');
+  dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(dot);
+});
 
 function getSlideWidth() {
   const slide = track.querySelector('.carousel-slide');
   if (!slide) return 0;
-  const gap = 20;
-  return slide.offsetWidth + gap;
+  return slide.offsetWidth + 20;
 }
 
 function goTo(n) {
-  current = Math.max(0, Math.min(n, slides.length - 1));
+  current = Math.max(0, Math.min(n, SUITES_IMGS.length - 1));
   track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
   document.querySelectorAll('.carousel-dot').forEach((d, i) => {
     d.classList.toggle('active', i === current);
@@ -1344,15 +1297,12 @@ function goTo(n) {
 document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
 document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
 
-// Swipe touch
 let touchStartX = 0;
 track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
 track.addEventListener('touchend', e => {
   const diff = touchStartX - e.changedTouches[0].clientX;
   if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
 });
-
-loadCarousel();
 
 /* ===== MENU MOBILE ===== */
 const hamburger = document.getElementById('hamburger');
