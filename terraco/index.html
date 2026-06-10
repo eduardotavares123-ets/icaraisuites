@@ -486,6 +486,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
           <option value="cafe_manha">Café da manhã</option>
           <option value="coffee">Café da tarde / coffee break</option>
           <option value="grazing">Grazing table</option>
+          <option value="feijoada">Feijoada</option>
           <option value="outros">Outros eventos</option>
         </select>
       </div>
@@ -598,7 +599,11 @@ function calc(){
     foodLabel='Café da manhã';
     foodVal=n*pp;
     rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa · espaço compartilhado)',v:fmt(foodVal)});
-    document.getElementById('calc-note').textContent='* Espaço compartilhado com outros clientes. Valores estimados.';
+    if(n<=10){
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos de até 10 pessoas: sem pré-pagamento, pague no dia.';
+    } else {
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos acima de 10 pessoas: pré-pagamento necessário para reserva.';
+    }
   } else if(food==='coffee'){
     foodLabel='Café da tarde / coffee break';
     if(n<15||n>50){ok=false;}
@@ -609,6 +614,11 @@ function calc(){
     if(n<15||n>50){ok=false;}
     else{var grazingLoc=locacao(n,dia);foodVal=n*107+grazingLoc;rows.push({l:'Grazing table (espaço exclusivo)',v:fmt(foodVal)});}
     document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 50 pessoas.';
+  } else if(food==='feijoada'){
+    foodLabel='Feijoada';
+    if(n<20||n>50){ok=false;}
+    else{var feijLoc=locacao(n,dia);foodVal=n*95+feijLoc;rows.push({l:'Feijoada (espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 50 pessoas.';
   } else {
     foodLabel='Outros eventos';
     isOthers=true;
@@ -625,15 +635,23 @@ function calc(){
     return;
   }
 
-  if(!ok){box.innerHTML='<div class="result-error">Fora do limite permitido (15–50 pessoas) para esta modalidade.</div>';S={ok:false};return;}
+  if(!ok){
+    var lim=food==='feijoada'?'20–50':'15–50';
+    box.innerHTML='<div class="result-error">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';S={ok:false};return;
+  }
 
   var total2=loc+foodVal+bebVal+caucao;
-  var sinal=(loc+foodVal+bebVal)*0.5;
+  var sinal=(loc+foodVal+bebVal)*0.3;
+  var semSinal=(food==='cafe_manha'&&n<=10);
   var h=rows.map(function(r){return'<div class="rrow"><span class="rlabel">'+r.l+'</span><span class="rval">'+r.v+'</span></div>';}).join('');
   h+='<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">'+fmt(total2)+'</span></div>';
-  h+='<div class="result-sinal"><span>Sinal para reserva (50%)</span><span>'+fmt(sinal)+'</span></div>';
+  if(semSinal){
+    h+='<div class="result-sinal"><span>Sem pré-pagamento — pague no dia</span><span>✓</span></div>';
+  } else {
+    h+='<div class="result-sinal"><span>Sinal para reserva (30%)</span><span>'+fmt(sinal)+'</span></div>';
+  }
   box.innerHTML=h;
-  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,caucao:caucao,total:total2,sinal:sinal,rows:rows};
+  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,caucao:caucao,total:total2,sinal:sinal,semSinal:semSinal,rows:rows};
 }
 function propostaTexto(){
   if(S.isOthers){
@@ -641,16 +659,119 @@ function propostaTexto(){
   }
   if(!S.ok)return null;
   var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
-  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\n\nValores estimados sujeitos a confirmação.\n* O cardápio pode variar de acordo com a época do ano.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+  var sinalTxt=S.semSinal?'Sem pré-pagamento — pague no dia':'Sinal para reserva (30%): '+fmt(S.sinal);
+  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\n'+sinalTxt+'\n\nCancelamento sem custos até 7 dias antes do evento. Cancelamentos com 7 dias ou menos: valor retido.\nValores estimados sujeitos a confirmação.\n* O cardápio pode variar de acordo com a época do ano.\n(21) 3587-3331 | contato@icaraisuites.com.br';
 }
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
 function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
+// === CARDÁPIOS DAS EXPERIÊNCIAS ===
+var EXP_PDF = {
+  grazing: {
+    titulo: 'Grazing Table',
+    folder: 'buffet/grazing_table',
+    blocos: [
+      {h:'CHARCUTARIA ARTESANAL AUTORAL', d:'Seleção exclusiva de embutidos de produção própria, curados e defumados com técnicas tradicionais. Inclui opções como presunto speck, copa, lombo curado, salame artesanal, pastrami e cracóvia, entre outros.'},
+      {h:'QUEIJOS FINOS SELECIONADOS', d:'Variedade de queijos nobres nacionais e importados, cuidadosamente escolhidos. Pode incluir brie, bola, gorgonzola, parmesão curado, coalho e gouda, entre outros.'},
+      {h:'QUICHES COM MASSA BRISÉE', d:'Quiches com massa leve e amanteigada, assadas até a perfeição. Sabores variados como lorraine (bacon e queijo gruyère), 4 queijos e alho-poró com parmesão.'},
+      {h:'MINI SANDUÍCHES', d:'Seleção de mini sanduíches artesanais com pães especiais e recheios sofisticados, como o nosso famoso pulled pork com cheddar e cebola crispy.'},
+      {h:'SELEÇÃO DE PASTINHAS', d:'Cremosas e equilibradas, preparadas artesanalmente para acompanhar pães e torradas. Creme de gorgonzola, musseline de copa defumada e patê de salmão defumado, entre outros.'},
+      {h:'SELEÇÃO DE ANTEPASTOS', d:'Clássicos da culinária mediterrânea e italiana. Inclui caponata siciliana, tapenade de azeitonas, cogumelos marinados, homus de grão-de-bico e tomate confit.'},
+      {h:'AZEITONAS TEMPERADAS', d:'Blend especial de azeitonas verdes e pretas, marinadas em azeite extravirgem com ervas frescas e especiarias.'},
+      {h:'GELEIA ARTESANAL', d:'Preparada com frutas frescas da estação, sem conservantes. Opções como frutas vermelhas, uva e manjericão, e cebola caramelizada com especiarias.'},
+      {h:'MEL ORGÂNICO', d:'Seleção de méis puros de apiários sustentáveis, ideal para combinar com queijos e nuts.'},
+      {h:'PÃES ARTESANAIS, PÃO LEVAIN E TORRADAS', d:'Produzidos com fermentação natural. Inclui focaccia de alecrim, baguette rústica, ciabatta e seleção de torradas finas.'},
+      {h:'MINI CAPRESE', d:'Tomates cereja selecionados, mussarela fresca e manjericão orgânico, finalizados com azeite extravirgem e redução de balsâmico.'},
+      {h:'MINI QUEIJO COALHO COM MEL', d:'Espetinhos de queijo coalho grelhado com toque de mel orgânico e flor de sal.'},
+      {h:'NUTS', d:'Mix premium de castanhas de caju, amêndoas, nozes e macadâmia, levemente tostadas e temperadas.'},
+      {h:'FRUTAS DA ESTAÇÃO', d:'Seleção de frutas frescas conforme a sazonalidade. Pode incluir uvas, figos, morangos, physalis e damascos secos.'}
+    ],
+    incluso: [
+      'Decoração exclusiva com troncos e flores naturais',
+      'Talheres de madeira descartável e barquinhas de papel',
+      'Montagem 2 horas antes do início do evento',
+      'A charcutaria, os queijos e os sabores serão os disponíveis no dia do evento'
+    ]
+  },
+  feijoada: {
+    titulo: 'Feijoada',
+    folder: 'buffet/feijoada',
+    blocos: [
+      {h:'ENTRADAS', d:'Salada verde · Linguiça fina artesanal · Caldinho de feijão · Pastelzinho de carne · Pastelzinho de queijo'},
+      {h:'FEIJOADA', d:'Feijão preto · Lombo defumado · Bacon artesanal · Calabresa artesanal · Costelinha defumada · Carne seca · Rabo, pé e orelha. Todas as carnes defumadas da casa.'},
+      {h:'ACOMPANHAMENTOS', d:'Arroz · Farofa de cebola · Torresmo · Couve mineira · Batata calabresa · Laranja'},
+      {h:'SOBREMESAS', d:'Doce de banana artesanal · Cuscuz · Torta mousse de limão'}
+    ],
+    incluso: [
+      'Decoração exclusiva com flores naturais',
+      'Toda louça necessária para cada tipo de serviço'
+    ]
+  }
+};
+
+function carregarImagem(url){
+  return new Promise(function(resolve){
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function(){
+      var canvas = document.createElement('canvas');
+      var maxW = 700;
+      var scale = Math.min(1, maxW / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve({data: canvas.toDataURL('image/jpeg', 0.72), w: canvas.width, h: canvas.height});
+    };
+    img.onerror = function(){ resolve(null); };
+    img.src = url;
+  });
+}
+
+function listarFotosPasta(folder){
+  return fetch('https://api.github.com/repos/'+REPO+'/contents/img/'+folder)
+    .then(function(r){return r.json();})
+    .then(function(files){
+      if(!Array.isArray(files)) return [];
+      return files
+        .filter(function(f){return /\.(jpg|jpeg|png|webp)$/i.test(f.name);})
+        .map(function(f){return 'https://eduardotavares123-ets.github.io/icaraisuites/img/'+folder+'/'+f.name;});
+    })
+    .catch(function(){return [];});
+}
+
+function pdfHeaderPagina(doc, W, mg, titulo){
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,30,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(titulo,mg,19);
+}
+
+// desenha faixa com até 2 fotos; retorna nova posição y
+function pdfFaixaFotos(doc, fotos, idx, mg, cw, y){
+  var slotH = 52;
+  var n = Math.min(2, fotos.length - idx);
+  if(n <= 0) return {y:y, idx:idx};
+  var gap = 6;
+  var slotW = n===2 ? (cw-gap)/2 : cw*0.6;
+  var px = n===2 ? mg : mg+(cw-slotW)/2;
+  for(var i=0;i<n;i++){
+    var f = fotos[idx+i];
+    var mmW = f.w*0.2645, mmH = f.h*0.2645;
+    var ratio = Math.min(slotW/mmW, slotH/mmH);
+    var iw=mmW*ratio, ih=mmH*ratio;
+    var ox=px+(slotW-iw)/2, oy=y+(slotH-ih)/2;
+    doc.addImage(f.data,'JPEG',ox,oy,iw,ih);
+    px += slotW+gap;
+  }
+  return {y:y+slotH+8, idx:idx+n};
+}
+
 function gerarPDF(){
   if(S.isOthers){enviarWhatsapp();return;}
   if(!S.ok){showToast('Preencha os campos primeiro');return;}
-  var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,mg=18,cw=W-mg*2;
-  doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');
+  var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,H=297,mg=18,cw=W-mg*2;
+
+  // ===== PÁGINA 1 — FINANCEIRO =====
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,H,'F');
   doc.setFillColor(26,74,46);doc.rect(0,0,W,42,'F');
   doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO',mg,16);
   doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');doc.text('Pré-orçamento',mg,30);
@@ -668,13 +789,120 @@ function gerarPDF(){
   y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');
   doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);
   doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
-  y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Sinal para reserva (50%): '+fmt(S.sinal),mg+10,y);
-  y+=20;doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=10;
+  y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');
+  if(S.semSinal){
+    doc.text('Sem pré-pagamento — grupos de até 10 pessoas pagam no dia.',mg+10,y);
+  } else {
+    doc.text('Sinal para reserva (30%): '+fmt(S.sinal),mg+10,y);
+  }
+  y+=14;
+
+  // Política de cancelamento
+  doc.setFillColor(245,242,235);doc.roundedRect(mg,y,cw,24,3,3,'F');
+  doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('POLÍTICA DE CANCELAMENTO',mg+8,y+8);
+  doc.setTextColor(90,88,80);doc.setFontSize(9);doc.setFont('helvetica','normal');
+  doc.text('Cancelamento sem custos até 7 dias antes do evento.',mg+8,y+14);
+  doc.text('Cancelamentos com 7 dias ou menos de antecedência: o valor será retido.',mg+8,y+19);
+  y+=32;
+
+  doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=8;
   doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('* O cardápio pode variar de acordo com a época do ano.',mg,y);y+=6;
   doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
-  doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
-}
 
+  // ===== PÁGINAS EXTRAS — experiências com cardápio =====
+  var exp = EXP_PDF[S.food];
+  if(!exp){
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');return;
+  }
+
+  showToast('Gerando PDF com fotos…');
+
+  listarFotosPasta(exp.folder).then(function(urls){
+    return Promise.all(urls.map(carregarImagem));
+  }).then(function(results){
+    var fotos = results.filter(function(r){return r!==null;});
+    var fIdx = 0;
+
+    doc.addPage();
+    pdfHeaderPagina(doc, W, mg, exp.titulo+' — Cardápio');
+    var gy = 40;
+
+    // faixa de fotos no topo da primeira página de cardápio
+    if(fotos.length > 0){
+      var r1 = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+      gy = r1.y; fIdx = r1.idx;
+    }
+
+    var blocosDesdeFoto = 0;
+    exp.blocos.forEach(function(item){
+      var descLines = doc.splitTextToSize(item.d, cw);
+      var blockH = 5 + descLines.length*4 + 5;
+      if(gy + blockH > H - 24){
+        doc.addPage();
+        pdfHeaderPagina(doc, W, mg, exp.titulo+' — Cardápio (cont.)');
+        gy = 40;
+        // faixa de fotos no topo de cada página nova
+        if(fIdx < fotos.length){
+          var rN = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+          gy = rN.y; fIdx = rN.idx;
+        }
+        blocosDesdeFoto = 0;
+      }
+      doc.setTextColor(26,74,46);doc.setFontSize(9.5);doc.setFont('helvetica','bold');doc.text(item.h,mg,gy);gy+=5;
+      doc.setTextColor(90,88,80);doc.setFontSize(8.5);doc.setFont('helvetica','normal');doc.text(descLines,mg,gy);gy+=descLines.length*4+5;
+      blocosDesdeFoto++;
+
+      // intercala faixa de fotos a cada 4 blocos, se couber
+      if(blocosDesdeFoto >= 4 && fIdx < fotos.length && gy + 64 < H - 24){
+        var rI = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+        gy = rI.y; fIdx = rI.idx;
+        blocosDesdeFoto = 0;
+      }
+    });
+
+    // box incluso
+    var boxH = 12 + exp.incluso.length*5;
+    if(gy + boxH > H - 14){
+      doc.addPage();
+      pdfHeaderPagina(doc, W, mg, exp.titulo);
+      gy = 40;
+    }
+    doc.setFillColor(232,240,234);doc.roundedRect(mg,gy,cw,boxH,3,3,'F');
+    doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('INCLUSO NA EXPERIÊNCIA',mg+8,gy+7);
+    doc.setTextColor(70,90,76);doc.setFontSize(8.5);doc.setFont('helvetica','normal');
+    exp.incluso.forEach(function(t,i){
+      doc.text('• '+t,mg+8,gy+13+i*5);
+    });
+    gy += boxH + 8;
+
+    // fotos restantes em grade no final
+    if(fIdx < fotos.length){
+      doc.addPage();
+      pdfHeaderPagina(doc, W, mg, exp.titulo+' — Fotos');
+      var slotW=(cw-8)/2, slotH=72;
+      var px=mg, py=40, col=0;
+      for(var i=fIdx;i<fotos.length;i++){
+        var f=fotos[i];
+        var mmW=f.w*0.2645, mmH=f.h*0.2645;
+        var ratio=Math.min(slotW/mmW,slotH/mmH);
+        var iw=mmW*ratio, ih=mmH*ratio;
+        doc.addImage(f.data,'JPEG',px+(slotW-iw)/2,py+(slotH-ih)/2,iw,ih);
+        col++;
+        if(col===2){col=0;px=mg;py+=slotH+8;}
+        else{px=mg+slotW+8;}
+        if(py+slotH>H-14 && i<fotos.length-1){
+          doc.addPage();
+          pdfHeaderPagina(doc, W, mg, exp.titulo+' — Fotos (cont.)');
+          px=mg;py=40;col=0;
+        }
+      }
+    }
+
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
+  }).catch(function(){
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado (sem fotos)');
+  });
+}
 
 // === MINI CARROSSEIS DAS EXPERIÊNCIAS ===
 var REPO = 'eduardotavares123-ets/icaraisuites';
