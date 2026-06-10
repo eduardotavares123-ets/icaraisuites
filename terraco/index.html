@@ -113,18 +113,89 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 .footer-text{color:rgba(255,255,255,.45);font-size:12px}
 .divider{height:1px;background:var(--borda);margin:0 40px}
 @media(max-width:600px){nav{padding:12px 20px}.hero{padding:60px 20px 50px}.stats{padding:20px}.stat{padding:10px 20px;border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}.section{padding:48px 20px}.form-grid{grid-template-columns:1fr}.carousel-slide img{height:260px}.cafe-grid img{height:180px}.calc-section,.cta-section{padding:48px 20px}footer{padding:20px}}
+
+/* NAV NOVO */
+#main-nav{position:sticky;top:0;z-index:1000;background:#efefed;border-bottom:1px solid #e0e0dc;height:80px;display:flex;align-items:center;padding:0 40px;justify-content:space-between}
+.nav-logo-link img{height:56px}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-link{font-size:13.5px;color:#1a2535;padding:7px 11px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s}
+.nav-link:hover{background:rgba(0,0,0,.06)}
+.nav-dropdown{position:relative}
+.nav-drop-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid #e0e0dc;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:100}
+.nav-dropdown:hover .nav-drop-menu{display:block}
+.nav-drop-menu a{display:block;padding:10px 16px;font-size:13.5px;color:#1c1c1a;border-bottom:1px solid #e0e0dc;transition:background .12s}
+.nav-drop-menu a:last-child{border-bottom:none}
+.nav-drop-menu a:hover{background:#f7f7f5}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;height:2px;background:#1a2535;border-radius:2px;transition:all .25s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:999;flex-direction:column;padding:20px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid #e0e0dc;margin-bottom:12px}
+.mobile-menu-close{background:none;border:none;font-size:28px;cursor:pointer;color:#1a2535;line-height:1;padding:4px 8px}
+.mobile-nav-item{border-bottom:1px solid #e0e0dc}
+.mobile-nav-item>a,.mobile-nav-item>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 4px;font-size:16px;color:#1a2535;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif}
+.mobile-nav-item>button::after{content:'+';font-size:20px;font-weight:300;color:#2d5a3d;transition:transform .2s}
+.mobile-nav-item>button.open::after{transform:rotate(45deg)}
+.mobile-sub{display:none;padding:0 0 10px 14px}
+.mobile-sub.open{display:block}
+.mobile-sub a{display:block;padding:9px 4px;font-size:14px;color:#6b6860;border-bottom:1px solid #f7f7f5}
+.mobile-cta{margin-top:20px;display:block;background:#2d5a3d;color:#fff!important;text-align:center;padding:13px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none}
+@media(max-width:860px){
+  #main-nav{padding:0 20px;height:64px}
+  .nav-logo-link img{height:44px}
+  .nav-right .nav-link,.nav-right .nav-dropdown,.nav-right .nav-cta{display:none}
+  .hamburger{display:flex}
+}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    <img src="../img/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="filter:brightness(0) invert(1)" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('afterbegin','<span style=\'font-family:Cormorant Garamond,serif;font-size:18px;color:#fff;font-weight:400;letter-spacing:1px\'>Terraço <em style=\'font-style:italic;color:#a8cbb5\'>Icaraí</em></span>')">
+<nav id="main-nav">
+  <a href="../index.html" class="nav-logo-link">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="height:56px">
   </a>
-  <a class="nav-cta" href="#simulador">Simular orçamento</a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-link">Início</a>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Acomodações ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../suites/index.html">Suítes</a>
+        <a href="../loft/index.html">Loft</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Terraço Icaraí ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../terraco/index.html">Eventos Corporativos</a>
+        <a href="../terraco/social.html">Eventos Sociais</a>
+        <a href="../cafe/index.html">Café da Manhã</a>
+      </div>
+    </div>
+    <a href="../cafe/index.html" class="nav-link">Café da Manhã</a>
+    <a href="../contato/index.html" class="nav-link">Localização e Contato</a>
+    <a class="nav-cta" href="#simulador">Simular orçamento</a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
 </nav>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:40px">
+    <button class="mobile-menu-close" id="mobileClose">×</button>
+  </div>
+  <div class="mobile-nav-item"><a href="../index.html">Início</a></div>
+  <div class="mobile-nav-item"><button onclick="toggleMSub('msa',this)">Acomodações</button><div class="mobile-sub" id="msa"><a href="../suites/index.html">Suítes</a><a href="../loft/index.html">Loft</a></div></div>
+  <div class="mobile-nav-item"><button onclick="toggleMSub('mst',this)">Terraço Icaraí</button><div class="mobile-sub" id="mst"><a href="../terraco/index.html">Eventos Corporativos</a><a href="../terraco/social.html">Eventos Sociais</a><a href="../cafe/index.html">Café da Manhã</a></div></div>
+  <div class="mobile-nav-item"><a href="../cafe/index.html">Café da Manhã</a></div>
+  <div class="mobile-nav-item"><a href="../contato/index.html">Localização e Contato</a></div>
+  <a href="#simulador" class="mobile-cta" onclick="document.getElementById('mobileMenu').classList.remove('open')">Simular orçamento</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -152,11 +223,11 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
     <p class="section-title">Um lugar que <em>inspira boas ideias</em></p>
     <div class="carousel-outer">
       <div class="carousel-track" id="track-espaco">
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (195).jpg" alt="Terraço Icaraí - espaço externo"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (252).jpg" alt="Terraço Icaraí - ambiente verde"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (265).jpg" alt="Terraço Icaraí - área aberta"></div>
-        <div class="carousel-slide"><img src="../img/Terraço Icaraí (41).jpg" alt="Terraço Icaraí - mesas"></div>
-        <div class="carousel-slide"><img src="../img/banheiro.jpg" alt="Terraço Icaraí - banheiro"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_07.jpg" alt="Terraço Icaraí - espaço externo"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_09.jpg" alt="Terraço Icaraí - ambiente verde"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_10.jpg" alt="Terraço Icaraí - área aberta"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_11.jpg" alt="Terraço Icaraí - mesas"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_01.jpg" alt="Terraço Icaraí - banheiro"></div>
       </div>
       <button class="carousel-btn prev" onclick="moveC('espaco',-1)">&#8592;</button>
       <button class="carousel-btn next" onclick="moveC('espaco',1)">&#8594;</button>
@@ -260,14 +331,14 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
   <p class="section-title">Cada detalhe <em>pensado para você</em></p>
   <div class="carousel-outer">
     <div class="carousel-track" id="track-geral">
-      <div class="carousel-slide"><img src="../img/Terraço Icaraí (86).jpg" alt="Terraço Icaraí" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/Terraço Icaraí (132).jpg" alt="Terraço Icaraí" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/Terraço Icaraí (207).jpg" alt="Evento corporativo Terraço Icaraí" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.05.jpeg" alt="Grazing table" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/WhatsApp Image 2026-05-20 at 14.51.28 (4).jpeg" alt="Grazing table" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/evento-corporativo-1.jpg" alt="Evento corporativo Nutrify Way" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/evento-corporativo-2.jpg" alt="Evento corporativo mesas montadas" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/evento-corporativo-3.jpg" alt="Networking Terraço Icaraí" style="object-position:top"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_05.jpg" alt="Terraço Icaraí" style="object-position:center"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_06.jpg" alt="Terraço Icaraí" style="object-position:center"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_08.jpg" alt="Evento corporativo Terraço Icaraí" style="object-position:top"></div>
+      <div class="carousel-slide"><img src="../img/buffet/buffet_01.jpg" alt="Grazing table" style="object-position:center"></div>
+      <div class="carousel-slide"><img src="../img/buffet/buffet_09.jpg" alt="Grazing table" style="object-position:center"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_02.jpg" alt="Evento corporativo Nutrify Way" style="object-position:top"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_03.jpg" alt="Evento corporativo mesas montadas" style="object-position:top"></div>
+      <div class="carousel-slide"><img src="../img/terraco/terraco_04.jpg" alt="Networking Terraço Icaraí" style="object-position:top"></div>
     </div>
     <button class="carousel-btn prev" onclick="moveC('geral',-1)">&#8592;</button>
     <button class="carousel-btn next" onclick="moveC('geral',1)">&#8594;</button>
@@ -293,6 +364,9 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
     <div class="diff-card"><div class="diff-icon">👥</div><div class="diff-t">Capacidade total para 70 pessoas</div></div>
     <div class="diff-card"><div class="diff-icon">📺</div><div class="diff-t">Smart TV 55"</div></div>
     <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet próprio liberado</div></div>
+    <div class="diff-card"><div class="diff-icon">💻</div><div class="diff-t">Espaço de trabalho com mesas e cadeiras</div></div>
+    <div class="diff-card"><div class="diff-icon">🔒</div><div class="diff-t">Cofre para notebook nas suítes</div></div>
+    <div class="diff-card"><div class="diff-icon">🧊</div><div class="diff-t">Frigobar e máquina de gelo 50kg</div></div>
   </div>
   <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
 </div>
@@ -385,7 +459,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
       </button>
       <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-        Enviar pelo WhatsApp
+        Para mais detalhes sobre a proposta, solicitar no WhatsApp
       </button>
       <button class="abtn abtn-pdf" onclick="gerarPDF()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
@@ -410,11 +484,35 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
   </div>
 </div>
 
-<footer>
-  <div class="footer-logo">
-    <img src="../img/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="filter:brightness(0) invert(1)" onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('afterbegin','<span style=\'font-family:Cormorant Garamond,serif;font-size:16px;color:#fff;font-weight:400\'>Terraço Icaraí</span>')">
+<footer style="background:#1a2535;padding:48px 40px 28px">
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;max-width:1140px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div>
+      <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:44px;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.8">
+      <p style="font-size:13px;line-height:1.7;color:rgba(255,255,255,.5)">Espaço para eventos corporativos e sociais em Icaraí, Niterói. Café da manhã artesanal aberto ao público.</p>
+    </div>
+    <div>
+      <h4 style="font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">Navegação</h4>
+      <ul style="list-style:none">
+        <li style="margin-bottom:8px"><a href="../suites/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Suítes</a></li>
+        <li style="margin-bottom:8px"><a href="../terraco/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Eventos Corporativos</a></li>
+        <li style="margin-bottom:8px"><a href="../terraco/social.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Eventos Sociais</a></li>
+        <li style="margin-bottom:8px"><a href="../cafe/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Café da Manhã</a></li>
+        <li style="margin-bottom:8px"><a href="../contato/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Localização e Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">Contato</h4>
+      <ul style="list-style:none">
+        <li style="margin-bottom:8px"><a href="https://wa.me/552135873331" target="_blank" style="font-size:13.5px;color:rgba(255,255,255,.65)">(21) 3587-3331</a></li>
+        <li style="margin-bottom:8px"><a href="mailto:contato@icaraisuites.com.br" style="font-size:13.5px;color:rgba(255,255,255,.65)">contato@icaraisuites.com.br</a></li>
+        <li style="font-size:13.5px;color:rgba(255,255,255,.65)">Rua Mariz e Barros, 147<br>Icaraí · Niterói/RJ</li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-text">© Terraço Icaraí · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ</div>
+  <div style="max-width:1140px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px">
+    <span>© 2025 Terraço Icaraí · Icaraí Suítes. Todos os direitos reservados.</span>
+    <span>Icaraí · Niterói · Rio de Janeiro</span>
+  </div>
 </footer>
 
 <script>
@@ -500,7 +598,7 @@ function propostaTexto(){
   }
   if(!S.ok)return null;
   var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
-  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\n\nValores estimados sujeitos a confirmação.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\n\nValores estimados sujeitos a confirmação.\n* O cardápio pode variar de acordo com a época do ano.\n(21) 3587-3331 | contato@icaraisuites.com.br';
 }
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
@@ -529,9 +627,17 @@ function gerarPDF(){
   doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
   y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text('Sinal para reserva (50%): '+fmt(S.sinal),mg+10,y);
   y+=20;doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=10;
-  doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
+  doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('* O cardápio pode variar de acordo com a época do ano.',mg,y);y+=6;
+  doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
   doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
 }
+
+// Mobile menu
+var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),mc=document.getElementById('mobileClose');
+if(hb){hb.addEventListener('click',function(){hb.classList.toggle('open');mm.classList.toggle('open');document.body.style.overflow=mm.classList.contains('open')?'hidden':''});}
+if(mc){mc.addEventListener('click',function(){hb.classList.remove('open');mm.classList.remove('open');document.body.style.overflow=''});}
+function toggleMSub(id,btn){var s=document.getElementById(id),o=s.classList.contains('open');document.querySelectorAll('.mobile-sub.open').forEach(function(x){x.classList.remove('open')});document.querySelectorAll('.mobile-nav-item>button.open').forEach(function(x){x.classList.remove('open')});if(!o){s.classList.add('open');btn.classList.add('open');}}
+
 calc();
 </script>
 </body>
