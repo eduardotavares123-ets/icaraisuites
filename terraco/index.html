@@ -38,6 +38,28 @@ nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:12px 40px;
 .section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:10px}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,36px);font-weight:400;line-height:1.2;margin-bottom:24px}
 .section-title em{font-style:italic;color:var(--verde-claro)}
+
+/* EXPERIENCE CARDS COM FOTO */
+.exp-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;overflow:hidden;border-top:3px solid var(--verde);position:relative}
+.exp-card-photos{display:none;position:relative;height:180px;overflow:hidden;background:#111}
+.exp-card.has-photos:hover .exp-card-photos,
+.exp-card.has-photos.touch-active .exp-card-photos{display:block}
+.exp-card.has-photos:hover .exp-card-body,
+.exp-card.has-photos.touch-active .exp-card-body{display:none}
+.exp-photo-track{display:flex;height:100%;transition:transform .4s ease}
+.exp-photo-slide{min-width:100%;height:180px}
+.exp-photo-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.exp-photo-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(26,74,46,.8);color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.exp-photo-nav:hover{background:var(--verde)}
+.exp-photo-nav.prev{left:8px}
+.exp-photo-nav.next{right:8px}
+.exp-photo-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.exp-photo-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5);border:none;padding:0;cursor:pointer;transition:background .2s}
+.exp-photo-dot.active{background:#fff}
+.exp-card-body{padding:24px 20px}
+.exp-card-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,.5);font-size:12px}
+.exp-hint{font-size:10px;color:var(--verde);letter-spacing:.1em;text-transform:uppercase;margin-top:8px;opacity:.7}
+
 /* CARROSSEL */
 .carousel-outer{position:relative;border-radius:10px;overflow:hidden;background:#111}
 .carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
@@ -284,68 +306,92 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
   <p class="section-title">Algumas experiências <em>pré-formatadas</em> no Terraço Icaraí</p>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:0">
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">👨‍🍳</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Personal Chef</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Experiências exclusivas com um chef particular, trazendo um menu sob medida para jantares especiais e encontros privados.</p>
+    <!-- Personal Chef — sem foto -->
+    <div class="exp-card">
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">👨‍🍳</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Personal Chef</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Experiências exclusivas com um chef particular, trazendo um menu sob medida para jantares especiais e encontros privados.</p>
+      </div>
     </div>
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">🧀</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Grazing Table</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Mesa farta e visualmente deslumbrante com frios, queijos, frutas, pães artesanais e acompanhamentos — ideal para eventos de alto impacto.</p>
+    <!-- Grazing Table — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/grazing_table" id="exp-grazing">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-grazing"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('grazing',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('grazing',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-grazing"></div>
+        <div class="exp-card-loading" id="loading-grazing">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🧀</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Grazing Table</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Mesa farta e visualmente deslumbrante com frios, queijos, frutas, pães artesanais e acompanhamentos — ideal para eventos de alto impacto.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
     </div>
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">🥂</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Brunch</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Combinação sofisticada de café da manhã e almoço leve, com ovos, frios, sucos naturais e opções doces e salgadas — perfeito para encontros descontraídos com seu time.</p>
+    <!-- Brunch — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/mini_porcoes" id="exp-brunch">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-brunch"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('brunch',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('brunch',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-brunch"></div>
+        <div class="exp-card-loading" id="loading-brunch">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🥂</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Brunch</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Combinação sofisticada de café da manhã e almoço leve, com ovos, frios, sucos naturais e opções doces e salgadas — perfeito para encontros descontraídos com seu time.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
     </div>
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">🫖</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Chá da Tarde</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Curadoria especial de doces, frios e infusões, ideal para encontros sofisticados e celebrações delicadas.</p>
+    <!-- Chá da Tarde — sem foto -->
+    <div class="exp-card">
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🫖</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Chá da Tarde</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Curadoria especial de doces, frios e infusões, ideal para encontros sofisticados e celebrações delicadas.</p>
+      </div>
     </div>
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">🫘</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Feijoada</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Clássico nacional para happy hour descontraído. Reunir o time em torno de um bom prato é sempre a melhor pedida.</p>
+    <!-- Feijoada — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/feijoada" id="exp-feijoada">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-feijoada"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('feijoada',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('feijoada',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-feijoada"></div>
+        <div class="exp-card-loading" id="loading-feijoada">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🫘</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Feijoada</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Clássico nacional para happy hour descontraído. Reunir o time em torno de um bom prato é sempre a melhor pedida.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
     </div>
 
-    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;border-top:3px solid var(--verde)">
-      <div style="font-size:24px;margin-bottom:12px">☕</div>
-      <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Coffee Break</div>
-      <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Buffet para reuniões diversas. Energia e foco para o seu time durante workshops, treinamentos e apresentações.</p>
+    <!-- Coffee Break — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/coffee_break" id="exp-coffee">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-coffee"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('coffee',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('coffee',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-coffee"></div>
+        <div class="exp-card-loading" id="loading-coffee">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">☕</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Coffee Break</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Buffet para reuniões diversas. Energia e foco para o seu time durante workshops, treinamentos e apresentações.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
     </div>
 
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- CARROSSEL GERAL -->
-<div class="section">
-  <p class="section-eyebrow">O ambiente</p>
-  <p class="section-title">Cada detalhe <em>pensado para você</em></p>
-  <div class="carousel-outer">
-    <div class="carousel-track" id="track-geral">
-      <div class="carousel-slide"><img src="../img/terraco/terraco_05.jpg" alt="Terraço Icaraí" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/terraco/terraco_06.jpg" alt="Terraço Icaraí" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/terraco/terraco_08.jpg" alt="Evento corporativo Terraço Icaraí" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/buffet/buffet_01.jpg" alt="Grazing table" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/buffet/buffet_09.jpg" alt="Grazing table" style="object-position:center"></div>
-      <div class="carousel-slide"><img src="../img/terraco/terraco_02.jpg" alt="Evento corporativo Nutrify Way" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/terraco/terraco_03.jpg" alt="Evento corporativo mesas montadas" style="object-position:top"></div>
-      <div class="carousel-slide"><img src="../img/terraco/terraco_04.jpg" alt="Networking Terraço Icaraí" style="object-position:top"></div>
-    </div>
-    <button class="carousel-btn prev" onclick="moveC('geral',-1)">&#8592;</button>
-    <button class="carousel-btn next" onclick="moveC('geral',1)">&#8594;</button>
-  </div>
-  <div class="carousel-bottom">
-    <div class="carousel-dots" id="dots-geral"></div>
-    <div class="carousel-counter" id="counter-geral">1 / 8</div>
   </div>
 </div>
 
@@ -365,8 +411,6 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
     <div class="diff-card"><div class="diff-icon">📺</div><div class="diff-t">Smart TV 55"</div></div>
     <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet próprio liberado</div></div>
     <div class="diff-card"><div class="diff-icon">💻</div><div class="diff-t">Espaço de trabalho com mesas e cadeiras</div></div>
-    <div class="diff-card"><div class="diff-icon">🔒</div><div class="diff-t">Cofre para notebook nas suítes</div></div>
-    <div class="diff-card"><div class="diff-icon">🧊</div><div class="diff-t">Frigobar e máquina de gelo 50kg</div></div>
   </div>
   <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
 </div>
@@ -538,7 +582,6 @@ function goToC(id,n){
 }
 function moveC(id,d){goToC(id,carousels[id].cur+d);}
 initCarousel('espaco',5);
-initCarousel('geral',8);
 
 function fmt(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function locacao(n,dia){return Math.max(dia==='semana'?750:900,n*25);}
@@ -631,6 +674,86 @@ function gerarPDF(){
   doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
   doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
 }
+
+
+// === MINI CARROSSEIS DAS EXPERIÊNCIAS ===
+var REPO = 'eduardotavares123-ets/icaraisuites';
+var BASE_IMG = 'https://eduardotavares123-ets.github.io/icaraisuites/img/';
+var expCards = {};
+var expLoaded = {};
+
+function loadExpPhotos(key, folder) {
+  if (expLoaded[key]) return;
+  expLoaded[key] = true;
+  var loadingEl = document.getElementById('loading-' + key);
+  
+  fetch('https://api.github.com/repos/' + REPO + '/contents/img/' + folder)
+    .then(function(r){ return r.json(); })
+    .then(function(files){
+      if (!Array.isArray(files)) return;
+      var imgs = files.filter(function(f){ return /\.(jpg|jpeg|png|webp)$/i.test(f.name); });
+      if (imgs.length === 0) return;
+      
+      var track = document.getElementById('track-' + key);
+      var dotsEl = document.getElementById('dots-' + key);
+      track.innerHTML = '';
+      dotsEl.innerHTML = '';
+      if (loadingEl) loadingEl.style.display = 'none';
+      
+      expCards[key] = { cur: 0, total: imgs.length };
+      
+      imgs.forEach(function(img, i) {
+        var slide = document.createElement('div');
+        slide.className = 'exp-photo-slide';
+        slide.innerHTML = '<img src="' + BASE_IMG + folder + '/' + img.name + '" alt="" loading="lazy">';
+        track.appendChild(slide);
+        
+        var dot = document.createElement('button');
+        dot.className = 'exp-photo-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = function(){ goExp(key, i); };
+        dotsEl.appendChild(dot);
+      });
+    })
+    .catch(function(){ if (loadingEl) loadingEl.style.display = 'none'; });
+}
+
+function goExp(key, n) {
+  if (!expCards[key]) return;
+  var c = expCards[key];
+  c.cur = (n + c.total) % c.total;
+  var track = document.getElementById('track-' + key);
+  if (track) track.style.transform = 'translateX(-' + c.cur * 100 + '%)';
+  document.querySelectorAll('#dots-' + key + ' .exp-photo-dot').forEach(function(d, i){
+    d.classList.toggle('active', i === c.cur);
+  });
+}
+
+function moveExp(key, dir) {
+  if (!expCards[key]) return;
+  goExp(key, expCards[key].cur + dir);
+}
+
+// Inicializar hover e touch nos cards
+document.querySelectorAll('.exp-card.has-photos').forEach(function(card) {
+  var key = card.id.replace('exp-', '');
+  var folder = card.getAttribute('data-folder');
+  
+  card.addEventListener('mouseenter', function() {
+    loadExpPhotos(key, folder);
+  });
+  card.addEventListener('touchstart', function(e) {
+    loadExpPhotos(key, folder);
+    document.querySelectorAll('.exp-card.touch-active').forEach(function(c){ c.classList.remove('touch-active'); });
+    card.classList.add('touch-active');
+  }, { passive: true });
+});
+
+document.addEventListener('touchstart', function(e) {
+  if (!e.target.closest('.exp-card')) {
+    document.querySelectorAll('.exp-card.touch-active').forEach(function(c){ c.classList.remove('touch-active'); });
+  }
+}, { passive: true });
+
 
 // Mobile menu
 var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),mc=document.getElementById('mobileClose');
