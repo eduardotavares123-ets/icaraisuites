@@ -7,6 +7,7 @@
 <meta name="description" content="Aniversários, noivados, bodas e celebrações no Terraço Icaraí — um espaço cercado de verde no coração de Icaraí, Niterói. Ambientes aconchegantes para momentos inesquecíveis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root{--verde:#1a4a2e;--verde-claro:#2d6b42;--verde-palido:#e8f0ea;--areia:#f5f2ec;--areia-escura:#e8e3d8;--texto:#1c1c1a;--texto-muted:#6b6860;--texto-light:#9a9890;--branco:#fff;--borda:rgba(0,0,0,0.1);--rosa-soft:#f7f0ef;--dourado:#b5924c}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -163,6 +164,38 @@ footer{background:#1a2535;padding:48px 40px 28px}
 .footer-links a{font-size:13.5px;color:rgba(255,255,255,.65);text-decoration:none}
 .footer-links a:hover{color:#fff}
 .footer-bottom{max-width:1140px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px}
+
+/* SIMULADOR */
+.calc-section{background:var(--verde);padding:64px 40px}
+.calc-inner{max-width:700px;margin:0 auto}
+.calc-section .section-eyebrow{color:#a8cbb5}
+.calc-section .section-title{color:#fff}
+.calc-section .section-title em{color:#a8cbb5}
+.calc-form{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:28px;margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block}
+.calc-form select,.calc-form input[type=number]{width:100%;padding:10px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none;cursor:pointer;transition:border-color .2s,background .2s}
+.calc-form select:focus,.calc-form input[type=number]:focus{outline:none;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+.calc-form select option{background:var(--verde);color:#fff}
+.checkbox-row{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;margin-top:4px}
+.checkbox-row input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#a8cbb5}
+.result-box{background:var(--branco);border-radius:10px;padding:24px;margin-bottom:20px}
+.rrow{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--areia-escura);font-size:14px}
+.rlabel{color:var(--texto-muted)}
+.rval{font-weight:500}
+.result-total{margin-top:12px;padding-top:16px;border-top:2px solid var(--verde);display:flex;justify-content:space-between;align-items:baseline}
+.result-total-label{font-size:13px;color:var(--texto-muted)}
+.result-total-val{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--verde)}
+.result-sinal{display:flex;justify-content:space-between;font-size:13px;color:var(--texto-muted);margin-top:8px}
+.result-error{text-align:center;padding:20px;color:#c0392b;font-size:14px}
+.action-btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.abtn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:transform .15s,opacity .2s}
+.abtn:hover{transform:translateY(-2px)}
+.abtn:active{transform:translateY(0);opacity:.85}
+.abtn svg{width:18px;height:18px;flex-shrink:0}
+.abtn-copy{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.abtn-wapp{background:#25D366;color:#fff}
+.abtn-pdf{background:#fff;color:var(--verde)}
 
 /* TOAST */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a2535;color:#fff;padding:12px 24px;border-radius:6px;font-size:14px;opacity:0;transition:all .3s;pointer-events:none;z-index:9999}
@@ -518,47 +551,54 @@ footer{background:#1a2535;padding:48px 40px 28px}
 </section>
 
 <!-- CALCULADORA -->
-<div style="background:var(--verde);padding:64px 40px" id="simulador">
-  <div style="max-width:700px;margin:0 auto">
-    <p class="section-eyebrow" style="color:#a8cbb5">Simulador de orçamento</p>
-    <p class="section-title" style="color:#fff">Calcule o valor <em style="color:#a8cbb5">do seu evento</em></p>
-    <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:28px;margin-bottom:20px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+<div class="calc-section" id="simulador">
+  <div class="calc-inner">
+    <p class="section-eyebrow">Simulador de orçamento</p>
+    <p class="section-title">Calcule o valor <em>do seu evento</em></p>
+    <div class="calc-form">
+      <div class="form-grid">
         <div>
-          <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="np">Número de pessoas</label>
-          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px">
+          <label class="field-label" for="np">Número de pessoas</label>
+          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()">
         </div>
         <div>
-          <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="dia">Dia do evento</label>
-          <select id="dia" onchange="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none">
-            <option value="semana" style="color:#000">Dia de semana</option>
-            <option value="fds" style="color:#000">Fim de semana / feriado</option>
+          <label class="field-label" for="dia">Dia do evento</label>
+          <select id="dia" onchange="calc()">
+            <option value="semana">Dia de semana</option>
+            <option value="fds">Fim de semana / feriado</option>
           </select>
         </div>
       </div>
       <div style="margin-bottom:16px">
-        <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="food">Modalidade</label>
-        <select id="food" onchange="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none">
-          <option value="espaco" style="color:#000">Somente o espaço (buffet próprio)</option>
-          <option value="feijoada" style="color:#000">Feijoada (espaço + buffet)</option>
-          <option value="outros" style="color:#000">Outro tipo de evento</option>
+        <label class="field-label" for="food">Modalidade</label>
+        <select id="food" onchange="calc()">
+          <option value="espaco">Somente o espaço (buffet próprio)</option>
+          <option value="cafe_manha">Café da manhã</option>
+          <option value="coffee">Café da tarde / coffee break</option>
+          <option value="grazing">Grazing table</option>
+          <option value="feijoada">Feijoada</option>
+          <option value="outros">Outros eventos</option>
         </select>
       </div>
-      <label style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;margin-top:4px">
+      <label class="checkbox-row">
         <input type="checkbox" id="beb" onchange="calc()">
         Adicionar bebidas não alcoólicas (R$ 35,00/pessoa)
       </label>
     </div>
-    <div style="background:#fff;border-radius:10px;padding:24px;margin-bottom:20px" id="result-box"><div id="result-content"></div></div>
+    <div class="result-box"><div id="result-content"></div></div>
     <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados. Orçamento final sujeito a confirmação.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
-      <button onclick="copiarProposta()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;transition:transform .15s">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    <div class="action-btns">
+      <button class="abtn abtn-copy" onclick="copiarProposta()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         Copiar proposta
       </button>
-      <button onclick="enviarWhatsapp()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;background:#25D366;color:#fff;transition:transform .15s">
-        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
         Enviar pelo WhatsApp
+      </button>
+      <button class="abtn abtn-pdf" onclick="gerarPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Baixar PDF
       </button>
     </div>
   </div>
@@ -640,20 +680,35 @@ function calc(){
     if(n<1||n>70){ok=false;}
     else{loc=locacao(n,dia);rows.push({l:'Aluguel do espaço (R$ 25,00/pessoa)',v:fmt(loc)});}
     document.getElementById('calc-note').textContent='* Buffet, bebidas e decoração não incluídos — você traz o de sua preferência. Mínimo: R$ '+(dia==='semana'?'750':'900')+',00.';
+  } else if(food==='cafe_manha'){
+    var pp=dia==='semana'?54.9:74.9;
+    foodLabel='Café da manhã';
+    foodVal=n*pp;
+    rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa · espaço compartilhado)',v:fmt(foodVal)});
+    if(n<=10){
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos de até 10 pessoas: sem pré-pagamento, pague no dia.';
+    } else {
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos acima de 10 pessoas: pré-pagamento necessário para reserva.';
+    }
+  } else if(food==='coffee'){
+    foodLabel='Café da tarde / coffee break';
+    if(n<15||n>50){ok=false;}
+    else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa · espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo para seu grupo. Mínimo 15, máximo 50 pessoas.';
+  } else if(food==='grazing'){
+    foodLabel='Grazing table';
+    if(n<15||n>50){ok=false;}
+    else{var grazingLoc=locacao(n,dia);foodVal=n*107+grazingLoc;rows.push({l:'Grazing table (espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 50 pessoas.';
   } else if(food==='feijoada'){
     foodLabel='Feijoada';
     if(n<20||n>70){ok=false;}
-    else{
-      var feijLoc=locacao(n,dia);
-      var feijPP=n<=30?125:n<=50?115:105;
-      foodVal=n*feijPP+feijLoc;
-      rows.push({l:'Feijoada — '+n+' pessoas (R$ '+feijPP+',00/pp + espaço)',v:fmt(foodVal)});
-    }
+    else{var feijLoc=locacao(n,dia);var feijPP=n<=30?125:n<=50?115:105;foodVal=n*feijPP+feijLoc;rows.push({l:'Feijoada (espaço exclusivo)',v:fmt(foodVal)});}
     document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 70 pessoas. 20–30 pax: R$ 125/pp · 31–50 pax: R$ 115/pp · 51–70 pax: R$ 105/pp.';
   } else {
-    foodLabel='Outro tipo de evento';
+    foodLabel='Outros eventos';
     isOthers=true;
-    document.getElementById('calc-note').textContent='* Para outros eventos elaboramos uma proposta personalizada. Entre em contato.';
+    document.getElementById('calc-note').textContent='* Para outros eventos, entre em contato para receber uma proposta personalizada.';
   }
 
   if(beb&&ok&&!isOthers){bebVal=n*35;rows.push({l:'Bebidas não alcoólicas (R$ 35,00/pessoa)',v:fmt(bebVal)});}
@@ -661,25 +716,28 @@ function calc(){
   var box=document.getElementById('result-content');
 
   if(isOthers){
-    box.innerHTML='<div style="text-align:center;padding:24px 0"><p style="font-size:15px;color:var(--texto-muted);margin-bottom:8px">Para outros eventos, elaboramos uma proposta sob medida.</p><p style="font-size:14px;color:var(--texto-light)">Entre em contato pelo WhatsApp ou clique no botão abaixo.</p></div>';
+    box.innerHTML='<div style="text-align:center;padding:24px 0"><p style="font-size:15px;color:var(--texto-muted);margin-bottom:8px">Para outros eventos, elaboramos uma proposta sob medida.</p><p style="font-size:14px;color:var(--texto-light)">Entre em contato pelo WhatsApp ou utilize o botão abaixo.</p></div>';
     S={ok:false,isOthers:true,n:n,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',foodLabel:foodLabel};
     return;
   }
 
   if(!ok){
-    var lim=food==='feijoada'?'20–70':'1–70';
-    box.innerHTML='<div style="text-align:center;padding:20px;color:#c0392b;font-size:14px">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';
-    S={ok:false};return;
+    var lim=(food==='feijoada')?'20–70':'15–50';
+    box.innerHTML='<div class="result-error">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';S={ok:false};return;
   }
 
   var total2=loc+foodVal+bebVal;
   var sinal=total2*0.5;
-  var h=rows.map(function(r){return'<div style="display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--areia-escura);font-size:14px"><span style="color:var(--texto-muted)">'+r.l+'</span><span style="font-weight:500">'+r.v+'</span></div>';}).join('');
-  h+='<div style="margin-top:12px;padding-top:16px;border-top:2px solid var(--verde);display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:var(--texto-muted)">Total estimado</span><span style="font-family:\'Cormorant Garamond\',serif;font-size:36px;font-weight:400;color:var(--verde)">'+fmt(total2)+'</span></div>';
-  h+='<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--texto-muted);margin-top:8px"><span>Sinal para reserva (50%)</span><span>'+fmt(sinal)+'</span></div>';
-  h+='<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--texto-light);margin-top:4px"><span>Caução (devolvida em até 7 dias)</span><span>R$ 500,00</span></div>';
+  var semSinal=(food==='cafe_manha'&&n<=10);
+  var h=rows.map(function(r){return'<div class="rrow"><span class="rlabel">'+r.l+'</span><span class="rval">'+r.v+'</span></div>';}).join('');
+  h+='<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">'+fmt(total2)+'</span></div>';
+  if(semSinal){
+    h+='<div class="result-sinal"><span>Sem pré-pagamento — pague no dia</span><span>✓</span></div>';
+  } else {
+    h+='<div class="result-sinal"><span>Sinal para reserva (50%)</span><span>'+fmt(sinal)+'</span></div>';
+  }
   box.innerHTML=h;
-  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,total:total2,sinal:sinal,rows:rows};
+  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,total:total2,sinal:sinal,semSinal:semSinal,rows:rows};
 }
 function propostaTexto(){
   if(S.isOthers){
@@ -687,18 +745,185 @@ function propostaTexto(){
   }
   if(!S.ok)return null;
   var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
-  return '*Pré-orçamento — Terraço Icaraí · Evento Social*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\nCaução: R$ 500,00 (devolvida em até 7 dias)\n\nCancelamento sem custos até 7 dias antes do evento. Cancelamentos com 7 dias ou menos: valor retido.\nValores estimados sujeitos a confirmação.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+  var sinalTxt=S.semSinal?'Sem pré-pagamento — pague no dia':'Sinal para reserva (50%): '+fmt(S.sinal);
+  return '*Pré-orçamento — Terraço Icaraí · Evento Social*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\n'+sinalTxt+'\n\nCancelamento sem custos até 7 dias antes do evento. Cancelamentos com 7 dias ou menos: valor retido.\nValores estimados sujeitos a confirmação.\n* O cardápio pode variar de acordo com a época do ano.\n(21) 3587-3331 | contato@icaraisuites.com.br';
 }
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
 function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
-window.onload=function(){calc();};
 
-function showToast(msg){
-  var t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show');},2500);
+// === CARDÁPIOS PARA PDF ===
+var EXP_PDF = {
+  grazing: {
+    titulo: 'Grazing Table',
+    folder: 'buffet/grazing_table',
+    blocos: [
+      {h:'CHARCUTARIA ARTESANAL AUTORAL', d:'Seleção exclusiva de embutidos de produção própria, curados e defumados com técnicas tradicionais. Inclui opções como presunto speck, copa, lombo curado, salame artesanal, pastrami e cracóvia, entre outros.'},
+      {h:'QUEIJOS FINOS SELECIONADOS', d:'Variedade de queijos nobres nacionais e importados, cuidadosamente escolhidos. Pode incluir brie, bola, gorgonzola, parmesão curado, coalho e gouda, entre outros.'},
+      {h:'QUICHES COM MASSA BRISÉE', d:'Quiches com massa leve e amanteigada, assadas até a perfeição. Sabores variados como lorraine (bacon e queijo gruyère), 4 queijos e alho-poró com parmesão.'},
+      {h:'MINI SANDUÍCHES', d:'Seleção de mini sanduíches artesanais com pães especiais e recheios sofisticados, como o nosso famoso pulled pork com cheddar e cebola crispy.'},
+      {h:'SELEÇÃO DE PASTINHAS', d:'Cremosas e equilibradas, preparadas artesanalmente para acompanhar pães e torradas. Creme de gorgonzola, musseline de copa defumada e patê de salmão defumado, entre outros.'},
+      {h:'SELEÇÃO DE ANTEPASTOS', d:'Clássicos da culinária mediterrânea e italiana. Inclui caponata siciliana, tapenade de azeitonas, cogumelos marinados, homus de grão-de-bico e tomate confit.'},
+      {h:'AZEITONAS TEMPERADAS', d:'Blend especial de azeitonas verdes e pretas, marinadas em azeite extravirgem com ervas frescas e especiarias.'},
+      {h:'GELEIA ARTESANAL', d:'Preparada com frutas frescas da estação, sem conservantes. Opções como frutas vermelhas, uva e manjericão, e cebola caramelizada com especiarias.'},
+      {h:'MEL ORGÂNICO', d:'Seleção de méis puros de apiários sustentáveis, ideal para combinar com queijos e nuts.'},
+      {h:'PÃES ARTESANAIS, PÃO LEVAIN E TORRADAS', d:'Produzidos com fermentação natural. Inclui focaccia de alecrim, baguette rústica, ciabatta e seleção de torradas finas.'},
+      {h:'MINI CAPRESE', d:'Tomates cereja selecionados, mussarela fresca e manjericão orgânico, finalizados com azeite extravirgem e redução de balsâmico.'},
+      {h:'NUTS', d:'Mix premium de castanhas de caju, amêndoas, nozes e macadâmia, levemente tostadas e temperadas.'},
+      {h:'FRUTAS DA ESTAÇÃO', d:'Seleção de frutas frescas conforme a sazonalidade. Pode incluir uvas, figos, morangos, physalis e damascos secos.'}
+    ],
+    incluso: [
+      'Decoração exclusiva com troncos e flores naturais',
+      'Talheres de madeira descartável e barquinhas de papel',
+      'Montagem 2 horas antes do início do evento',
+      'A charcutaria, os queijos e os sabores serão os disponíveis no dia do evento'
+    ]
+  },
+  feijoada: {
+    titulo: 'Feijoada',
+    folder: 'buffet/feijoada',
+    blocos: [
+      {h:'ENTRADAS', d:'Salada verde · Linguiça fina artesanal · Caldinho de feijão · Pastelzinho de carne · Pastelzinho de queijo'},
+      {h:'FEIJOADA', d:'Feijão preto · Lombo defumado · Bacon artesanal · Calabresa artesanal · Costelinha defumada · Carne seca · Rabo, pé e orelha. Todas as carnes defumadas da casa.'},
+      {h:'ACOMPANHAMENTOS', d:'Arroz · Farofa de cebola · Torresmo · Couve mineira · Batata calabresa · Laranja'},
+      {h:'SOBREMESAS', d:'Doce de banana artesanal · Cuscuz · Torta mousse de limão'}
+    ],
+    incluso: [
+      'Decoração exclusiva com flores naturais',
+      'Toda louça necessária para cada tipo de serviço'
+    ]
+  }
+};
+
+var REPO = 'eduardotavares123-ets/icaraisuites';
+function carregarImagem(url){
+  return new Promise(function(resolve){
+    var img=new Image();img.crossOrigin='anonymous';
+    img.onload=function(){
+      var canvas=document.createElement('canvas');var maxW=700;var scale=Math.min(1,maxW/img.width);
+      canvas.width=img.width*scale;canvas.height=img.height*scale;
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      resolve({data:canvas.toDataURL('image/jpeg',0.72),w:canvas.width,h:canvas.height});
+    };
+    img.onerror=function(){resolve(null);};img.src=url;
+  });
 }
+function listarFotosPasta(folder){
+  return fetch('https://api.github.com/repos/'+REPO+'/contents/img/'+folder)
+    .then(function(r){return r.json();})
+    .then(function(files){
+      if(!Array.isArray(files))return[];
+      return files.filter(function(f){return/\.(jpg|jpeg|png|webp)$/i.test(f.name);})
+        .map(function(f){return'https://eduardotavares123-ets.github.io/icaraisuites/img/'+folder+'/'+f.name;});
+    }).catch(function(){return[];});
+}
+function pdfHeaderPagina(doc,W,mg,titulo){
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,30,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(titulo,mg,19);
+}
+function pdfFaixaFotos(doc,fotos,idx,mg,cw,y){
+  var slotH=52;var n=Math.min(2,fotos.length-idx);if(n<=0)return{y:y,idx:idx};
+  var gap=6;var slotW=n===2?(cw-gap)/2:cw*0.6;var px=n===2?mg:mg+(cw-slotW)/2;
+  for(var i=0;i<n;i++){
+    var f=fotos[idx+i];var mmW=f.w*0.2645,mmH=f.h*0.2645;
+    var ratio=Math.min(slotW/mmW,slotH/mmH);var iw=mmW*ratio,ih=mmH*ratio;
+    doc.addImage(f.data,'JPEG',px+(slotW-iw)/2,y+(slotH-ih)/2,iw,ih);
+    if(i===0&&n===2)px=mg+slotW+gap;
+  }
+  return{y:y+slotH+6,idx:idx+n};
+}
+function gerarPDF(){
+  if(S.isOthers){enviarWhatsapp();return;}
+  if(!S.ok){showToast('Preencha os campos primeiro');return;}
+  var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,H=297,mg=18,cw=W-mg*2;
+
+  // PÁGINA 1 — FINANCEIRO
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,H,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,42,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('TERRAÇO ICARAÍ · EVENTO SOCIAL',mg,16);
+  doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');doc.text('Pré-orçamento',mg,30);
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}),mg,38);
+  var y=56;
+  doc.setFillColor(255,255,255);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'F');
+  doc.setDrawColor(220,218,210);doc.setLineWidth(0.3);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'S');
+  doc.setTextColor(100,98,90);doc.setFontSize(8);doc.text('DETALHES DO EVENTO',mg+10,y);y+=8;
+  doc.setDrawColor(230,228,220);doc.line(mg+10,y,W-mg-10,y);y+=8;
+  S.rows.forEach(function(r){
+    doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);
+    doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});
+    y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);
+  });
+  y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);
+  doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
+  y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');
+  if(S.semSinal){
+    doc.text('Sem pré-pagamento — grupos de até 10 pessoas pagam no dia.',mg+10,y);
+  } else {
+    doc.text('Sinal para reserva (50%): '+fmt(S.sinal),mg+10,y);
+  }
+  y+=14;
+  doc.setFillColor(245,242,235);doc.roundedRect(mg,y,cw,24,3,3,'F');
+  doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('POLÍTICA DE CANCELAMENTO',mg+8,y+8);
+  doc.setTextColor(90,88,80);doc.setFontSize(9);doc.setFont('helvetica','normal');
+  doc.text('Cancelamento sem custos até 7 dias antes do evento.',mg+8,y+14);
+  doc.text('Cancelamentos com 7 dias ou menos de antecedência: o valor será retido.',mg+8,y+19);
+  y+=32;
+  doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=8;
+  doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('* O cardápio pode variar de acordo com a época do ano.',mg,y);y+=6;
+  doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
+
+  var exp=EXP_PDF[S.food];
+  if(!exp){doc.save('proposta-terraco-icarai-social.pdf');showToast('PDF gerado!');return;}
+
+  showToast('Gerando PDF com fotos…');
+  listarFotosPasta(exp.folder).then(function(urls){
+    return Promise.all(urls.map(carregarImagem));
+  }).then(function(results){
+    var fotos=results.filter(function(r){return r!==null;});
+    var fIdx=0;
+    doc.addPage();
+    pdfHeaderPagina(doc,W,mg,exp.titulo+' — Cardápio');
+    var gy=40;
+    if(fotos.length>0){var r1=pdfFaixaFotos(doc,fotos,fIdx,mg,cw,gy);gy=r1.y;fIdx=r1.idx;}
+    var blocosDesdeFoto=0;
+    exp.blocos.forEach(function(item){
+      var descLines=doc.splitTextToSize(item.d,cw);var blockH=5+descLines.length*4+5;
+      if(gy+blockH>H-24){
+        doc.addPage();pdfHeaderPagina(doc,W,mg,exp.titulo+' — Cardápio (cont.)');gy=40;
+        if(fIdx<fotos.length){var rN=pdfFaixaFotos(doc,fotos,fIdx,mg,cw,gy);gy=rN.y;fIdx=rN.idx;}
+        blocosDesdeFoto=0;
+      }
+      doc.setTextColor(26,74,46);doc.setFontSize(9.5);doc.setFont('helvetica','bold');doc.text(item.h,mg,gy);gy+=5;
+      doc.setTextColor(90,88,80);doc.setFontSize(8.5);doc.setFont('helvetica','normal');doc.text(descLines,mg,gy);gy+=descLines.length*4+5;
+      blocosDesdeFoto++;
+      if(blocosDesdeFoto>=4&&fIdx<fotos.length&&gy+64<H-24){
+        var rI=pdfFaixaFotos(doc,fotos,fIdx,mg,cw,gy);gy=rI.y;fIdx=rI.idx;blocosDesdeFoto=0;
+      }
+    });
+    var boxH=12+exp.incluso.length*5;
+    if(gy+boxH>H-14){doc.addPage();pdfHeaderPagina(doc,W,mg,exp.titulo);gy=40;}
+    doc.setFillColor(232,240,234);doc.roundedRect(mg,gy,cw,boxH,3,3,'F');
+    doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('INCLUSO NA EXPERIÊNCIA',mg+8,gy+7);
+    doc.setTextColor(70,90,76);doc.setFontSize(8.5);doc.setFont('helvetica','normal');
+    exp.incluso.forEach(function(t,i){doc.text('• '+t,mg+8,gy+13+i*5);});
+    gy+=boxH+8;
+    if(fIdx<fotos.length){
+      doc.addPage();pdfHeaderPagina(doc,W,mg,exp.titulo+' — Fotos');
+      var slotW=(cw-8)/2,slotH=72,px=mg,py=40,col=0;
+      for(var i=fIdx;i<fotos.length;i++){
+        var f=fotos[i];var mmW=f.w*0.2645,mmH=f.h*0.2645;var ratio=Math.min(slotW/mmW,slotH/mmH);var iw=mmW*ratio,ih=mmH*ratio;
+        doc.addImage(f.data,'JPEG',px+(slotW-iw)/2,py+(slotH-ih)/2,iw,ih);
+        col++;if(col===2){col=0;px=mg;py+=slotH+8;}else{px=mg+slotW+8;}
+        if(py+slotH>H-14&&i<fotos.length-1){doc.addPage();pdfHeaderPagina(doc,W,mg,exp.titulo+' — Fotos (cont.)');px=mg;py=40;col=0;}
+      }
+    }
+    doc.save('proposta-terraco-icarai-social.pdf');showToast('PDF gerado!');
+  }).catch(function(){doc.save('proposta-terraco-icarai-social.pdf');showToast('PDF gerado (sem fotos)');});
+}
+
+window.onload=function(){calc();};
 </script>
 </body>
 </html>
