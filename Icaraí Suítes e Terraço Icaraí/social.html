@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraço Icaraí · Eventos Sociais</title>
+<meta name="description" content="Aniversários, noivados, bodas e celebrações no Terraço Icaraí — um espaço cercado de verde no coração de Icaraí, Niterói. Ambientes aconchegantes para momentos inesquecíveis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#1a4a2e;--verde-claro:#2d6b42;--verde-palido:#e8f0ea;--areia:#f5f2ec;--areia-escura:#e8e3d8;--texto:#1c1c1a;--texto-muted:#6b6860;--texto-light:#9a9890;--branco:#fff;--borda:rgba(0,0,0,0.1);--rosa-soft:#f7f0ef;--dourado:#b5924c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--areia);color:var(--texto);line-height:1.6}
+
+/* NAV */
+#main-nav{position:sticky;top:0;z-index:1000;background:#efefed;border-bottom:1px solid #e0e0dc;height:80px;display:flex;align-items:center;padding:0 40px;justify-content:space-between}
+.nav-logo-link img{height:28px}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-link{font-size:13.5px;color:#1a2535;padding:7px 11px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s}
+.nav-link:hover{background:rgba(0,0,0,.06)}
+.nav-dropdown{position:relative}
+.nav-drop-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid #e0e0dc;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:100}
+.nav-dropdown:hover .nav-drop-menu{display:block}
+.nav-drop-menu a{display:block;padding:10px 16px;font-size:13.5px;color:#1c1c1a;border-bottom:1px solid #e0e0dc;transition:background .12s}
+.nav-drop-menu a:last-child{border-bottom:none}
+.nav-drop-menu a:hover{background:#f7f7f5}
+.nav-cta{background:var(--verde);color:#fff;border:none;padding:9px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-cta:hover{background:var(--verde-claro)}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;height:2px;background:#1a2535;border-radius:2px;transition:all .25s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:999;flex-direction:column;padding:20px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid #e0e0dc;margin-bottom:12px}
+.mobile-menu-close{background:none;border:none;font-size:28px;cursor:pointer;color:#1a2535;line-height:1;padding:4px 8px}
+.mobile-nav-item{border-bottom:1px solid #e0e0dc}
+.mobile-nav-item>a,.mobile-nav-item>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 4px;font-size:16px;color:#1a2535;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif}
+.mobile-nav-item>button::after{content:'+';font-size:20px;font-weight:300;color:#2d5a3d;transition:transform .2s}
+.mobile-nav-item>button.open::after{transform:rotate(45deg)}
+.mobile-sub{display:none;padding:0 0 10px 14px}
+.mobile-sub.open{display:block}
+.mobile-sub a{display:block;padding:9px 4px;font-size:14px;color:#6b6860;border-bottom:1px solid #f7f7f5}
+.mobile-cta{margin-top:20px;display:block;background:#2d5a3d;color:#fff!important;text-align:center;padding:13px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none}
+@media(max-width:860px){
+  #main-nav{padding:0 20px;height:64px}
+  .nav-logo-link img{height:22px}
+  .nav-right .nav-link,.nav-right .nav-dropdown,.nav-right .nav-cta{display:none}
+  .hamburger{display:flex}
+}
+
+/* HERO */
+.hero{background:var(--verde);padding:90px 40px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(181,146,76,.15) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(45,107,66,.6) 0%,transparent 70%)}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#a8cbb5;margin-bottom:20px;position:relative}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.5vw,60px);font-weight:300;color:#fff;line-height:1.15;margin-bottom:20px;position:relative}
+.hero h1 em{font-style:italic;color:#d4b896}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto 40px;position:relative;line-height:1.8}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-primary{background:#fff;color:var(--verde);border:none;padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:transform .15s,background .2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--verde-palido);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:border-color .2s,transform .15s;text-decoration:none;display:inline-block}
+.btn-ghost:hover{border-color:#fff;transform:translateY(-1px)}
+
+/* MOMENTOS STRIP */
+.momentos-strip{background:var(--verde-claro);padding:20px 40px;display:flex;justify-content:center;flex-wrap:wrap;gap:0}
+.momento-item{text-align:center;padding:0 28px;border-right:1px solid rgba(255,255,255,.15)}
+.momento-item:last-child{border-right:none}
+.momento-icon{font-size:20px;margin-bottom:4px}
+.momento-label{font-size:12px;color:rgba(255,255,255,.75);white-space:nowrap}
+
+/* SECTIONS */
+.section{padding:72px 40px;max-width:900px;margin:0 auto}
+.section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:400;line-height:1.2;margin-bottom:24px}
+.section-title em{font-style:italic;color:var(--verde-claro)}
+
+/* FRASE DESTAQUE */
+.frase-section{background:var(--areia-escura);padding:64px 40px;text-align:center}
+.frase-grande{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.5vw,34px);font-weight:300;font-style:italic;color:var(--verde);line-height:1.5;max-width:720px;margin:0 auto}
+.frase-grande::before,.frase-grande::after{content:'"';color:var(--verde-claro);opacity:.4;font-size:1.4em;line-height:0;vertical-align:-.3em}
+
+/* TIPOS DE EVENTOS */
+.eventos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:36px}
+.evento-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:28px 22px;text-align:center;border-top:3px solid var(--verde)}
+.evento-card-icon{font-size:28px;margin-bottom:12px}
+.evento-card-nome{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:var(--verde);margin-bottom:6px}
+.evento-card-desc{font-size:13px;color:var(--texto-muted);line-height:1.6}
+
+/* AMBIENTE */
+.ambiente-section{background:var(--verde);padding:72px 40px;color:#fff}
+.ambiente-inner{max-width:860px;margin:0 auto}
+.ambiente-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#a8cbb5;margin-bottom:12px}
+.ambiente-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,40px);font-weight:300;line-height:1.2;margin-bottom:20px}
+.ambiente-title em{font-style:italic;color:#d4b896}
+.ambiente-text{font-size:15px;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:32px;max-width:620px}
+.estrutura-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.estrutura-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:16px 18px}
+.estrutura-item-label{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
+.estrutura-item-val{font-size:14px;color:#fff;line-height:1.5}
+
+/* COMO FUNCIONA */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:36px}
+.step{background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:28px 22px}
+.step-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--verde-claro);opacity:.5;margin-bottom:8px;line-height:1}
+.step-title{font-size:15px;font-weight:500;color:var(--texto);margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--texto-muted);line-height:1.6}
+
+/* TABELA VALORES */
+.valores-section{background:var(--areia-escura);padding:72px 40px}
+.valores-inner{max-width:860px;margin:0 auto}
+.valores-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:36px}
+.valor-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;overflow:hidden}
+.valor-card-header{background:var(--verde);padding:20px 22px}
+.valor-card-periodo{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a8cbb5;margin-bottom:4px}
+.valor-card-periodo-nome{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;font-weight:400}
+.valor-card-body{padding:20px 22px}
+.valor-linha{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--borda);font-size:14px}
+.valor-linha:last-child{border-bottom:none}
+.valor-linha-label{color:var(--texto-muted)}
+.valor-linha-val{font-weight:500;color:var(--texto)}
+.valor-nota{font-size:12px;color:var(--texto-light);margin-top:14px;line-height:1.5}
+
+/* EXTRAS */
+.extras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:32px}
+.extra-item{background:var(--branco);border:1px solid var(--borda);border-radius:6px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+.extra-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+.extra-body{}
+.extra-title{font-size:14px;font-weight:500;color:var(--texto);margin-bottom:4px}
+.extra-desc{font-size:13px;color:var(--texto-muted);line-height:1.5}
+
+/* REGRAS */
+.regras-section{padding:64px 40px}
+.regras-inner{max-width:860px;margin:0 auto}
+.regras-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.regra-bloco{background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px}
+.regra-bloco h4{font-size:14px;font-weight:500;color:var(--verde);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.regra-bloco ul{list-style:none;padding:0}
+.regra-bloco ul li{font-size:13.5px;color:var(--texto-muted);padding:6px 0;border-bottom:1px solid var(--areia-escura);line-height:1.5}
+.regra-bloco ul li:last-child{border-bottom:none}
+.regra-bloco ul li::before{content:'·';margin-right:8px;color:var(--verde-claro)}
+
+/* CTA */
+.cta-section{background:var(--verde);padding:80px 40px;text-align:center}
+.cta-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#a8cbb5;margin-bottom:16px}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.5vw,48px);font-weight:300;color:#fff;line-height:1.2;margin-bottom:16px}
+.cta-title em{font-style:italic;color:#d4b896}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.65);margin-bottom:36px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-contact{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.cta-contact span{font-size:14px;color:rgba(255,255,255,.5)}
+
+/* FOOTER */
+footer{background:#1a2535;padding:48px 40px 28px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;max-width:1140px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-logo{height:22px;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.8}
+.footer-desc{font-size:13px;line-height:1.7;color:rgba(255,255,255,.5)}
+.footer-col-title{font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:8px}
+.footer-links a{font-size:13.5px;color:rgba(255,255,255,.65);text-decoration:none}
+.footer-links a:hover{color:#fff}
+.footer-bottom{max-width:1140px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a2535;color:#fff;padding:12px 24px;border-radius:6px;font-size:14px;opacity:0;transition:all .3s;pointer-events:none;z-index:9999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:700px){
+  .hero{padding:60px 20px 50px}
+  .section{padding:48px 20px}
+  .frase-section{padding:48px 20px}
+  .ambiente-section{padding:48px 20px}
+  .valores-section{padding:48px 20px}
+  .regras-section{padding:48px 20px}
+  .regras-grid{grid-template-columns:1fr}
+  .cta-section{padding:60px 20px}
+  footer{padding:40px 20px 24px}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="../index.html" class="nav-logo-link">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="height:28px">
+  </a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-link">Início</a>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Acomodações ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../suites/index.html">Suítes</a>
+        <a href="../loft/index.html">Loft</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Terraço Icaraí ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../terraco/index.html">Eventos Corporativos</a>
+        <a href="../terraco/social.html">Eventos Sociais</a>
+        <a href="../cafe/index.html">Café da Manhã</a>
+      </div>
+    </div>
+    <a href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre eventos sociais no Terraço Icaraí." target="_blank" class="nav-cta">Consultar data</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mobile-menu-header">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:24px" alt="Terraço Icaraí">
+    <button class="mobile-menu-close" onclick="toggleMenu()">×</button>
+  </div>
+  <div class="mobile-nav-item"><a href="../index.html">Início</a></div>
+  <div class="mobile-nav-item">
+    <button onclick="toggleSub(this)">Acomodações</button>
+    <div class="mobile-sub">
+      <a href="../suites/index.html">Suítes</a>
+      <a href="../loft/index.html">Loft</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item">
+    <button onclick="toggleSub(this)">Terraço Icaraí</button>
+    <div class="mobile-sub">
+      <a href="../terraco/index.html">Eventos Corporativos</a>
+      <a href="../terraco/social.html">Eventos Sociais</a>
+      <a href="../cafe/index.html">Café da Manhã</a>
+    </div>
+  </div>
+  <a href="https://wa.me/552135873331?text=Olá! Gostaria de saber mais sobre eventos sociais no Terraço Icaraí." target="_blank" class="mobile-cta">Consultar data</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Terraço Icaraí · Icaraí, Niterói</p>
+  <h1>Um lugar para celebrar<br><em>o que mais importa</em></h1>
+  <p class="hero-sub">Aniversários, noivados, bodas, reuniões em família — cada data especial merece um espaço à altura. Verde ao redor, aconchego em cada detalhe.</p>
+  <div class="hero-btns">
+    <a href="https://wa.me/552135873331?text=Olá! Gostaria de consultar disponibilidade para um evento social no Terraço Icaraí." target="_blank" class="btn-primary">Consultar disponibilidade</a>
+    <a href="#como-funciona" class="btn-ghost">Como funciona</a>
+  </div>
+</section>
+
+<!-- TIPOS DE EVENTO - STRIP -->
+<div class="momentos-strip">
+  <div class="momento-item"><div class="momento-icon">🎂</div><div class="momento-label">Aniversários</div></div>
+  <div class="momento-item"><div class="momento-icon">💍</div><div class="momento-label">Noivados</div></div>
+  <div class="momento-item"><div class="momento-icon">🌸</div><div class="momento-label">Bodas</div></div>
+  <div class="momento-item"><div class="momento-icon">👰</div><div class="momento-label">Mini weddings</div></div>
+  <div class="momento-item"><div class="momento-icon">🌿</div><div class="momento-label">Reuniões em família</div></div>
+  <div class="momento-item"><div class="momento-icon">✨</div><div class="momento-label">Comemorações especiais</div></div>
+</div>
+
+<!-- FRASE DESTAQUE -->
+<div class="frase-section">
+  <p class="frase-grande">A cliente não está alugando um espaço — está criando uma lembrança.</p>
+</div>
+
+<!-- SOBRE O ESPAÇO -->
+<section class="section">
+  <p class="section-eyebrow">O espaço</p>
+  <h2 class="section-title">Verde, leveza e<br><em>muito aconchego</em></h2>
+  <p style="font-size:15px;color:var(--texto-muted);line-height:1.9;margin-bottom:20px">No coração de Icaraí, o Terraço Icaraí é um espaço aberto e cercado de natureza, dentro do Icaraí Suítes. Um ambiente exclusivo, diferenciado, que envolve quem chega com uma atmosfera de cuidado e leveza — exatamente o que uma celebração especial merece.</p>
+  <p style="font-size:15px;color:var(--texto-muted);line-height:1.9">Para eventos sociais, o espaço pode ser personalizado com a decoração que você escolher, o buffet do seu gosto — trazido de fora ou com nossos fornecedores parceiros. A cozinha industrial e toda a estrutura ficam à sua disposição para tornar o momento perfeito.</p>
+</section>
+
+<!-- TIPOS DE EVENTOS -->
+<section style="background:var(--areia-escura);padding:72px 40px">
+  <div style="max-width:900px;margin:0 auto">
+    <p class="section-eyebrow">Celebrações</p>
+    <h2 class="section-title">Que momentos<br><em>você quer celebrar?</em></h2>
+    <div class="eventos-grid">
+      <div class="evento-card">
+        <div class="evento-card-icon">🎂</div>
+        <div class="evento-card-nome">Aniversários</div>
+        <div class="evento-card-desc">Do íntimo ao animado — comemore com quem você ama num espaço só seu.</div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-card-icon">💍</div>
+        <div class="evento-card-nome">Noivados</div>
+        <div class="evento-card-desc">Um cenário especial para um dos momentos mais emocionantes da vida.</div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-card-icon">🌸</div>
+        <div class="evento-card-nome">Bodas</div>
+        <div class="evento-card-desc">Cada bodas tem uma história. Celebre a sua com elegância e carinho.</div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-card-icon">👰</div>
+        <div class="evento-card-nome">Mini weddings</div>
+        <div class="evento-card-desc">Uma cerimônia pequena, íntima e cheia de significado — exatamente o que o terraço oferece.</div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-card-icon">🌿</div>
+        <div class="evento-card-nome">Reuniões em família</div>
+        <div class="evento-card-desc">Aquele encontro que todo mundo sente falta, num lugar à altura da saudade.</div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-card-icon">✨</div>
+        <div class="evento-card-nome">Outras comemorações</div>
+        <div class="evento-card-desc">Formaturas, chás, despedidas, conquistas — toda razão para celebrar é bem-vinda.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AMBIENTE E ESTRUTURA -->
+<section class="ambiente-section">
+  <div class="ambiente-inner">
+    <p class="ambiente-eyebrow">Estrutura</p>
+    <h2 class="ambiente-title">Tudo o que você precisa<br><em>para um evento sem preocupação</em></h2>
+    <p class="ambiente-text">O espaço fica inteiramente à disposição do seu grupo durante o evento. Você escolhe o buffet, a decoração e os fornecedores — e conta com toda a infraestrutura do Terraço Icaraí para receber bem.</p>
+    <div class="estrutura-grid">
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Capacidade</div>
+        <div class="estrutura-item-val">Até 70 pessoas<br>(50 sentadas)</div>
+      </div>
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Horário</div>
+        <div class="estrutura-item-val">12h às 21h</div>
+      </div>
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Cozinha</div>
+        <div class="estrutura-item-val">Fogão industrial, rechaud elétrico</div>
+      </div>
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Equipamentos</div>
+        <div class="estrutura-item-val">SmartTV 55", 3 caixas JBL, máquina de gelo 50 kg</div>
+      </div>
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Churrasqueira</div>
+        <div class="estrutura-item-val">Disponível</div>
+      </div>
+      <div class="estrutura-item">
+        <div class="estrutura-item-label">Buffet e decoração</div>
+        <div class="estrutura-item-val">Próprios ou via fornecedores parceiros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <p class="section-eyebrow">Como funciona</p>
+  <h2 class="section-title">Da consulta ao<br><em>dia perfeito</em></h2>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Consulte a data</div>
+      <div class="step-desc">Fale com a gente pelo WhatsApp e verifique a disponibilidade para o seu dia. Respondemos em até 2 horas.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Monte sua proposta</div>
+      <div class="step-desc">Discutimos detalhes do evento — número de pessoas, buffet, decoração — e você recebe um orçamento personalizado.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Confirme com sinal</div>
+      <div class="step-desc">A reserva é garantida com 50% de sinal. Caução de R$ 500 devolvida em até 7 dias após o evento.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">Celebrate com tudo</div>
+      <div class="step-desc">Você cuida do que importa — os convidados e as memórias. A estrutura do terraço cuida do resto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALORES -->
+<section class="valores-section">
+  <div class="valores-inner">
+    <p class="section-eyebrow">Investimento</p>
+    <h2 class="section-title">Valores do<br><em>espaço</em></h2>
+    <p style="font-size:15px;color:var(--texto-muted);margin-bottom:8px;line-height:1.7">O aluguel do espaço é calculado por pessoa com um mínimo garantido. O buffet e bebidas são à parte — você traz o que preferir ou usa nossos parceiros.</p>
+    <div class="valores-cards">
+      <div class="valor-card">
+        <div class="valor-card-header">
+          <div class="valor-card-periodo">Segunda a sexta</div>
+          <div class="valor-card-periodo-nome">Dia de semana</div>
+        </div>
+        <div class="valor-card-body">
+          <div class="valor-linha">
+            <span class="valor-linha-label">Por pessoa</span>
+            <span class="valor-linha-val">R$ 25,00</span>
+          </div>
+          <div class="valor-linha">
+            <span class="valor-linha-label">Mínimo</span>
+            <span class="valor-linha-val">R$ 750,00</span>
+          </div>
+          <p class="valor-nota">* Valor do espaço. Buffet, bebidas e decoração não incluídos.</p>
+        </div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-card-header">
+          <div class="valor-card-periodo">Sábado, domingo e feriados</div>
+          <div class="valor-card-periodo-nome">Fim de semana</div>
+        </div>
+        <div class="valor-card-body">
+          <div class="valor-linha">
+            <span class="valor-linha-label">Por pessoa</span>
+            <span class="valor-linha-val">R$ 25,00</span>
+          </div>
+          <div class="valor-linha">
+            <span class="valor-linha-label">Mínimo</span>
+            <span class="valor-linha-val">R$ 900,00</span>
+          </div>
+          <p class="valor-nota">* Valor do espaço. Buffet, bebidas e decoração não incluídos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS E DIFERENCIAIS -->
+<section class="section">
+  <p class="section-eyebrow">Diferenciais</p>
+  <h2 class="section-title">Detalhes que fazem<br><em>a diferença</em></h2>
+  <div class="extras-grid">
+    <div class="extra-item">
+      <div class="extra-icon">🌿</div>
+      <div class="extra-body">
+        <div class="extra-title">Ambiente cercado de verde</div>
+        <div class="extra-desc">Um espaço ao ar livre que cria aquele clima aconchegante e diferente — difícil de encontrar em Niterói.</div>
+      </div>
+    </div>
+    <div class="extra-item">
+      <div class="extra-icon">🍽️</div>
+      <div class="extra-body">
+        <div class="extra-title">Buffet livre</div>
+        <div class="extra-desc">Traga o buffet que você preferir — próprio ou via nossos fornecedores parceiros. Sem imposição.</div>
+      </div>
+    </div>
+    <div class="extra-item">
+      <div class="extra-icon">🎨</div>
+      <div class="extra-body">
+        <div class="extra-title">Decoração personalizada</div>
+        <div class="extra-desc">O espaço é seu. A decoração também pode ser. Adapte o ambiente ao tema e ao estilo da celebração.</div>
+      </div>
+    </div>
+    <div class="extra-item">
+      <div class="extra-icon">📍</div>
+      <div class="extra-body">
+        <div class="extra-title">Localização privilegiada</div>
+        <div class="extra-desc">No coração de Icaraí, fácil de chegar para todos os convidados — com estacionamentos e metrô próximos.</div>
+      </div>
+    </div>
+    <div class="extra-item">
+      <div class="extra-icon">🔇</div>
+      <div class="extra-body">
+        <div class="extra-title">Música via caixas de som</div>
+        <div class="extra-desc">3 caixas JBL para criar o clima perfeito com sua playlist. Música ao vivo e DJ não são permitidos.</div>
+      </div>
+    </div>
+    <div class="extra-item">
+      <div class="extra-icon">🏨</div>
+      <div class="extra-body">
+        <div class="extra-title">Acomodações no local</div>
+        <div class="extra-desc">Convidados de fora podem se hospedar no Icaraí Suítes — no mesmo endereço. Perfeito para viajantes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGRAS E INFORMAÇÕES -->
+<section class="regras-section">
+  <div class="regras-inner">
+    <p class="section-eyebrow">Informações importantes</p>
+    <h2 class="section-title">O que você precisa<br><em>saber antes de reservar</em></h2>
+    <div class="regras-grid">
+      <div class="regra-bloco">
+        <h4>✅ Permitido</h4>
+        <ul>
+          <li>Buffet próprio ou de fornecedores de sua escolha</li>
+          <li>Decoração personalizada</li>
+          <li>Música via caixas de som JBL do espaço</li>
+          <li>Uso da churrasqueira e cozinha industrial</li>
+          <li>Bebidas de sua preferência</li>
+        </ul>
+      </div>
+      <div class="regra-bloco">
+        <h4>⚠️ Não permitido</h4>
+        <ul>
+          <li>Música ao vivo, DJ ou instrumentos musicais</li>
+          <li>Eventos fora do horário (12h às 21h)</li>
+          <li>Superar a capacidade de 70 pessoas</li>
+        </ul>
+      </div>
+      <div class="regra-bloco">
+        <h4>💳 Reserva e pagamento</h4>
+        <ul>
+          <li>Sinal de 50% para confirmar a data</li>
+          <li>Caução de R$ 500 devolvida em até 7 dias</li>
+          <li>Cancelamento sem custos com 7+ dias de antecedência</li>
+          <li>Cancelamentos com menos de 7 dias: valor retido</li>
+        </ul>
+      </div>
+      <div class="regra-bloco">
+        <h4>📋 Capacidade e horário</h4>
+        <ul>
+          <li>Até 70 pessoas (50 sentadas)</li>
+          <li>Horário: 12h às 21h</li>
+          <li>Acesso por escada (sem elevador)</li>
+          <li>Localização: Rua Mariz e Barros, 147 — Icaraí</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <p class="cta-eyebrow">Vamos criar esse momento juntos?</p>
+  <h2 class="cta-title">Reserve sua data<br><em>antes que alguém faça primeiro</em></h2>
+  <p class="cta-sub">Datas de fim de semana se esgotam rápido. Entre em contato e garanta a sua.</p>
+  <div class="cta-btns">
+    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de consultar disponibilidade para um evento social no Terraço Icaraí." target="_blank">Consultar disponibilidade pelo WhatsApp</a>
+  </div>
+  <div class="cta-contact">
+    <span>(21) 3587-3331</span>
+    <span>contato@icaraisuites.com.br</span>
+    <span>@terracoicarai</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="../img/logoterraco/logo_terraco_icarai_verde.png" class="footer-logo" alt="Terraço Icaraí">
+      <p class="footer-desc">Espaço para eventos sociais e corporativos em Icaraí, Niterói. Café da manhã artesanal aberto ao público.</p>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Navegação</h4>
+      <ul class="footer-links">
+        <li><a href="../suites/index.html">Suítes</a></li>
+        <li><a href="../terraco/index.html">Eventos Corporativos</a></li>
+        <li><a href="../terraco/social.html">Eventos Sociais</a></li>
+        <li><a href="../cafe/index.html">Café da Manhã</a></li>
+        <li><a href="../contato/index.html">Localização e Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Contato</h4>
+      <ul class="footer-links">
+        <li><a href="https://wa.me/552135873331" target="_blank">(21) 3587-3331</a></li>
+        <li><a href="mailto:contato@icaraisuites.com.br">contato@icaraisuites.com.br</a></li>
+        <li><span style="font-size:13.5px;color:rgba(255,255,255,.65)">Rua Mariz e Barros, 147<br>Icaraí · Niterói/RJ</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Terraço Icaraí · Icaraí Suítes. Todos os direitos reservados.</span>
+    <span>Icaraí · Niterói · Rio de Janeiro</span>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  var m=document.getElementById('mobile-menu');
+  var h=document.getElementById('hamburger');
+  m.classList.toggle('open');
+  h.classList.toggle('open');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+function toggleSub(btn){
+  var sub=btn.nextElementSibling;
+  btn.classList.toggle('open');
+  sub.classList.toggle('open');
+}
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+</script>
+</body>
+</html>

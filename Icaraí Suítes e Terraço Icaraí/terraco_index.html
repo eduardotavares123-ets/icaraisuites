@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terraço Icaraí · Espaço Corporativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--verde:#1a4a2e;--verde-claro:#2d6b42;--verde-palido:#e8f0ea;--areia:#f5f2ec;--areia-escura:#e8e3d8;--texto:#1c1c1a;--texto-muted:#6b6860;--texto-light:#9a9890;--branco:#fff;--borda:rgba(0,0,0,0.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--areia);color:var(--texto);line-height:1.6}
+nav{position:sticky;top:0;z-index:100;background:var(--verde);padding:12px 40px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:40px;display:block}
+.nav-cta{background:#fff;color:var(--verde);border:none;padding:8px 20px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--verde-palido)}
+.hero{background:var(--verde);padding:80px 40px 70px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(45,107,66,.6) 0%,transparent 70%)}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#a8cbb5;margin-bottom:20px;position:relative}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,56px);font-weight:300;color:#fff;line-height:1.15;margin-bottom:20px;position:relative}
+.hero h1 em{font-style:italic;color:#a8cbb5}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.75);max-width:580px;margin:0 auto 36px;position:relative;line-height:1.7}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-primary{background:#fff;color:var(--verde);border:none;padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:transform .15s,background .2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--verde-palido);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:border-color .2s,transform .15s}
+.btn-ghost:hover{border-color:#fff;transform:translateY(-1px)}
+.btn-sec{background:var(--verde-palido);color:var(--verde);border:none;padding:12px 24px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;margin-top:20px;transition:background .2s,transform .15s}
+.btn-sec:hover{background:#d0e4d4;transform:translateY(-1px)}
+.stats{background:var(--verde-claro);padding:24px 40px;display:flex;justify-content:center;flex-wrap:wrap}
+.stat{text-align:center;padding:0 36px;border-right:1px solid rgba(255,255,255,.15)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff}
+.stat-label{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.section{padding:64px 40px;max-width:900px;margin:0 auto}
+.section-eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,36px);font-weight:400;line-height:1.2;margin-bottom:24px}
+.section-title em{font-style:italic;color:var(--verde-claro)}
+
+/* EXPERIENCE CARDS COM FOTO */
+.exp-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;overflow:hidden;border-top:3px solid var(--verde);position:relative}
+.exp-card-photos{display:none;position:relative;height:180px;overflow:hidden;background:#111}
+.exp-card.has-photos:hover .exp-card-photos,
+.exp-card.has-photos.touch-active .exp-card-photos{display:block}
+.exp-card.has-photos:hover .exp-card-body,
+.exp-card.has-photos.touch-active .exp-card-body{display:none}
+.exp-photo-track{display:flex;height:100%;transition:transform .4s ease}
+.exp-photo-slide{min-width:100%;height:180px}
+.exp-photo-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.exp-photo-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(26,74,46,.8);color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.exp-photo-nav:hover{background:var(--verde)}
+.exp-photo-nav.prev{left:8px}
+.exp-photo-nav.next{right:8px}
+.exp-photo-dots{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);display:flex;gap:4px}
+.exp-photo-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5);border:none;padding:0;cursor:pointer;transition:background .2s}
+.exp-photo-dot.active{background:#fff}
+.exp-card-body{padding:24px 20px}
+.exp-card-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:rgba(255,255,255,.5);font-size:12px}
+.exp-hint{font-size:10px;color:var(--verde);letter-spacing:.1em;text-transform:uppercase;margin-top:8px;opacity:.7}
+
+/* CARROSSEL */
+.carousel-outer{position:relative;border-radius:10px;overflow:hidden;background:#111}
+.carousel-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.carousel-slide{min-width:100%}
+.carousel-slide img{width:100%;height:420px;object-fit:cover;display:block}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(26,74,46,.85);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:20px;cursor:pointer;z-index:10;transition:background .2s;display:flex;align-items:center;justify-content:center}
+.carousel-btn:hover{background:var(--verde)}
+.carousel-btn.prev{left:16px}
+.carousel-btn.next{right:16px}
+.carousel-bottom{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:12px}
+.carousel-dots{display:flex;gap:7px}
+.carousel-dot{width:7px;height:7px;border-radius:50%;background:var(--areia-escura);border:none;cursor:pointer;transition:background .2s,transform .2s;padding:0}
+.carousel-dot.active{background:var(--verde);transform:scale(1.3)}
+.carousel-counter{font-size:12px;color:var(--texto-light)}
+.section-cta{text-align:center;margin-top:24px}
+/* CAFÉ FOTOS HORIZONTAL */
+.cafe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:0}
+.cafe-grid img{width:100%;height:220px;object-fit:cover;border-radius:8px;display:block}
+/* USE CARDS */
+.use-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.use-card{background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:24px 20px;transition:transform .2s,box-shadow .2s}
+.use-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.use-icon{font-size:28px;margin-bottom:12px}
+.use-name{font-size:14px;font-weight:500;margin-bottom:4px}
+.use-desc{font-size:13px;color:var(--texto-muted)}
+/* DIFERENCIAIS */
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.diff-card{background:var(--branco);border:1px solid var(--borda);border-left:3px solid var(--verde);border-radius:0 8px 8px 0;padding:16px 18px}
+.diff-icon{font-size:20px;margin-bottom:8px}
+.diff-t{font-size:13px;font-weight:500;color:var(--texto)}
+/* CLIENTES */
+.clients-row{display:flex;gap:12px;flex-wrap:wrap}
+.client-badge{background:var(--branco);border:1px solid var(--borda);border-radius:4px;padding:8px 20px;font-size:14px;font-weight:500}
+/* SIMULADOR */
+.calc-section{background:var(--verde);padding:64px 40px}
+.calc-inner{max-width:700px;margin:0 auto}
+.calc-section .section-eyebrow{color:#a8cbb5}
+.calc-section .section-title{color:#fff}
+.calc-section .section-title em{color:#a8cbb5}
+.calc-form{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:28px;margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.field-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block}
+select,input[type=number]{width:100%;padding:10px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none;cursor:pointer;transition:border-color .2s,background .2s}
+select:focus,input[type=number]:focus{outline:none;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+select option{background:var(--verde);color:#fff}
+.checkbox-row{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;margin-top:4px}
+input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:#a8cbb5}
+.result-box{background:var(--branco);border-radius:10px;padding:24px;margin-bottom:20px}
+.rrow{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--areia-escura);font-size:14px}
+.rlabel{color:var(--texto-muted)}
+.rval{font-weight:500}
+.result-total{margin-top:12px;padding-top:16px;border-top:2px solid var(--verde);display:flex;justify-content:space-between;align-items:baseline}
+.result-total-label{font-size:13px;color:var(--texto-muted)}
+.result-total-val{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:400;color:var(--verde)}
+.result-sinal{display:flex;justify-content:space-between;font-size:13px;color:var(--texto-muted);margin-top:8px}
+.result-error{text-align:center;padding:20px;color:#c0392b;font-size:14px}
+.action-btns{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.abtn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;transition:transform .15s,opacity .2s}
+.abtn:hover{transform:translateY(-2px)}
+.abtn:active{transform:translateY(0);opacity:.85}
+.abtn svg{width:18px;height:18px;flex-shrink:0}
+.abtn-copy{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.abtn-wapp{background:#25D366;color:#fff}
+.abtn-pdf{background:#fff;color:var(--verde)}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--texto);color:#fff;padding:10px 24px;border-radius:6px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999;white-space:nowrap}
+.toast.show{opacity:1}
+.cta-section{background:var(--areia-escura);padding:64px 40px;text-align:center}
+.cta-inner{max-width:600px;margin:0 auto}
+.contact-grid{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.contact-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--texto-muted)}
+footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-logo img{height:28px}
+.footer-text{color:rgba(255,255,255,.45);font-size:12px}
+.divider{height:1px;background:var(--borda);margin:0 40px}
+@media(max-width:600px){nav{padding:12px 20px}.hero{padding:60px 20px 50px}.stats{padding:20px}.stat{padding:10px 20px;border-right:none;border-bottom:1px solid rgba(255,255,255,.15)}.section{padding:48px 20px}.form-grid{grid-template-columns:1fr}.carousel-slide img{height:260px}.cafe-grid img{height:180px}.calc-section,.cta-section{padding:48px 20px}footer{padding:20px}}
+
+/* NAV NOVO */
+#main-nav{position:sticky;top:0;z-index:1000;background:#efefed;border-bottom:1px solid #e0e0dc;height:80px;display:flex;align-items:center;padding:0 40px;justify-content:space-between}
+.nav-logo-link img{height:28px}
+.nav-right{display:flex;align-items:center;gap:6px}
+.nav-link{font-size:13.5px;color:#1a2535;padding:7px 11px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s}
+.nav-link:hover{background:rgba(0,0,0,.06)}
+.nav-dropdown{position:relative}
+.nav-drop-menu{display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid #e0e0dc;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.1);min-width:200px;overflow:hidden;z-index:100}
+.nav-dropdown:hover .nav-drop-menu{display:block}
+.nav-drop-menu a{display:block;padding:10px 16px;font-size:13.5px;color:#1c1c1a;border-bottom:1px solid #e0e0dc;transition:background .12s}
+.nav-drop-menu a:last-child{border-bottom:none}
+.nav-drop-menu a:hover{background:#f7f7f5}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;height:2px;background:#1a2535;border-radius:2px;transition:all .25s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:999;flex-direction:column;padding:20px;overflow-y:auto}
+.mobile-menu.open{display:flex}
+.mobile-menu-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid #e0e0dc;margin-bottom:12px}
+.mobile-menu-close{background:none;border:none;font-size:28px;cursor:pointer;color:#1a2535;line-height:1;padding:4px 8px}
+.mobile-nav-item{border-bottom:1px solid #e0e0dc}
+.mobile-nav-item>a,.mobile-nav-item>button{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 4px;font-size:16px;color:#1a2535;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif}
+.mobile-nav-item>button::after{content:'+';font-size:20px;font-weight:300;color:#2d5a3d;transition:transform .2s}
+.mobile-nav-item>button.open::after{transform:rotate(45deg)}
+.mobile-sub{display:none;padding:0 0 10px 14px}
+.mobile-sub.open{display:block}
+.mobile-sub a{display:block;padding:9px 4px;font-size:14px;color:#6b6860;border-bottom:1px solid #f7f7f5}
+.mobile-cta{margin-top:20px;display:block;background:#2d5a3d;color:#fff!important;text-align:center;padding:13px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none}
+@media(max-width:860px){
+  #main-nav{padding:0 20px;height:64px}
+  .nav-logo-link img{height:22px}
+  .nav-right .nav-link,.nav-right .nav-dropdown,.nav-right .nav-cta{display:none}
+  .hamburger{display:flex}
+}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="../index.html" class="nav-logo-link">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="height:28px">
+  </a>
+  <div class="nav-right">
+    <a href="../index.html" class="nav-link">Início</a>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Acomodações ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../suites/index.html">Suítes</a>
+        <a href="../loft/index.html">Loft</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <span class="nav-link nav-drop-trigger">Terraço Icaraí ▾</span>
+      <div class="nav-drop-menu">
+        <a href="../terraco/index.html">Eventos Corporativos</a>
+        <a href="../terraco/social.html">Eventos Sociais</a>
+        <a href="../cafe/index.html">Café da Manhã</a>
+      </div>
+    </div>
+    <a href="../cafe/index.html" class="nav-link">Café da Manhã</a>
+    <a href="../contato/index.html" class="nav-link">Localização e Contato</a>
+    <a class="nav-cta" href="#simulador">Simular orçamento</a>
+    <button class="hamburger" id="hamburger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:40px">
+    <button class="mobile-menu-close" id="mobileClose">×</button>
+  </div>
+  <div class="mobile-nav-item"><a href="../index.html">Início</a></div>
+  <div class="mobile-nav-item"><button onclick="toggleMSub('msa',this)">Acomodações</button><div class="mobile-sub" id="msa"><a href="../suites/index.html">Suítes</a><a href="../loft/index.html">Loft</a></div></div>
+  <div class="mobile-nav-item"><button onclick="toggleMSub('mst',this)">Terraço Icaraí</button><div class="mobile-sub" id="mst"><a href="../terraco/index.html">Eventos Corporativos</a><a href="../terraco/social.html">Eventos Sociais</a><a href="../cafe/index.html">Café da Manhã</a></div></div>
+  <div class="mobile-nav-item"><a href="../cafe/index.html">Café da Manhã</a></div>
+  <div class="mobile-nav-item"><a href="../contato/index.html">Localização e Contato</a></div>
+  <a href="#simulador" class="mobile-cta" onclick="document.getElementById('mobileMenu').classList.remove('open')">Simular orçamento</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Espaço corporativo exclusivo · Icaraí, Niterói/RJ</p>
+  <h1>Eventos corporativos<br><em>em meio ao verde</em></h1>
+  <p class="hero-sub">Um espaço reservado e sofisticado para reuniões, workshops, confraternizações e experiências empresariais — no coração de Icaraí, a poucos metros da praia.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de solicitar uma proposta para evento corporativo no Terraço Icaraí." target="_blank">Solicitar proposta</a>
+    <button class="btn-ghost" onclick="document.getElementById('espaco').scrollIntoView({behavior:'smooth'})">Conhecer o espaço</button>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">10</div><div class="stat-label">anos de operação</div></div>
+  <div class="stat"><div class="stat-num">70</div><div class="stat-label">pessoas (capacidade total)</div></div>
+  <div class="stat"><div class="stat-num">50</div><div class="stat-label">pessoas sentadas</div></div>
+  <div class="stat"><div class="stat-num">12h–21h</div><div class="stat-label">horário de eventos</div></div>
+</div>
+
+<!-- ESPAÇO -->
+<div id="espaco">
+  <div class="section">
+    <p class="section-eyebrow">O espaço</p>
+    <p class="section-title">Um lugar que <em>inspira boas ideias</em></p>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="track-espaco">
+        <div class="carousel-slide"><img src="../img/terraco/terraco_07.jpg" alt="Terraço Icaraí - espaço externo"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_09.jpg" alt="Terraço Icaraí - ambiente verde"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_10.jpg" alt="Terraço Icaraí - área aberta"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_11.jpg" alt="Terraço Icaraí - mesas"></div>
+        <div class="carousel-slide"><img src="../img/terraco/terraco_01.jpg" alt="Terraço Icaraí - banheiro"></div>
+      </div>
+      <button class="carousel-btn prev" onclick="moveC('espaco',-1)">&#8592;</button>
+      <button class="carousel-btn next" onclick="moveC('espaco',1)">&#8594;</button>
+    </div>
+    <div class="carousel-bottom">
+      <div class="carousel-dots" id="dots-espaco"></div>
+      <div class="carousel-counter" id="counter-espaco">1 / 5</div>
+    </div>
+    <div class="section-cta">
+      <a class="btn-sec" href="#simulador">Simular orçamento ↓</a>
+    </div>
+  </div>
+</div>
+
+<!-- TEXTO GARDEN OFFICE -->
+<div style="background:var(--verde-palido)">
+  <div class="section" style="padding-top:56px;padding-bottom:56px">
+    <p class="section-eyebrow">Por que sair do escritório?</p>
+    <p class="section-title">O <em>garden office</em> já é realidade nas maiores empresas do mundo</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+      <div>
+        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8;margin-bottom:16px">Google, Twitter, Facebook, Microsoft, Amazon e coworkings como a WeWork já possuem o <strong style="color:var(--texto)">"Garden Office"</strong> como um diferencial competitivo. Ao sair do escritório fechado e respirar em um espaço externo arborizado, a mente relaxa e abre espaço para novas ideias.</p>
+        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8">Ficar horas na frente do computador cansa. Com o cansaço, caem o foco e o rendimento. Uma simples mudança de ares pode devolver a animação — e o Terraço Icaraí é esse lugar.</p>
+      </div>
+      <div>
+        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8;margin-bottom:16px">Ambiente funcional e cercado de muito verde, com infraestrutura completa para eventos de 10 a 60 pessoas. Reuniões, team building, workshops, lançamentos, happy hour — qualquer formato funciona aqui.</p>
+        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8">No coração de Niterói, em Icaraí, a poucos metros da praia, com fácil acesso a todas as regiões da cidade. Estacionamento rotativo na rua e opções particulares a poucos metros.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- USOS -->
+<div class="section">
+  <p class="section-eyebrow">Para o que serve</p>
+  <p class="section-title">Eventos Corporativos <em>no Terraço Icaraí</em></p>
+  <div class="use-grid">
+    <div class="use-card"><div class="use-icon">📋</div><div class="use-name">Workshops & treinamentos</div><div class="use-desc">Dinâmicas, capacitações e formações de equipe</div></div>
+    <div class="use-card"><div class="use-icon">🤝</div><div class="use-name">Reuniões estratégicas</div><div class="use-desc">Planejamento, tomada de decisão, alinhamento</div></div>
+    <div class="use-card"><div class="use-icon">🍻</div><div class="use-name">Happy hours</div><div class="use-desc">Comemorações e confraternizações de time</div></div>
+    <div class="use-card"><div class="use-icon">💡</div><div class="use-name">Brainstormings</div><div class="use-desc">O verde do espaço ajuda a pensar diferente</div></div>
+    <div class="use-card"><div class="use-icon">🍽️</div><div class="use-name">Almoço de negócios</div><div class="use-desc">Ambiente ideal para reuniões informais com clientes</div></div>
+    <div class="use-card"><div class="use-icon">🚀</div><div class="use-name">Lançamentos</div><div class="use-desc">Produtos, campanhas e eventos de marca</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- EXPERIÊNCIAS PRÉ-FORMATADAS -->
+<div class="section">
+  <p class="section-eyebrow">Experiências exclusivas</p>
+  <p class="section-title">Algumas experiências <em>pré-formatadas</em> no Terraço Icaraí</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:0">
+
+    <!-- Personal Chef — sem foto -->
+    <div class="exp-card">
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">👨‍🍳</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Personal Chef</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Experiências exclusivas com um chef particular, trazendo um menu sob medida para jantares especiais e encontros privados.</p>
+      </div>
+    </div>
+
+    <!-- Grazing Table — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/grazing_table" id="exp-grazing">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-grazing"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('grazing',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('grazing',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-grazing"></div>
+        <div class="exp-card-loading" id="loading-grazing">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🧀</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Grazing Table</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Mesa farta e visualmente deslumbrante com frios, queijos, frutas, pães artesanais e acompanhamentos — ideal para eventos de alto impacto.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
+    </div>
+
+    <!-- Brunch — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/mini_porcoes" id="exp-brunch">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-brunch"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('brunch',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('brunch',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-brunch"></div>
+        <div class="exp-card-loading" id="loading-brunch">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🥂</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Brunch</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Combinação sofisticada de café da manhã e almoço leve, com ovos, frios, sucos naturais e opções doces e salgadas — perfeito para encontros descontraídos com seu time.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
+    </div>
+
+    <!-- Chá da Tarde — sem foto -->
+    <div class="exp-card">
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🫖</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Chá da Tarde</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Curadoria especial de doces, frios e infusões, ideal para encontros sofisticados e celebrações delicadas.</p>
+      </div>
+    </div>
+
+    <!-- Feijoada — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/feijoada" id="exp-feijoada">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-feijoada"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('feijoada',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('feijoada',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-feijoada"></div>
+        <div class="exp-card-loading" id="loading-feijoada">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">🫘</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Feijoada</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Clássico nacional para happy hour descontraído. Reunir o time em torno de um bom prato é sempre a melhor pedida.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
+    </div>
+
+    <!-- Coffee Break — com foto -->
+    <div class="exp-card has-photos" data-folder="buffet/coffee_break" id="exp-coffee">
+      <div class="exp-card-photos">
+        <div class="exp-photo-track" id="track-coffee"></div>
+        <button class="exp-photo-nav prev" onclick="moveExp('coffee',-1)">&#8592;</button>
+        <button class="exp-photo-nav next" onclick="moveExp('coffee',1)">&#8594;</button>
+        <div class="exp-photo-dots" id="dots-coffee"></div>
+        <div class="exp-card-loading" id="loading-coffee">Carregando…</div>
+      </div>
+      <div class="exp-card-body">
+        <div style="font-size:24px;margin-bottom:12px">☕</div>
+        <div style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--verde);margin-bottom:8px;font-weight:500">Coffee Break</div>
+        <p style="font-size:13px;color:var(--texto-muted);line-height:1.7">Buffet para reuniões diversas. Energia e foco para o seu time durante workshops, treinamentos e apresentações.</p>
+        <div class="exp-hint">✦ Passe o mouse para ver fotos</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- DIFERENCIAIS -->
+<div class="section">
+  <p class="section-eyebrow">Nossos diferenciais</p>
+  <p class="section-title">O que faz o Terraço <em>único</em></p>
+  <div class="diff-grid">
+    <div class="diff-card"><div class="diff-icon">🌿</div><div class="diff-t">Espaço exclusivo para seu time</div></div>
+    <div class="diff-card"><div class="diff-icon">📶</div><div class="diff-t">Wi-Fi de alta velocidade</div></div>
+    <div class="diff-card"><div class="diff-icon">🔌</div><div class="diff-t">Tomadas em todo o espaço</div></div>
+    <div class="diff-card"><div class="diff-icon">🏗️</div><div class="diff-t">Infraestrutura completa</div></div>
+    <div class="diff-card"><div class="diff-icon">🪑</div><div class="diff-t">Mesas e cadeiras para 50 pessoas sentadas</div></div>
+    <div class="diff-card"><div class="diff-icon">👥</div><div class="diff-t">Capacidade total para 70 pessoas</div></div>
+    <div class="diff-card"><div class="diff-icon">📺</div><div class="diff-t">Smart TV 55"</div></div>
+    <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet próprio liberado</div></div>
+    <div class="diff-card"><div class="diff-icon">💻</div><div class="diff-t">Espaço de trabalho com mesas e cadeiras</div></div>
+  </div>
+  <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- CLIENTES -->
+<div class="section" style="padding-bottom:0">
+  <p class="section-eyebrow">Quem já esteve aqui</p>
+  <p class="section-title" style="margin-bottom:24px">Empresas que <em>já confiam</em> no Terraço</p>
+  <div class="clients-row" style="margin-bottom:36px">
+    <div class="client-badge">Itaú</div>
+    <div class="client-badge">Reserva</div>
+    <div class="client-badge">Mormaii</div>
+    <div class="client-badge">Nutrify</div>
+    <div class="client-badge">Way Suplementos</div>
+    <div class="client-badge">+ empresas da região</div>
+  </div>
+
+  <!-- DEPOIMENTOS -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:48px">
+    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:20px 24px">
+      <p style="font-size:14px;color:var(--texto);line-height:1.7;margin-bottom:12px">"O espaço é realmente incrível, e a conversa direcionada pelo Conexões é maravilhosa."</p>
+      <p style="font-size:12px;color:var(--texto-muted);font-weight:500">@savanapascoa · Instagram</p>
+    </div>
+    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:20px 24px">
+      <p style="font-size:14px;color:var(--texto);line-height:1.7;margin-bottom:12px">"Maravilhoso! Segunda vez que vou em um evento no @terracoicarai. Super indico!"</p>
+      <p style="font-size:12px;color:var(--texto-muted);font-weight:500">@taniabispohinode · Instagram</p>
+    </div>
+    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:20px 24px">
+      <p style="font-size:14px;color:var(--texto);line-height:1.7;margin-bottom:12px">"Lindo espaço, excelente evento!"</p>
+      <p style="font-size:12px;color:var(--texto-muted);font-weight:500">@suely.iglesias · Instagram</p>
+    </div>
+    <div style="background:var(--branco);border:1px solid var(--borda);border-radius:8px;padding:20px 24px">
+      <p style="font-size:14px;color:var(--texto);line-height:1.7;margin-bottom:12px">"Agradeço o atendimento cuidadoso e parabéns pelo serviço de buffet."</p>
+      <p style="font-size:12px;color:var(--texto-muted);font-weight:500">@conexoes.femininas · Instagram</p>
+    </div>
+  </div>
+
+  <!-- BLOCO URGÊNCIA/AUTORIDADE -->
+  <div style="background:var(--verde);border-radius:10px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:64px">
+    <div>
+      <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a8cbb5;margin-bottom:8px">Agenda corporativa</p>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;color:#fff;line-height:1.2;margin-bottom:8px">Datas limitadas para<br><em style="font-style:italic;color:#a8cbb5">o segundo semestre</em></p>
+      <p style="font-size:13px;color:rgba(255,255,255,.7)">10 anos atendendo empresas em Icaraí com exclusividade e cuidado.</p>
+    </div>
+    <a href="https://wa.me/552135873331?text=Olá! Gostaria de consultar a disponibilidade do Terraço Icaraí para evento corporativo." target="_blank" style="background:#fff;color:var(--verde);border:none;padding:14px 28px;border-radius:4px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s">Consultar disponibilidade</a>
+  </div>
+</div>
+
+<!-- SIMULADOR -->
+<div class="calc-section" id="simulador">
+  <div class="calc-inner">
+    <p class="section-eyebrow">Simulador de orçamento</p>
+    <p class="section-title">Calcule o valor <em>do seu evento</em></p>
+    <div class="calc-form">
+      <div class="form-grid">
+        <div>
+          <label class="field-label" for="np">Número de pessoas</label>
+          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()">
+        </div>
+        <div>
+          <label class="field-label" for="dia">Dia do evento</label>
+          <select id="dia" onchange="calc()">
+            <option value="semana">Dia de semana</option>
+            <option value="fds">Fim de semana / feriado</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <label class="field-label" for="food">Modalidade de alimentação</label>
+        <select id="food" onchange="calc()">
+          <option value="cafe_manha">Café da manhã</option>
+          <option value="coffee">Café da tarde / coffee break</option>
+          <option value="grazing">Grazing table</option>
+          <option value="feijoada">Feijoada</option>
+          <option value="outros">Outros eventos</option>
+        </select>
+      </div>
+      <label class="checkbox-row">
+        <input type="checkbox" id="beb" onchange="calc()">
+        Adicionar bebidas não alcoólicas (R$ 35,00/pessoa)
+      </label>
+    </div>
+    <div class="result-box"><div id="result-content"></div></div>
+    <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados. Orçamento final sujeito a confirmação.</p>
+    <div class="action-btns">
+      <button class="abtn abtn-copy" onclick="copiarProposta()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar proposta
+      </button>
+      <button class="abtn abtn-wapp" onclick="enviarWhatsapp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        Para mais detalhes sobre a proposta, solicitar no WhatsApp
+      </button>
+      <button class="abtn abtn-pdf" onclick="gerarPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Baixar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="cta-section">
+  <div class="cta-inner">
+    <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
+    <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
+    <p style="color:var(--texto-muted);margin-bottom:28px">Respondemos em até 2 horas em dias úteis.</p>
+    <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de solicitar uma proposta para evento corporativo no Terraço Icaraí." target="_blank">Solicitar proposta</a>
+    <div class="contact-grid">
+      <div class="contact-item">(21) 3587-3331</div>
+      <div class="contact-item">contato@icaraisuites.com.br</div>
+      <div class="contact-item">@terracoicarai</div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:#1a2535;padding:48px 40px 28px">
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;max-width:1140px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div>
+      <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:22px;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.8">
+      <p style="font-size:13px;line-height:1.7;color:rgba(255,255,255,.5)">Espaço para eventos corporativos e sociais em Icaraí, Niterói. Café da manhã artesanal aberto ao público.</p>
+    </div>
+    <div>
+      <h4 style="font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">Navegação</h4>
+      <ul style="list-style:none">
+        <li style="margin-bottom:8px"><a href="../suites/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Suítes</a></li>
+        <li style="margin-bottom:8px"><a href="../terraco/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Eventos Corporativos</a></li>
+        <li style="margin-bottom:8px"><a href="../terraco/social.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Eventos Sociais</a></li>
+        <li style="margin-bottom:8px"><a href="../cafe/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Café da Manhã</a></li>
+        <li style="margin-bottom:8px"><a href="../contato/index.html" style="font-size:13.5px;color:rgba(255,255,255,.65)">Localização e Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">Contato</h4>
+      <ul style="list-style:none">
+        <li style="margin-bottom:8px"><a href="https://wa.me/552135873331" target="_blank" style="font-size:13.5px;color:rgba(255,255,255,.65)">(21) 3587-3331</a></li>
+        <li style="margin-bottom:8px"><a href="mailto:contato@icaraisuites.com.br" style="font-size:13.5px;color:rgba(255,255,255,.65)">contato@icaraisuites.com.br</a></li>
+        <li style="font-size:13.5px;color:rgba(255,255,255,.65)">Rua Mariz e Barros, 147<br>Icaraí · Niterói/RJ</li>
+      </ul>
+    </div>
+  </div>
+  <div style="max-width:1140px;margin:20px auto 0;display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px">
+    <span>© 2025 Terraço Icaraí · Icaraí Suítes. Todos os direitos reservados.</span>
+    <span>Icaraí · Niterói · Rio de Janeiro</span>
+  </div>
+</footer>
+
+<script>
+var carousels={};
+function initCarousel(id,total){
+  carousels[id]={cur:0,total:total};
+  var dotsEl=document.getElementById('dots-'+id);
+  for(var i=0;i<total;i++){
+    var d=document.createElement('button');
+    d.className='carousel-dot'+(i===0?' active':'');
+    d.setAttribute('data-i',i);
+    (function(ii){d.onclick=function(){goToC(id,ii);};})(i);
+    dotsEl.appendChild(d);
+  }
+  setInterval((function(cid){return function(){moveC(cid,1);};})(id),5000);
+}
+function goToC(id,n){
+  var c=carousels[id];
+  c.cur=(n+c.total)%c.total;
+  document.getElementById('track-'+id).style.transform='translateX(-'+c.cur*100+'%)';
+  document.querySelectorAll('#dots-'+id+' .carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===c.cur);});
+  document.getElementById('counter-'+id).textContent=(c.cur+1)+' / '+c.total;
+}
+function moveC(id,d){goToC(id,carousels[id].cur+d);}
+initCarousel('espaco',5);
+
+function fmt(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function locacao(n,dia){return Math.max(dia==='semana'?750:900,n*25);}
+var S={};
+function calc(){
+  var n=Math.max(1,parseInt(document.getElementById('np').value)||1);
+  var dia=document.getElementById('dia').value;
+  var food=document.getElementById('food').value;
+  var beb=document.getElementById('beb').checked;
+  var foodVal=0,bebVal=0,loc=0,caucao=0,rows=[],ok=true,foodLabel='',isOthers=false;
+
+  if(food==='cafe_manha'){
+    var pp=dia==='semana'?54.9:74.9;
+    foodLabel='Café da manhã';
+    foodVal=n*pp;
+    rows.push({l:'Café da manhã ('+fmt(pp)+'/pessoa · espaço compartilhado)',v:fmt(foodVal)});
+    if(n<=10){
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos de até 10 pessoas: sem pré-pagamento, pague no dia.';
+    } else {
+      document.getElementById('calc-note').textContent='* Espaço compartilhado. Grupos acima de 10 pessoas: pré-pagamento necessário para reserva.';
+    }
+  } else if(food==='coffee'){
+    foodLabel='Café da tarde / coffee break';
+    if(n<15||n>50){ok=false;}
+    else{foodVal=n*99.9;rows.push({l:'Coffee break (R$ 99,90/pessoa · espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo para seu grupo. Mínimo 15, máximo 50 pessoas.';
+  } else if(food==='grazing'){
+    foodLabel='Grazing table';
+    if(n<15||n>50){ok=false;}
+    else{var grazingLoc=locacao(n,dia);foodVal=n*107+grazingLoc;rows.push({l:'Grazing table (espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 50 pessoas.';
+  } else if(food==='feijoada'){
+    foodLabel='Feijoada';
+    if(n<20||n>70){ok=false;}
+    else{var feijLoc=locacao(n,dia);var feijPP=n<=30?125:n<=50?115:105;foodVal=n*feijPP+feijLoc;rows.push({l:'Feijoada (espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 70 pessoas.';
+  } else {
+    foodLabel='Outros eventos';
+    isOthers=true;
+    document.getElementById('calc-note').textContent='* Para outros eventos, entre em contato para receber uma proposta personalizada.';
+  }
+
+  if(beb&&ok&&!isOthers){bebVal=n*35;rows.push({l:'Bebidas não alcoólicas (R$ 35,00/pessoa)',v:fmt(bebVal)});}
+
+  var box=document.getElementById('result-content');
+
+  if(isOthers){
+    box.innerHTML='<div style="text-align:center;padding:24px 0"><p style="font-size:15px;color:var(--texto-muted);margin-bottom:8px">Para outros eventos, elaboramos uma proposta sob medida.</p><p style="font-size:14px;color:var(--texto-light)">Entre em contato pelo WhatsApp ou utilize o botão abaixo.</p></div>';
+    S={ok:false,isOthers:true,n:n,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',foodLabel:foodLabel};
+    return;
+  }
+
+  if(!ok){
+    var lim=food==='feijoada'?'20–70':'15–50';
+    box.innerHTML='<div class="result-error">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';S={ok:false};return;
+  }
+
+  var total2=loc+foodVal+bebVal+caucao;
+  var sinal=(loc+foodVal+bebVal)*0.3;
+  var semSinal=(food==='cafe_manha'&&n<=10);
+  var h=rows.map(function(r){return'<div class="rrow"><span class="rlabel">'+r.l+'</span><span class="rval">'+r.v+'</span></div>';}).join('');
+  h+='<div class="result-total"><span class="result-total-label">Total estimado</span><span class="result-total-val">'+fmt(total2)+'</span></div>';
+  if(semSinal){
+    h+='<div class="result-sinal"><span>Sem pré-pagamento — pague no dia</span><span>✓</span></div>';
+  } else {
+    h+='<div class="result-sinal"><span>Sinal para reserva (30%)</span><span>'+fmt(sinal)+'</span></div>';
+  }
+  box.innerHTML=h;
+  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,caucao:caucao,total:total2,sinal:sinal,semSinal:semSinal,rows:rows};
+}
+function propostaTexto(){
+  if(S.isOthers){
+    return '*Solicitação de proposta — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\nGostaria de receber uma proposta personalizada para este evento.\n\n(21) 3587-3331 | contato@icaraisuites.com.br';
+  }
+  if(!S.ok)return null;
+  var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
+  var sinalTxt=S.semSinal?'Sem pré-pagamento — pague no dia':'Sinal para reserva (30%): '+fmt(S.sinal);
+  return '*Pré-orçamento — Terraço Icaraí*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\n'+sinalTxt+'\n\nCancelamento sem custos até 7 dias antes do evento. Cancelamentos com 7 dias ou menos: valor retido.\nValores estimados sujeitos a confirmação.\n* O cardápio pode variar de acordo com a época do ano.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
+function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
+// === CARDÁPIOS DAS EXPERIÊNCIAS ===
+var EXP_PDF = {
+  grazing: {
+    titulo: 'Grazing Table',
+    folder: 'buffet/grazing_table',
+    blocos: [
+      {h:'CHARCUTARIA ARTESANAL AUTORAL', d:'Seleção exclusiva de embutidos de produção própria, curados e defumados com técnicas tradicionais. Inclui opções como presunto speck, copa, lombo curado, salame artesanal, pastrami e cracóvia, entre outros.'},
+      {h:'QUEIJOS FINOS SELECIONADOS', d:'Variedade de queijos nobres nacionais e importados, cuidadosamente escolhidos. Pode incluir brie, bola, gorgonzola, parmesão curado, coalho e gouda, entre outros.'},
+      {h:'QUICHES COM MASSA BRISÉE', d:'Quiches com massa leve e amanteigada, assadas até a perfeição. Sabores variados como lorraine (bacon e queijo gruyère), 4 queijos e alho-poró com parmesão.'},
+      {h:'MINI SANDUÍCHES', d:'Seleção de mini sanduíches artesanais com pães especiais e recheios sofisticados, como o nosso famoso pulled pork com cheddar e cebola crispy.'},
+      {h:'SELEÇÃO DE PASTINHAS', d:'Cremosas e equilibradas, preparadas artesanalmente para acompanhar pães e torradas. Creme de gorgonzola, musseline de copa defumada e patê de salmão defumado, entre outros.'},
+      {h:'SELEÇÃO DE ANTEPASTOS', d:'Clássicos da culinária mediterrânea e italiana. Inclui caponata siciliana, tapenade de azeitonas, cogumelos marinados, homus de grão-de-bico e tomate confit.'},
+      {h:'AZEITONAS TEMPERADAS', d:'Blend especial de azeitonas verdes e pretas, marinadas em azeite extravirgem com ervas frescas e especiarias.'},
+      {h:'GELEIA ARTESANAL', d:'Preparada com frutas frescas da estação, sem conservantes. Opções como frutas vermelhas, uva e manjericão, e cebola caramelizada com especiarias.'},
+      {h:'MEL ORGÂNICO', d:'Seleção de méis puros de apiários sustentáveis, ideal para combinar com queijos e nuts.'},
+      {h:'PÃES ARTESANAIS, PÃO LEVAIN E TORRADAS', d:'Produzidos com fermentação natural. Inclui focaccia de alecrim, baguette rústica, ciabatta e seleção de torradas finas.'},
+      {h:'MINI CAPRESE', d:'Tomates cereja selecionados, mussarela fresca e manjericão orgânico, finalizados com azeite extravirgem e redução de balsâmico.'},
+      {h:'MINI QUEIJO COALHO COM MEL', d:'Espetinhos de queijo coalho grelhado com toque de mel orgânico e flor de sal.'},
+      {h:'NUTS', d:'Mix premium de castanhas de caju, amêndoas, nozes e macadâmia, levemente tostadas e temperadas.'},
+      {h:'FRUTAS DA ESTAÇÃO', d:'Seleção de frutas frescas conforme a sazonalidade. Pode incluir uvas, figos, morangos, physalis e damascos secos.'}
+    ],
+    incluso: [
+      'Decoração exclusiva com troncos e flores naturais',
+      'Talheres de madeira descartável e barquinhas de papel',
+      'Montagem 2 horas antes do início do evento',
+      'A charcutaria, os queijos e os sabores serão os disponíveis no dia do evento'
+    ]
+  },
+  feijoada: {
+    titulo: 'Feijoada',
+    folder: 'buffet/feijoada',
+    blocos: [
+      {h:'ENTRADAS', d:'Salada verde · Linguiça fina artesanal · Caldinho de feijão · Pastelzinho de carne · Pastelzinho de queijo'},
+      {h:'FEIJOADA', d:'Feijão preto · Lombo defumado · Bacon artesanal · Calabresa artesanal · Costelinha defumada · Carne seca · Rabo, pé e orelha. Todas as carnes defumadas da casa.'},
+      {h:'ACOMPANHAMENTOS', d:'Arroz · Farofa de cebola · Torresmo · Couve mineira · Batata calabresa · Laranja'},
+      {h:'SOBREMESAS', d:'Doce de banana artesanal · Cuscuz · Torta mousse de limão'}
+    ],
+    incluso: [
+      'Decoração exclusiva com flores naturais',
+      'Toda louça necessária para cada tipo de serviço'
+    ]
+  }
+};
+
+function carregarImagem(url){
+  return new Promise(function(resolve){
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function(){
+      var canvas = document.createElement('canvas');
+      var maxW = 700;
+      var scale = Math.min(1, maxW / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+      resolve({data: canvas.toDataURL('image/jpeg', 0.72), w: canvas.width, h: canvas.height});
+    };
+    img.onerror = function(){ resolve(null); };
+    img.src = url;
+  });
+}
+
+function listarFotosPasta(folder){
+  return fetch('https://api.github.com/repos/'+REPO+'/contents/img/'+folder)
+    .then(function(r){return r.json();})
+    .then(function(files){
+      if(!Array.isArray(files)) return [];
+      return files
+        .filter(function(f){return /\.(jpg|jpeg|png|webp)$/i.test(f.name);})
+        .map(function(f){return 'https://eduardotavares123-ets.github.io/icaraisuites/img/'+folder+'/'+f.name;});
+    })
+    .catch(function(){return [];});
+}
+
+function pdfHeaderPagina(doc, W, mg, titulo){
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,297,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,30,'F');
+  doc.setTextColor(255,255,255);doc.setFontSize(16);doc.setFont('helvetica','bold');doc.text(titulo,mg,19);
+}
+
+// desenha faixa com até 2 fotos; retorna nova posição y
+function pdfFaixaFotos(doc, fotos, idx, mg, cw, y){
+  var slotH = 52;
+  var n = Math.min(2, fotos.length - idx);
+  if(n <= 0) return {y:y, idx:idx};
+  var gap = 6;
+  var slotW = n===2 ? (cw-gap)/2 : cw*0.6;
+  var px = n===2 ? mg : mg+(cw-slotW)/2;
+  for(var i=0;i<n;i++){
+    var f = fotos[idx+i];
+    var mmW = f.w*0.2645, mmH = f.h*0.2645;
+    var ratio = Math.min(slotW/mmW, slotH/mmH);
+    var iw=mmW*ratio, ih=mmH*ratio;
+    var ox=px+(slotW-iw)/2, oy=y+(slotH-ih)/2;
+    doc.addImage(f.data,'JPEG',ox,oy,iw,ih);
+    px += slotW+gap;
+  }
+  return {y:y+slotH+8, idx:idx+n};
+}
+
+function gerarPDF(){
+  if(S.isOthers){enviarWhatsapp();return;}
+  if(!S.ok){showToast('Preencha os campos primeiro');return;}
+  var jsPDF=window.jspdf.jsPDF;var doc=new jsPDF({unit:'mm',format:'a4'});var W=210,H=297,mg=18,cw=W-mg*2;
+
+  // ===== PÁGINA 1 — FINANCEIRO =====
+  doc.setFillColor(248,246,241);doc.rect(0,0,W,H,'F');
+  doc.setFillColor(26,74,46);doc.rect(0,0,W,42,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text('TERRAÇO ICARAÍ · ESPAÇO CORPORATIVO',mg,16);
+  doc.setTextColor(255,255,255);doc.setFontSize(22);doc.setFont('helvetica','bold');doc.text('Pré-orçamento',mg,30);
+  doc.setTextColor(168,203,181);doc.setFontSize(9);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}),mg,38);
+  var y=56;
+  doc.setFillColor(255,255,255);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'F');
+  doc.setDrawColor(220,218,210);doc.setLineWidth(0.3);doc.roundedRect(mg,y-8,cw,8+S.rows.length*12+32,4,4,'S');
+  doc.setTextColor(100,98,90);doc.setFontSize(8);doc.text('DETALHES DO EVENTO',mg+10,y);y+=8;
+  doc.setDrawColor(230,228,220);doc.line(mg+10,y,W-mg-10,y);y+=8;
+  S.rows.forEach(function(r){
+    doc.setTextColor(110,108,100);doc.setFontSize(10);doc.setFont('helvetica','normal');doc.text(r.l,mg+10,y);
+    doc.setTextColor(26,74,46);doc.setFont('helvetica','bold');doc.text(r.v,W-mg-10,y,{align:'right'});
+    y+=10;doc.setDrawColor(240,238,232);doc.line(mg+10,y-2,W-mg-10,y-2);
+  });
+  y+=8;doc.setFillColor(26,74,46);doc.roundedRect(mg,y,cw,26,4,4,'F');
+  doc.setTextColor(168,203,181);doc.setFontSize(8);doc.setFont('helvetica','normal');doc.text('TOTAL ESTIMADO',mg+10,y+9);
+  doc.setTextColor(255,255,255);doc.setFontSize(18);doc.setFont('helvetica','bold');doc.text(fmt(S.total),W-mg-10,y+19,{align:'right'});
+  y+=34;doc.setTextColor(130,128,120);doc.setFontSize(10);doc.setFont('helvetica','normal');
+  if(S.semSinal){
+    doc.text('Sem pré-pagamento — grupos de até 10 pessoas pagam no dia.',mg+10,y);
+  } else {
+    doc.text('Sinal para reserva (30%): '+fmt(S.sinal),mg+10,y);
+  }
+  y+=14;
+
+  // Política de cancelamento
+  doc.setFillColor(245,242,235);doc.roundedRect(mg,y,cw,24,3,3,'F');
+  doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('POLÍTICA DE CANCELAMENTO',mg+8,y+8);
+  doc.setTextColor(90,88,80);doc.setFontSize(9);doc.setFont('helvetica','normal');
+  doc.text('Cancelamento sem custos até 7 dias antes do evento.',mg+8,y+14);
+  doc.text('Cancelamentos com 7 dias ou menos de antecedência: o valor será retido.',mg+8,y+19);
+  y+=32;
+
+  doc.setDrawColor(200,198,190);doc.line(mg,y,W-mg,y);y+=8;
+  doc.setTextColor(40,40,38);doc.setFontSize(9);doc.text('* O cardápio pode variar de acordo com a época do ano.',mg,y);y+=6;
+  doc.text('(21) 3587-3331 · contato@icaraisuites.com.br · Rua Mariz e Barros, 147 – Icaraí, Niterói/RJ',mg,y);
+
+  // ===== PÁGINAS EXTRAS — experiências com cardápio =====
+  var exp = EXP_PDF[S.food];
+  if(!exp){
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');return;
+  }
+
+  showToast('Gerando PDF com fotos…');
+
+  listarFotosPasta(exp.folder).then(function(urls){
+    return Promise.all(urls.map(carregarImagem));
+  }).then(function(results){
+    var fotos = results.filter(function(r){return r!==null;});
+    var fIdx = 0;
+
+    doc.addPage();
+    pdfHeaderPagina(doc, W, mg, exp.titulo+' — Cardápio');
+    var gy = 40;
+
+    // faixa de fotos no topo da primeira página de cardápio
+    if(fotos.length > 0){
+      var r1 = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+      gy = r1.y; fIdx = r1.idx;
+    }
+
+    var blocosDesdeFoto = 0;
+    exp.blocos.forEach(function(item){
+      var descLines = doc.splitTextToSize(item.d, cw);
+      var blockH = 5 + descLines.length*4 + 5;
+      if(gy + blockH > H - 24){
+        doc.addPage();
+        pdfHeaderPagina(doc, W, mg, exp.titulo+' — Cardápio (cont.)');
+        gy = 40;
+        // faixa de fotos no topo de cada página nova
+        if(fIdx < fotos.length){
+          var rN = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+          gy = rN.y; fIdx = rN.idx;
+        }
+        blocosDesdeFoto = 0;
+      }
+      doc.setTextColor(26,74,46);doc.setFontSize(9.5);doc.setFont('helvetica','bold');doc.text(item.h,mg,gy);gy+=5;
+      doc.setTextColor(90,88,80);doc.setFontSize(8.5);doc.setFont('helvetica','normal');doc.text(descLines,mg,gy);gy+=descLines.length*4+5;
+      blocosDesdeFoto++;
+
+      // intercala faixa de fotos a cada 4 blocos, se couber
+      if(blocosDesdeFoto >= 4 && fIdx < fotos.length && gy + 64 < H - 24){
+        var rI = pdfFaixaFotos(doc, fotos, fIdx, mg, cw, gy);
+        gy = rI.y; fIdx = rI.idx;
+        blocosDesdeFoto = 0;
+      }
+    });
+
+    // box incluso
+    var boxH = 12 + exp.incluso.length*5;
+    if(gy + boxH > H - 14){
+      doc.addPage();
+      pdfHeaderPagina(doc, W, mg, exp.titulo);
+      gy = 40;
+    }
+    doc.setFillColor(232,240,234);doc.roundedRect(mg,gy,cw,boxH,3,3,'F');
+    doc.setTextColor(26,74,46);doc.setFontSize(8);doc.setFont('helvetica','bold');doc.text('INCLUSO NA EXPERIÊNCIA',mg+8,gy+7);
+    doc.setTextColor(70,90,76);doc.setFontSize(8.5);doc.setFont('helvetica','normal');
+    exp.incluso.forEach(function(t,i){
+      doc.text('• '+t,mg+8,gy+13+i*5);
+    });
+    gy += boxH + 8;
+
+    // fotos restantes em grade no final
+    if(fIdx < fotos.length){
+      doc.addPage();
+      pdfHeaderPagina(doc, W, mg, exp.titulo+' — Fotos');
+      var slotW=(cw-8)/2, slotH=72;
+      var px=mg, py=40, col=0;
+      for(var i=fIdx;i<fotos.length;i++){
+        var f=fotos[i];
+        var mmW=f.w*0.2645, mmH=f.h*0.2645;
+        var ratio=Math.min(slotW/mmW,slotH/mmH);
+        var iw=mmW*ratio, ih=mmH*ratio;
+        doc.addImage(f.data,'JPEG',px+(slotW-iw)/2,py+(slotH-ih)/2,iw,ih);
+        col++;
+        if(col===2){col=0;px=mg;py+=slotH+8;}
+        else{px=mg+slotW+8;}
+        if(py+slotH>H-14 && i<fotos.length-1){
+          doc.addPage();
+          pdfHeaderPagina(doc, W, mg, exp.titulo+' — Fotos (cont.)');
+          px=mg;py=40;col=0;
+        }
+      }
+    }
+
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado!');
+  }).catch(function(){
+    doc.save('proposta-terraco-icarai.pdf');showToast('PDF gerado (sem fotos)');
+  });
+}
+
+// === MINI CARROSSEIS DAS EXPERIÊNCIAS ===
+var REPO = 'eduardotavares123-ets/icaraisuites';
+var BASE_IMG = 'https://eduardotavares123-ets.github.io/icaraisuites/img/';
+var expCards = {};
+var expLoaded = {};
+
+function loadExpPhotos(key, folder) {
+  if (expLoaded[key]) return;
+  expLoaded[key] = true;
+  var loadingEl = document.getElementById('loading-' + key);
+  
+  fetch('https://api.github.com/repos/' + REPO + '/contents/img/' + folder)
+    .then(function(r){ return r.json(); })
+    .then(function(files){
+      if (!Array.isArray(files)) return;
+      var imgs = files.filter(function(f){ return /\.(jpg|jpeg|png|webp)$/i.test(f.name); });
+      if (imgs.length === 0) return;
+      
+      var track = document.getElementById('track-' + key);
+      var dotsEl = document.getElementById('dots-' + key);
+      track.innerHTML = '';
+      dotsEl.innerHTML = '';
+      if (loadingEl) loadingEl.style.display = 'none';
+      
+      expCards[key] = { cur: 0, total: imgs.length };
+      
+      imgs.forEach(function(img, i) {
+        var slide = document.createElement('div');
+        slide.className = 'exp-photo-slide';
+        slide.innerHTML = '<img src="' + BASE_IMG + folder + '/' + img.name + '" alt="" loading="lazy">';
+        track.appendChild(slide);
+        
+        var dot = document.createElement('button');
+        dot.className = 'exp-photo-dot' + (i === 0 ? ' active' : '');
+        dot.onclick = function(){ goExp(key, i); };
+        dotsEl.appendChild(dot);
+      });
+    })
+    .catch(function(){ if (loadingEl) loadingEl.style.display = 'none'; });
+}
+
+function goExp(key, n) {
+  if (!expCards[key]) return;
+  var c = expCards[key];
+  c.cur = (n + c.total) % c.total;
+  var track = document.getElementById('track-' + key);
+  if (track) track.style.transform = 'translateX(-' + c.cur * 100 + '%)';
+  document.querySelectorAll('#dots-' + key + ' .exp-photo-dot').forEach(function(d, i){
+    d.classList.toggle('active', i === c.cur);
+  });
+}
+
+function moveExp(key, dir) {
+  if (!expCards[key]) return;
+  goExp(key, expCards[key].cur + dir);
+}
+
+// Inicializar hover e touch nos cards
+document.querySelectorAll('.exp-card.has-photos').forEach(function(card) {
+  var key = card.id.replace('exp-', '');
+  var folder = card.getAttribute('data-folder');
+  
+  card.addEventListener('mouseenter', function() {
+    loadExpPhotos(key, folder);
+  });
+  card.addEventListener('touchstart', function(e) {
+    loadExpPhotos(key, folder);
+    document.querySelectorAll('.exp-card.touch-active').forEach(function(c){ c.classList.remove('touch-active'); });
+    card.classList.add('touch-active');
+  }, { passive: true });
+});
+
+document.addEventListener('touchstart', function(e) {
+  if (!e.target.closest('.exp-card')) {
+    document.querySelectorAll('.exp-card.touch-active').forEach(function(c){ c.classList.remove('touch-active'); });
+  }
+}, { passive: true });
+
+
+// Mobile menu
+var hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu'),mc=document.getElementById('mobileClose');
+if(hb){hb.addEventListener('click',function(){hb.classList.toggle('open');mm.classList.toggle('open');document.body.style.overflow=mm.classList.contains('open')?'hidden':''});}
+if(mc){mc.addEventListener('click',function(){hb.classList.remove('open');mm.classList.remove('open');document.body.style.overflow=''});}
+function toggleMSub(id,btn){var s=document.getElementById(id),o=s.classList.contains('open');document.querySelectorAll('.mobile-sub.open').forEach(function(x){x.classList.remove('open')});document.querySelectorAll('.mobile-nav-item>button.open').forEach(function(x){x.classList.remove('open')});if(!o){s.classList.add('open');btn.classList.add('open');}}
+
+calc();
+</script>
+</body>
+</html>
+
