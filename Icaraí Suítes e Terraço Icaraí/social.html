@@ -517,6 +517,53 @@ footer{background:#1a2535;padding:48px 40px 28px}
   </div>
 </section>
 
+<!-- CALCULADORA -->
+<div style="background:var(--verde);padding:64px 40px" id="simulador">
+  <div style="max-width:700px;margin:0 auto">
+    <p class="section-eyebrow" style="color:#a8cbb5">Simulador de orçamento</p>
+    <p class="section-title" style="color:#fff">Calcule o valor <em style="color:#a8cbb5">do seu evento</em></p>
+    <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:28px;margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div>
+          <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="np">Número de pessoas</label>
+          <input type="number" id="np" min="1" max="70" value="20" oninput="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px">
+        </div>
+        <div>
+          <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="dia">Dia do evento</label>
+          <select id="dia" onchange="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none">
+            <option value="semana" style="color:#000">Dia de semana</option>
+            <option value="fds" style="color:#000">Fim de semana / feriado</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:6px;display:block" for="food">Modalidade</label>
+        <select id="food" onchange="calc()" style="width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 14px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;appearance:none">
+          <option value="espaco" style="color:#000">Somente o espaço (buffet próprio)</option>
+          <option value="feijoada" style="color:#000">Feijoada (espaço + buffet)</option>
+          <option value="outros" style="color:#000">Outro tipo de evento</option>
+        </select>
+      </div>
+      <label style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;margin-top:4px">
+        <input type="checkbox" id="beb" onchange="calc()">
+        Adicionar bebidas não alcoólicas (R$ 35,00/pessoa)
+      </label>
+    </div>
+    <div style="background:#fff;border-radius:10px;padding:24px;margin-bottom:20px" id="result-box"><div id="result-content"></div></div>
+    <p style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:16px" id="calc-note">* Valores estimados. Orçamento final sujeito a confirmação.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+      <button onclick="copiarProposta()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;transition:transform .15s">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar proposta
+      </button>
+      <button onclick="enviarWhatsapp()" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;background:#25D366;color:#fff;transition:transform .15s">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.126a.75.75 0 0 0 .917.917l5.263-1.476A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.953-1.354l-.355-.212-3.674 1.03 1.03-3.674-.212-.355A9.712 9.712 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+        Enviar pelo WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- CTA FINAL -->
 <section class="cta-section">
   <p class="cta-eyebrow">Vamos criar esse momento juntos?</p>
@@ -577,6 +624,75 @@ function toggleSub(btn){
   btn.classList.toggle('open');
   sub.classList.toggle('open');
 }
+// === CALCULADORA ===
+function fmt(v){return'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function locacao(n,dia){return Math.max(dia==='semana'?750:900,n*25);}
+var S={};
+function calc(){
+  var n=Math.max(1,parseInt(document.getElementById('np').value)||1);
+  var dia=document.getElementById('dia').value;
+  var food=document.getElementById('food').value;
+  var beb=document.getElementById('beb').checked;
+  var foodVal=0,bebVal=0,loc=0,rows=[],ok=true,foodLabel='',isOthers=false;
+
+  if(food==='espaco'){
+    foodLabel='Somente o espaço';
+    if(n<1||n>70){ok=false;}
+    else{loc=locacao(n,dia);rows.push({l:'Aluguel do espaço (R$ 25,00/pessoa)',v:fmt(loc)});}
+    document.getElementById('calc-note').textContent='* Buffet, bebidas e decoração não incluídos — você traz o de sua preferência. Mínimo: R$ '+(dia==='semana'?'750':'900')+',00.';
+  } else if(food==='feijoada'){
+    foodLabel='Feijoada';
+    if(n<20||n>70){ok=false;}
+    else{
+      var feijLoc=locacao(n,dia);
+      var feijPP=n<=30?125:n<=50?115:105;
+      foodVal=n*feijPP+feijLoc;
+      rows.push({l:'Feijoada — '+n+' pessoas (R$ '+feijPP+',00/pp + espaço)',v:fmt(foodVal)});
+    }
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 70 pessoas. 20–30 pax: R$ 125/pp · 31–50 pax: R$ 115/pp · 51–70 pax: R$ 105/pp.';
+  } else {
+    foodLabel='Outro tipo de evento';
+    isOthers=true;
+    document.getElementById('calc-note').textContent='* Para outros eventos elaboramos uma proposta personalizada. Entre em contato.';
+  }
+
+  if(beb&&ok&&!isOthers){bebVal=n*35;rows.push({l:'Bebidas não alcoólicas (R$ 35,00/pessoa)',v:fmt(bebVal)});}
+
+  var box=document.getElementById('result-content');
+
+  if(isOthers){
+    box.innerHTML='<div style="text-align:center;padding:24px 0"><p style="font-size:15px;color:var(--texto-muted);margin-bottom:8px">Para outros eventos, elaboramos uma proposta sob medida.</p><p style="font-size:14px;color:var(--texto-light)">Entre em contato pelo WhatsApp ou clique no botão abaixo.</p></div>';
+    S={ok:false,isOthers:true,n:n,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',foodLabel:foodLabel};
+    return;
+  }
+
+  if(!ok){
+    var lim=food==='feijoada'?'20–70':'1–70';
+    box.innerHTML='<div style="text-align:center;padding:20px;color:#c0392b;font-size:14px">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';
+    S={ok:false};return;
+  }
+
+  var total2=loc+foodVal+bebVal;
+  var sinal=total2*0.5;
+  var h=rows.map(function(r){return'<div style="display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--areia-escura);font-size:14px"><span style="color:var(--texto-muted)">'+r.l+'</span><span style="font-weight:500">'+r.v+'</span></div>';}).join('');
+  h+='<div style="margin-top:12px;padding-top:16px;border-top:2px solid var(--verde);display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;color:var(--texto-muted)">Total estimado</span><span style="font-family:\'Cormorant Garamond\',serif;font-size:36px;font-weight:400;color:var(--verde)">'+fmt(total2)+'</span></div>';
+  h+='<div style="display:flex;justify-content:space-between;font-size:13px;color:var(--texto-muted);margin-top:8px"><span>Sinal para reserva (50%)</span><span>'+fmt(sinal)+'</span></div>';
+  h+='<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--texto-light);margin-top:4px"><span>Caução (devolvida em até 7 dias)</span><span>R$ 500,00</span></div>';
+  box.innerHTML=h;
+  S={ok:true,n:n,dia:dia,diaLabel:dia==='semana'?'Dia de semana':'Fim de semana / feriado',food:food,foodLabel:foodLabel,beb:beb,bebVal:bebVal,loc:loc,total:total2,sinal:sinal,rows:rows};
+}
+function propostaTexto(){
+  if(S.isOthers){
+    return '*Solicitação de proposta — Terraço Icaraí · Evento Social*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\nGostaria de receber uma proposta personalizada para este evento.\n\n(21) 3587-3331 | contato@icaraisuites.com.br';
+  }
+  if(!S.ok)return null;
+  var l=S.rows.map(function(r){return r.l+': '+r.v;}).join('\n');
+  return '*Pré-orçamento — Terraço Icaraí · Evento Social*\nRua Mariz e Barros, 147 – Icaraí, Niterói/RJ\n\nPessoas: '+S.n+'\nDia: '+S.diaLabel+'\nModalidade: '+S.foodLabel+'\n\n'+l+'\n\n*TOTAL ESTIMADO: '+fmt(S.total)+'*\nSinal para reserva (50%): '+fmt(S.sinal)+'\nCaução: R$ 500,00 (devolvida em até 7 dias)\n\nCancelamento sem custos até 7 dias antes do evento. Cancelamentos com 7 dias ou menos: valor retido.\nValores estimados sujeitos a confirmação.\n(21) 3587-3331 | contato@icaraisuites.com.br';
+}
+function copiarProposta(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}navigator.clipboard.writeText(txt).then(function(){showToast('Proposta copiada!');}).catch(function(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('Proposta copiada!');});}
+function enviarWhatsapp(){var txt=propostaTexto();if(!txt){showToast('Preencha os campos primeiro');return;}window.open('https://wa.me/552135873331?text='+encodeURIComponent(txt),'_blank');}
+window.onload=function(){calc();};
+
 function showToast(msg){
   var t=document.getElementById('toast');
   t.textContent=msg;
