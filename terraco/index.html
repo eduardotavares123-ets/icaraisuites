@@ -138,7 +138,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 
 /* NAV NOVO */
 #main-nav{position:sticky;top:0;z-index:1000;background:#efefed;border-bottom:1px solid #e0e0dc;height:80px;display:flex;align-items:center;padding:0 40px;justify-content:space-between}
-.nav-logo-link img{height:56px}
+.nav-logo-link img{height:28px}
 .nav-right{display:flex;align-items:center;gap:6px}
 .nav-link{font-size:13.5px;color:#1a2535;padding:7px 11px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s}
 .nav-link:hover{background:rgba(0,0,0,.06)}
@@ -167,7 +167,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 .mobile-cta{margin-top:20px;display:block;background:#2d5a3d;color:#fff!important;text-align:center;padding:13px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none}
 @media(max-width:860px){
   #main-nav{padding:0 20px;height:64px}
-  .nav-logo-link img{height:44px}
+  .nav-logo-link img{height:22px}
   .nav-right .nav-link,.nav-right .nav-dropdown,.nav-right .nav-cta{display:none}
   .hamburger{display:flex}
 }
@@ -179,7 +179,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 <!-- NAV -->
 <nav id="main-nav">
   <a href="../index.html" class="nav-logo-link">
-    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="height:56px">
+    <img src="../img/logoterraco/logo_terraco_icarai_verde.png" alt="Terraço Icaraí" style="height:28px">
   </a>
   <div class="nav-right">
     <a href="../index.html" class="nav-link">Início</a>
@@ -492,7 +492,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
       </div>
       <label class="checkbox-row">
         <input type="checkbox" id="beb" onchange="calc()">
-        Adicionar bebidas não alcoólicas (R$ 30,00/pessoa)
+        Adicionar bebidas não alcoólicas (R$ 35,00/pessoa)
       </label>
     </div>
     <div class="result-box"><div id="result-content"></div></div>
@@ -532,7 +532,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 <footer style="background:#1a2535;padding:48px 40px 28px">
   <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;max-width:1140px;margin:0 auto;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1)">
     <div>
-      <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:44px;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.8">
+      <img src="../img/logoterraco/logo_terraco_icarai_verde.png" style="height:22px;margin-bottom:14px;filter:brightness(0) invert(1);opacity:.8">
       <p style="font-size:13px;line-height:1.7;color:rgba(255,255,255,.5)">Espaço para eventos corporativos e sociais em Icaraí, Niterói. Café da manhã artesanal aberto ao público.</p>
     </div>
     <div>
@@ -616,16 +616,16 @@ function calc(){
     document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 50 pessoas.';
   } else if(food==='feijoada'){
     foodLabel='Feijoada';
-    if(n<20||n>50){ok=false;}
-    else{var feijLoc=locacao(n,dia);foodVal=n*95+feijLoc;rows.push({l:'Feijoada (espaço exclusivo)',v:fmt(foodVal)});}
-    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 50 pessoas.';
+    if(n<20||n>70){ok=false;}
+    else{var feijLoc=locacao(n,dia);var feijPP=n<=30?125:n<=50?115:105;foodVal=n*feijPP+feijLoc;rows.push({l:'Feijoada (espaço exclusivo)',v:fmt(foodVal)});}
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 20, máximo 70 pessoas.';
   } else {
     foodLabel='Outros eventos';
     isOthers=true;
     document.getElementById('calc-note').textContent='* Para outros eventos, entre em contato para receber uma proposta personalizada.';
   }
 
-  if(beb&&ok&&!isOthers){bebVal=n*30;rows.push({l:'Bebidas não alcoólicas (R$ 30,00/pessoa)',v:fmt(bebVal)});}
+  if(beb&&ok&&!isOthers){bebVal=n*35;rows.push({l:'Bebidas não alcoólicas (R$ 35,00/pessoa)',v:fmt(bebVal)});}
 
   var box=document.getElementById('result-content');
 
@@ -636,7 +636,7 @@ function calc(){
   }
 
   if(!ok){
-    var lim=food==='feijoada'?'20–50':'15–50';
+    var lim=food==='feijoada'?'20–70':'15–50';
     box.innerHTML='<div class="result-error">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';S={ok:false};return;
   }
 
@@ -993,3 +993,4 @@ calc();
 </script>
 </body>
 </html>
+
