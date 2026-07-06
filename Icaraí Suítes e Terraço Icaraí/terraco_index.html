@@ -4,6 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terraço Icaraí · Espaço Corporativo</title>
+<meta name="description" content="Espaço para eventos corporativos em Icaraí, Niterói. Reuniões, workshops, coffee breaks e confraternizações em ambiente ao ar livre cercado de verde, com buffet incluso. De 15 a 70 pessoas.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EventVenue",
+  "name": "Terraço Icaraí",
+  "description": "Espaço ao ar livre para eventos corporativos em Icaraí, Niterói. Reuniões, workshops, treinamentos, coffee breaks e confraternizações com buffet incluso. Capacidade para até 70 pessoas (50 sentadas).",
+  "url": "https://eduardotavares123-ets.github.io/icaraisuites/terraco/index.html",
+  "telephone": "+55-21-3587-3331",
+  "email": "contato@icaraisuites.com.br",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Mariz e Barros, 147",
+    "addressLocality": "Niterói",
+    "addressRegion": "RJ",
+    "addressCountry": "BR"
+  },
+  "maximumAttendeeCapacity": 70,
+  "amenityFeature": [
+    {"@type": "LocationFeatureSpecification", "name": "Wi-Fi de alta velocidade", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Smart TV 55 polegadas", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Buffet incluso", "value": true},
+    {"@type": "LocationFeatureSpecification", "name": "Espaço ao ar livre arborizado", "value": true}
+  ],
+  "containedInPlace": {
+    "@type": "Hotel",
+    "name": "Icaraí Suítes",
+    "url": "https://eduardotavares123-ets.github.io/icaraisuites/"
+  },
+  "sameAs": ["https://www.instagram.com/terracoicarai"]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -275,7 +307,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
         <p style="font-size:15px;color:var(--texto-muted);line-height:1.8">Ficar horas na frente do computador cansa. Com o cansaço, caem o foco e o rendimento. Uma simples mudança de ares pode devolver a animação — e o Terraço Icaraí é esse lugar.</p>
       </div>
       <div>
-        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8;margin-bottom:16px">Ambiente funcional e cercado de muito verde, com infraestrutura completa para eventos de 10 a 60 pessoas. Reuniões, team building, workshops, lançamentos, happy hour — qualquer formato funciona aqui.</p>
+        <p style="font-size:15px;color:var(--texto-muted);line-height:1.8;margin-bottom:16px">Ambiente funcional e cercado de muito verde, com infraestrutura completa para eventos de 15 a 70 pessoas, sempre com buffet. Reuniões, team building, workshops, lançamentos, happy hour — qualquer formato funciona aqui.</p>
         <p style="font-size:15px;color:var(--texto-muted);line-height:1.8">No coração de Niterói, em Icaraí, a poucos metros da praia, com fácil acesso a todas as regiões da cidade. Estacionamento rotativo na rua e opções particulares a poucos metros.</p>
       </div>
     </div>
@@ -409,7 +441,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
     <div class="diff-card"><div class="diff-icon">🪑</div><div class="diff-t">Mesas e cadeiras para 50 pessoas sentadas</div></div>
     <div class="diff-card"><div class="diff-icon">👥</div><div class="diff-t">Capacidade total para 70 pessoas</div></div>
     <div class="diff-card"><div class="diff-icon">📺</div><div class="diff-t">Smart TV 55"</div></div>
-    <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet próprio liberado</div></div>
+    <div class="diff-card"><div class="diff-icon">🍱</div><div class="diff-t">Buffet incluso</div></div>
     <div class="diff-card"><div class="diff-icon">💻</div><div class="diff-t">Espaço de trabalho com mesas e cadeiras</div></div>
   </div>
   <p style="font-size:12px;color:var(--texto-light);margin-top:16px">* Não é permitido música ao vivo, DJ ou instrumentos.</p>
@@ -518,7 +550,7 @@ footer{background:var(--verde);padding:20px 40px;display:flex;align-items:center
 <div class="cta-section">
   <div class="cta-inner">
     <p class="section-eyebrow" style="color:var(--verde)">Vamos conversar?</p>
-    <p class="section-title">Reserve sua data<br><em>antes que alguém faça antes</em></p>
+    <p class="section-title">Reserve sua data<br><em>antes que alguém faça primeiro</em></p>
     <p style="color:var(--texto-muted);margin-bottom:28px">Respondemos em até 2 horas em dias úteis.</p>
     <a class="btn-primary" href="https://wa.me/552135873331?text=Olá! Gostaria de solicitar uma proposta para evento corporativo no Terraço Icaraí." target="_blank">Solicitar proposta</a>
     <div class="contact-grid">
@@ -611,9 +643,9 @@ function calc(){
     document.getElementById('calc-note').textContent='* Espaço exclusivo para seu grupo. Mínimo 15, máximo 50 pessoas.';
   } else if(food==='grazing'){
     foodLabel='Grazing table';
-    if(n<15||n>50){ok=false;}
+    if(n<15||n>70){ok=false;}
     else{var grazingLoc=locacao(n,dia);foodVal=n*107+grazingLoc;rows.push({l:'Grazing table (espaço exclusivo)',v:fmt(foodVal)});}
-    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 50 pessoas.';
+    document.getElementById('calc-note').textContent='* Espaço exclusivo incluído. Mínimo 15, máximo 70 pessoas.';
   } else if(food==='feijoada'){
     foodLabel='Feijoada';
     if(n<20||n>70){ok=false;}
@@ -636,7 +668,7 @@ function calc(){
   }
 
   if(!ok){
-    var lim=food==='feijoada'?'20–70':'15–50';
+    var lim=food==='feijoada'?'20–70':(food==='grazing'?'15–70':'15–50');
     box.innerHTML='<div class="result-error">Fora do limite permitido ('+lim+' pessoas) para esta modalidade.</div>';S={ok:false};return;
   }
 
